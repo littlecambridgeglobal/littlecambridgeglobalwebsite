@@ -16,12 +16,13 @@ import Rewards from '@/components/Reward';
 export default function Page() {
   return (
     <div className="w-full bg-white overflow-x-hidden relative">
-      <HeroNEW />
+      my app
+      {/* <HeroNEW />
       <Welcome />
       <ProgramsSection />
       <Daycare />
       <DetailedInfo />
-      <Faqsection />
+      <Faqsection /> */}
     </div>
   );
 }
