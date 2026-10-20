@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Menu,
   X,
   ArrowRight,
-  Compass,
-  Sparkles,
   MapPin,
   HeartHandshake,
   MessageCircle,
   GraduationCap,
   BookOpen,
-  Home
+  Home,
+  Phone,
+  Mail,
+  LayoutGrid
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -92,20 +92,39 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pointer-events-none">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3 sm:pt-4">
-        {/* Floating Soft Glassmorphism Pill */}
-        <nav
-          className={`pointer-events-auto w-full transition-all duration-300 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between
-            ${scrolled
-              ? "bg-white/85 backdrop-blur-md border border-white/70 shadow-soft shadow-slate-900/5 py-2"
-              : "bg-white/75 backdrop-blur-md border border-white/60 shadow-soft"
-            }
-          `}
-        >
+    <header className="fixed  top-0 left-0 right-0 z-50 pointer-events-none">
+      {/* Top contact strip (collapses on scroll) */}
+      <div
+        className={`pointer-events-auto bg-[#0F2040] text-white overflow-hidden transition-all duration-300 ${scrolled ? "max-h-0" : "max-h-12"
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between text-[11px] sm:text-xs font-medium">
+          <span className="hidden md:flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5 text-[#F65A36]" />
+            Delhi NCR • Bangalore • Indore • Vijayawada
+          </span>
+          <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-between md:justify-end">
+            <a href="tel:+919071525966" className="flex items-center gap-2 hover:text-[#FF8E7A] transition-colors">
+              <Phone className="w-3.5 h-3.5 text-[#F65A36]" />
+              +91 90715 25966
+            </a>
+            <a href="mailto:info@littlecambridgeglobal.com" className="flex items-center gap-2 hover:text-[#FF8E7A] transition-colors">
+              <Mail className="w-3.5 h-3.5 text-[#F65A36]" />
+              <span className="truncate">info@littlecambridgeglobal.com</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main bar */}
+      <nav
+        className={`pointer-events-auto py-2 bg-white transition-shadow duration-300 ${scrolled ? "shadow-[0_6px_20px_-8px_rgba(15,32,64,0.25)]" : "shadow-sm"
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] sm:h-[80px] flex items-center justify-between gap-4">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative w-[140px] sm:w-[170px] md:w-[290px] h-[48px] sm:h-[44px] transition-transform duration-300 group-hover:scale-[1.02]">
+          <Link href="/" className="flex items-center shrink-0 group">
+            <div className="relative w-[150px] sm:w-[200px] xl:w-[260px] h-[48px] sm:h-[56px] transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
                 src={logonew}
                 alt="Little Cambridge Global"
@@ -116,61 +135,58 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* Desktop Navigation: orange icon bubble above label */}
+          <div className="hidden lg:flex items-start gap-5 xl:gap-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || (link.href === "/#pathways" && pathname === "/Programs");
-              const isHovered = hoveredLink === link.href;
+              const IconComponent = link.icon;
 
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onMouseEnter={() => setHoveredLink(link.href)}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className={`relative px-3.5 py-2 rounded-full text-[13px] xl:text-[14px] font-semibold transition-all duration-200 flex items-center gap-1.5
-                    ${isActive
-                      ? link.activeColor
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-50/80"
-                    }
-                  `}
+                  className="group flex flex-col items-center gap-1.5 w-[104px] text-center"
                 >
-                  <span>{link.label}</span>
-                  {isActive && (
-                    <span className={`w-1.5 h-1.5 rounded-full ${link.accentDot} animate-pulse`} />
-                  )}
+                  <span
+                    className={`w-9 h-9 rounded-full flex items-center justify-center text-white shadow-sm transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md ${isActive ? "bg-[#0F2040]" : "bg-[#F65A36] group-hover:bg-[#E84A26]"
+                      }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                  </span>
+                  <span
+                    className={`text-[12px] xl:text-[13px] font-semibold leading-tight transition-colors ${isActive ? "text-[#F65A36]" : "text-slate-900 group-hover:text-[#F65A36]"
+                      }`}
+                  >
+                    {link.label}
+                  </span>
                 </Link>
               );
             })}
           </div>
 
-          {/* Right Action: Join Us (Formerly Admission / Enroll) + Mobile Toggle */}
-          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          {/* Right: Apply Now + grid menu button */}
+          <div className="flex items-center gap-3 shrink-0">
             <Link href="/admission" className="hidden sm:inline-flex">
               <motion.button
-                whileHover={{ scale: 1.03, y: -1 }}
+                whileHover={{ scale: 1.04, y: -1 }}
                 whileTap={{ scale: 0.97 }}
-                className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600 text-white font-bold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-2.5 rounded-full shadow-sm hover:shadow-soft transition-all duration-300 overflow-hidden"
+                className="inline-flex items-center gap-2 bg-[#F65A36] hover:bg-[#E84A26] text-white font-bold text-sm px-6 py-3 rounded-full shadow-[0_8px_16px_-8px_rgba(246,90,54,0.8)] transition-colors"
               >
-                <span className="relative z-10 flex items-center gap-1.5">
-                  Join Us
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </span>
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
+                Apply Now
               </motion.button>
             </Link>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full text-slate-700 hover:bg-slate-100/80 transition-colors focus:outline-none"
+              className="lg:hidden p-2 rounded-xl text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none"
               aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <LayoutGrid className="w-7 h-7" />}
             </button>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
 
       {/* Mobile Glassmorphic Drawer */}
       <AnimatePresence>
