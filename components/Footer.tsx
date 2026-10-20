@@ -49,9 +49,17 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block rounded-2xl bg-white/90 px-3 py-2 shadow-sm">
-              <div className="relative h-[44px] w-[200px]">
-                <Image src={logonew} alt="Little Cambridge Global Logo" fill className="object-contain object-left" />
+            <Link href="/" className="inline-flex items-center gap-2.5 rounded-2xl bg-white/95 px-3.5 py-2 shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-10 w-10 shrink-0">
+                <Image src={logonew} alt="Little Cambridge Global Logo" fill className="object-contain" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-outfit font-black text-[15px] sm:text-base text-[#0F2040] leading-tight group-hover:text-[#F65A36] transition-colors">
+                  Little Cambridge
+                </span>
+                <span className="font-jakarta text-[9.5px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#F65A36]">
+                  Global
+                </span>
               </div>
             </Link>
             <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed">
