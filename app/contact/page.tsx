@@ -85,8 +85,8 @@ export default function ContactPage() {
             <p className="text-slate-600 text-sm leading-relaxed font-medium mb-2">
               Speak with a friendly admissions counselor:
             </p>
-            <a href="tel:+919071525966" className="font-bold text-slate-900 hover:text-rose-600 transition-colors text-base">
-              +91 90715 25966
+            <a href="tel:+917340655077" className="font-bold text-slate-900 hover:text-rose-600 transition-colors text-base">
+              +91 734 065 5077
             </a>
           </div>
 
@@ -224,11 +224,11 @@ export default function ContactPage() {
               </div>
 
               <button
-                onClick={() => window.open('https://wa.me/919071525966', '_blank')}
+                onClick={() => window.open('https://wa.me/917340655077', '_blank')}
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-sm flex items-center justify-center gap-2 text-sm transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp (+91 90715 25966)</span>
+                <span>Chat on WhatsApp (+91 734 065 5077)</span>
               </button>
 
               <p className="text-[11px] text-slate-400 font-semibold text-center">

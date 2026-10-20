@@ -104,9 +104,9 @@ const Navbar = () => {
             Delhi NCR • Bangalore • Indore • Vijayawada
           </span>
           <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-between md:justify-end">
-            <a href="tel:+919071525966" className="flex items-center gap-2 hover:text-[#FF8E7A] transition-colors">
+            <a href="tel:+917340655077" className="flex items-center gap-2 hover:text-[#FF8E7A] transition-colors">
               <Phone className="w-3.5 h-3.5 text-[#F65A36]" />
-              +91 90715 25966
+              +91 734 065 5077
             </a>
             <a href="mailto:info@littlecambridgeglobal.com" className="flex items-center gap-2 hover:text-[#FF8E7A] transition-colors">
               <Mail className="w-3.5 h-3.5 text-[#F65A36]" />
@@ -252,7 +252,7 @@ const Navbar = () => {
                 </Link>
 
                 <p className="text-center text-xs text-slate-400 font-medium pt-1">
-                  Questions? Call <a href="tel:+919071525966" className="text-slate-600 font-bold hover:underline">+91 90715 25966</a>
+                  Questions? Call <a href="tel:+917340655077" className="text-slate-600 font-bold hover:underline">+91 734 065 5077</a>
                 </p>
               </div>
             </div>
