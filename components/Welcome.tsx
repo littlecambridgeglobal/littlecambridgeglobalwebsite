@@ -49,7 +49,7 @@ const WelcomeSection = () => {
             className="inline-block relative"
           >
             <h2 className={`${fredoka.className} text-4xl sm:text-5xl lg:text-[4rem] text-slate-800 font-bold mb-2 relative z-10`}>
-              Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400">Dhwani Cambridge</span>
+              Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400">Little Cambridge Global</span>
             </h2>
           </motion.div>
         </div>
@@ -81,7 +81,7 @@ const WelcomeSection = () => {
                 >
                   <Image
                     src={bothcharaters}
-                    alt="Welcome to Dhwani Cambridge"
+                    alt="Welcome to Little Cambridge Global"
                     fill
                     className="object-contain drop-shadow-2xl pointer-events-none"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -104,7 +104,7 @@ const WelcomeSection = () => {
             </h3>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-6 font-medium">
-              At Dhwani Cambridge Montessori, we are dedicated to creating an enriching early-learning experience that supports every child's intellectual, emotional, social, and creative development. Our Montessori-based approach encourages independent learning while building essential foundations in reading, writing, composition, and mathematics.
+              At Little Cambridge Global, we are dedicated to creating an enriching early-learning experience that supports every child's intellectual, emotional, social, and creative development. Our Montessori-based approach encourages independent learning while building essential foundations in reading, writing, composition, and mathematics.
             </p>
             <p className="text-slate-600 text-lg leading-relaxed mb-8 font-medium">
               With a strong focus on individual learning needs, our experienced teachers provide continuous encouragement and guidance, helping children become confident, capable, and enthusiastic learners.

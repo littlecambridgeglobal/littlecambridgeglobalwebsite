@@ -111,11 +111,11 @@ export default function AdmissionPage({
 
         <div className="mx-auto px-6 relative z-10">
           <div className="text-center mb-12">
-            <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              Enquiry Form
+            <h2 className={`text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 font-outfit`}>
+              Secure Their <span className="text-transparent bg-clip-text bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600">Spot</span>
             </h2>
             <p className="text-slate-600 text-lg font-medium max-w-2xl mx-auto">
-              Ready to take the first step? Fill out the form below and our admissions team will contact you shortly .
+              Ready to take the first step? Let’s get to know each other.
             </p>
           </div>
 
@@ -269,11 +269,11 @@ export default function AdmissionPage({
                   {isLoading ? (
                     <>
                       <Loader2 className="w-6 h-6 animate-spin" />
-                      Sending...
+                      Connecting...
                     </>
                   ) : (
                     <>
-                      Submit Enquiry
+                      Start the Journey (Submit)
                       <Send className="w-5 h-5" />
                     </>
                   )}
@@ -286,15 +286,15 @@ export default function AdmissionPage({
 
 
       {/* =========================================
-          NEW SECTION: WHY DHWANI MONTESSORI
+          NEW SECTION: WHY LITTLE CAMBRIDGE GLOBAL
       ========================================= */}
       <section className="relative w-full bg-white py-24 overflow-hidden">
         <ElegantEdge position="top" fillColor="#eef2ff" />
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-500">Dhawni Cambridge Montessori</span> Preschool & Daycare?
+            <h2 className={`text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 font-outfit`}>
+              Why Parents Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600">Little Cambridge Global</span>
             </h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-12"></div>
           </div>

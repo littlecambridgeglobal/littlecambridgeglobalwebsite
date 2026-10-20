@@ -24,7 +24,7 @@ const termsSections = [
   {
     icon: <BookOpen className="w-6 h-6 text-indigo-500" />,
     title: "1. Acceptance of Terms",
-    content: "By enrolling your child at Dhwani Cambridge Montessori Pre School, accessing our website, or using our services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services."
+    content: "By enrolling your child at Little Cambridge Global Pre School, accessing our website, or using our services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services."
   },
   {
     icon: <HeartHandshake className="w-6 h-6 text-rose-500" />,
@@ -65,7 +65,7 @@ const TermsAndConditionsPage = () => {
                <div className="mb-12 border-b border-slate-100 pb-8 text-center">
                   <h2 className={`text-3xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>General Terms of Service</h2>
                   <p className="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto">
-                     These Terms and Conditions govern your relationship with Dhwani Cambridge Montessori Pre School. They ensure a safe, organized, and mutually respectful environment for our students, parents, and staff.
+                     These Terms and Conditions govern your relationship with Little Cambridge Global Pre School. They ensure a safe, organized, and mutually respectful environment for our students, parents, and staff.
                   </p>
                </div>
 
@@ -98,7 +98,7 @@ const TermsAndConditionsPage = () => {
 
                <div className="mt-16 pt-8 border-t border-slate-100 bg-slate-50 rounded-2xl p-6 text-center">
                   <p className="text-slate-600 text-sm">
-                     Dhwani Cambridge Montessori Pre School reserves the right to modify these Terms and Conditions at any time. Changes will be communicated to parents via official channels.
+                     Little Cambridge Global Pre School reserves the right to modify these Terms and Conditions at any time. Changes will be communicated to parents via official channels.
                   </p>
                </div>
 

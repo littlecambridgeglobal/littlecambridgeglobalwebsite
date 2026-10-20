@@ -2,242 +2,242 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Menu, X, ArrowRight, Sparkles, Facebook, Instagram, Twitter, Youtube,
-  Phone, AlertTriangle, Home, BookOpen, ShieldCheck, GraduationCap,
-  MapPin, Mail, Gamepad2, Users
+  Menu,
+  X,
+  ArrowRight,
+  Compass,
+  Sparkles,
+  MapPin,
+  HeartHandshake,
+  MessageCircle,
+  GraduationCap,
+  BookOpen,
+  Home
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Titan_One, Nunito, Caveat } from 'next/font/google';
-import logo from "../../public/logo.png";
-import logonew from "../../public/logohorizontal.png"
-
-// --- FONTS ---
-const titleFont = Titan_One({ weight: '400', subsets: ['latin'] });
-const bodyFont = Nunito({ subsets: ['latin'], weight: ['400', '600', '700', '800'] });
-const handwritingFont = Caveat({ subsets: ['latin'], weight: ['400', '700'] });
+import logonew from "../../public/newlogo.jpeg";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
-  // Scroll Effect & Active Section Detection
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      if (pathname === "/") {
-        const sections = ["about", "programs", "gallery"];
-        let current = "";
-
-        for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= 150 && rect.bottom >= 150) {
-              current = `/#${section}`;
-            }
-          }
-        }
-        if (current) setActiveSection(current);
-      } else {
-        setActiveSection("");
-      }
+      setScrolled(window.scrollY > 15);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, []);
 
-  // Updated Navigation Links with Icons and specific Colors matching screenshot styling
+  // Action-oriented, welcoming terminology (Phase 2 IA)
   const navLinks = [
-    { href: "/", label: "Home", icon: Home, colorCls: "text-purple-500 border-purple-500", hoverCls: "group-hover:text-purple-500" },
-    { href: "/about", label: "About Us", icon: BookOpen, colorCls: "text-amber-500 border-amber-500", hoverCls: "group-hover:text-amber-500" },
-    { href: "/#programs", label: "Programs", icon: GraduationCap, colorCls: "text-green-500 border-green-500", hoverCls: "group-hover:text-green-500" },
-    { href: "/admission", label: "Admissions", icon: Users, colorCls: "text-sky-500 border-sky-500", hoverCls: "group-hover:text-sky-500" },
-    { href: "/franchise", label: "Franchise", icon: BookOpen, colorCls: "text-indigo-400 border-indigo-400", hoverCls: "group-hover:text-indigo-400" },
-    { href: "/Ourcenters", label: "Our Centers", icon: MapPin, colorCls: "text-purple-600 border-purple-600", hoverCls: "group-hover:text-purple-600" },
-    { href: "/contact", label: "Contact", icon: Mail, colorCls: "text-orange-500 border-orange-500", hoverCls: "group-hover:text-orange-500" },
-  ];
-
-  const socialLinks = [
-    { icon: Facebook, href: "https://www.facebook.com/littledreamersatcambridge/", className: "text-blue-600 bg-blue-50 hover:bg-blue-100" },
-    { icon: Instagram, href: "https://www.instagram.com/little_dreamers_at_cambridge/", className: "text-pink-600 bg-pink-50 hover:bg-pink-100" },
-    { icon: Youtube, href: "https://www.youtube.com/@LittleDreamersAtCambridge", className: "text-red-600 bg-red-50 hover:bg-red-100" },
+    {
+      href: "/",
+      label: "Home",
+      icon: Home,
+      pillColor: "hover:bg-pastel-sage-100 hover:text-pastel-sage-900",
+      activeColor: "bg-pastel-sage-100 text-pastel-sage-900 font-bold",
+      accentDot: "bg-pastel-sage-500",
+    },
+    {
+      href: "/ourstory",
+      label: "Our Story",
+      badge: "The Vision",
+      icon: BookOpen,
+      pillColor: "hover:bg-pastel-lavender-100 hover:text-pastel-lavender-900",
+      activeColor: "bg-pastel-lavender-100 text-pastel-lavender-900 font-bold",
+      accentDot: "bg-pastel-lavender-500",
+    },
+    {
+      href: "/#pathways",
+      label: "Learning Pathways",
+      badge: "Discover",
+      icon: GraduationCap,
+      pillColor: "hover:bg-pastel-peach-100 hover:text-pastel-peach-900",
+      activeColor: "bg-pastel-peach-100 text-pastel-peach-900 font-bold",
+      accentDot: "bg-pastel-peach-500",
+    },
+    {
+      href: "/ourlocations",
+      label: "Our Locations",
+      badge: "Find a Campus",
+      icon: MapPin,
+      pillColor: "hover:bg-pastel-sky-100 hover:text-pastel-sky-900",
+      activeColor: "bg-pastel-sky-100 text-pastel-sky-900 font-bold",
+      accentDot: "bg-pastel-sky-500",
+    },
+    {
+      href: "/partner",
+      label: "Partner",
+      badge: "Collaborate",
+      icon: HeartHandshake,
+      pillColor: "hover:bg-pastel-mint-100 hover:text-emerald-900",
+      activeColor: "bg-pastel-mint-100 text-emerald-900 font-bold",
+      accentDot: "bg-emerald-500",
+    },
+    {
+      href: "/contact",
+      label: "Say Hello",
+      icon: MessageCircle,
+      pillColor: "hover:bg-amber-100/70 hover:text-amber-900",
+      activeColor: "bg-amber-100/70 text-amber-900 font-bold",
+      accentDot: "bg-amber-500",
+    },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex flex-col">
-      {/* --- TOP BAR (Hides on Scroll) --- */}
-      <div
-        className={`bg-[#2c305c] w-full flex items-center text-white transition-all duration-300 overflow-hidden ${scrolled ? 'h-0 opacity-0' : 'h-8 sm:h-10 opacity-100'
-          }`}
-      >
-        <div className="w-full overflow-hidden flex whitespace-nowrap">
-          <motion.div
-            className="flex items-center gap-10 font-semibold text-xs sm:text-sm"
-            initial={{ x: "100vw" }}
-            animate={{ x: "-100%" }}
-            transition={{
-              repeat: Infinity,
-              duration: 35,
-              ease: "linear",
-            }}
-          >
-            <span>Call Us : +91 90715 25966</span>
-            <span className="flex items-center gap-2">
-              <AlertTriangle className="text-amber-400 w-4 h-4 shrink-0" />
-              <span><strong className="text-white">Public Notice:</strong> Any unauthorized instances of using the Dhwani Cambridge website are strictly prohibited.</span>
-            </span>
-          </motion.div>
-        </div>
-      </div>
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pointer-events-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3 sm:pt-4">
+        {/* Floating Soft Glassmorphism Pill */}
+        <nav
+          className={`pointer-events-auto w-full transition-all duration-300 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between
+            ${scrolled
+              ? "bg-white/85 backdrop-blur-md border border-white/70 shadow-soft shadow-slate-900/5 py-2"
+              : "bg-white/75 backdrop-blur-md border border-white/60 shadow-soft"
+            }
+          `}
+        >
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="relative w-[140px] sm:w-[170px] md:w-[290px] h-[48px] sm:h-[44px] transition-transform duration-300 group-hover:scale-[1.02]">
+              <Image
+                src={logonew}
+                alt="Little Cambridge Global"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+          </Link>
 
-      {/* --- MULTI-COLOR BORDER --- */}
-      <div className="flex h-1 w-full">
-        <div className="h-full w-1/6 bg-purple-500"></div>
-        <div className="h-full w-1/6 bg-amber-500"></div>
-        <div className="h-full w-1/6 bg-red-500"></div>
-        <div className="h-full w-1/6 bg-green-500"></div>
-        <div className="h-full w-1/6 bg-sky-500"></div>
-        <div className="h-full w-1/6 bg-indigo-500"></div>
-      </div>
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || (link.href === "/#pathways" && pathname === "/Programs");
+              const isHovered = hoveredLink === link.href;
 
-      {/* --- MAIN NAVBAR --- */}
-      <nav
-        className={`w-full bg-white transition-all duration-300 shadow-sm md:px-10 lg:px-20 px-4 flex items-center justify-between ${scrolled ? "py-1" : "py-3 md:py-4"
-          }`}
-      >
-        {/* --- LOGO --- */}
-        <Link href="/" className="flex items-center shrink-0">
-          <div className={`relative transition-all duration-300 ease-in-out hover:rotate-2 ${scrolled ? 'w-[120px] md:w-[180px]' : 'w-[180px] md:w-[200px]'}`}>
-            <Image
-              src={logonew}
-              width={240}
-              height={240}
-              alt="Dhwani Cambridge Logo"
-              className="object-contain w-full h-auto"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* --- DESKTOP MENU --- */}
-        <div className="hidden py-2 xl:flex items-end justify-center flex-1 ml-10">
-          {navLinks.map((link, i) => {
-            const isActive = hoveredLink === link.href || pathname === link.href || (pathname === "/" && activeSection === link.href);
-
-            return (
-              <div key={link.href} className="flex px-4 items-end">
+              return (
                 <Link
+                  key={link.href}
                   href={link.href}
                   onMouseEnter={() => setHoveredLink(link.href)}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="flex flex-col items-center group relative px-1"
+                  className={`relative px-3.5 py-2 rounded-full text-[13px] xl:text-[14px] font-semibold transition-all duration-200 flex items-center gap-1.5
+                    ${isActive
+                      ? link.activeColor
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-50/80"
+                    }
+                  `}
                 >
-                  {/* Icon in Circle */}
-                  <div className={`rounded-full border-2 flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1 mb-1 bg-white ${link.colorCls} ${scrolled ? 'w-12 h-12' : 'w-14 h-14'}`}>
-                    <link.icon className={`transition-all duration-300 ${scrolled ? 'w-5 h-5' : 'w-6 h-6'}`} />
-                  </div>
-
-                  {/* Text Label */}
-                  <span className={`transition-colors duration-300 whitespace-nowrap ${bodyFont.className} ${scrolled ? 'text-[11px]' : 'text-sm'} ${isActive ? link.colorCls.split(' ')[0] : "text-[#706d97] font-semibold"
-                    } ${link.hoverCls}`}>
-                    {link.label}
-                  </span>
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <span className={`w-1.5 h-1.5 rounded-full ${link.accentDot} animate-pulse`} />
+                  )}
                 </Link>
+              );
+            })}
+          </div>
 
-                {/* Vertical Separator */}
-                {i < navLinks.length - 1 && (
-                  <span className={`text-slate-300 ml-4 transition-all duration-300 ${scrolled ? 'text-xs mb-[2px]' : 'text-sm mb-0.5'}`}>|</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
+          {/* Right Action: Join Us (Formerly Admission / Enroll) + Mobile Toggle */}
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            <Link href="/admission" className="hidden sm:inline-flex">
+              <motion.button
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600 text-white font-bold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-2.5 rounded-full shadow-sm hover:shadow-soft transition-all duration-300 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  Join Us
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
+              </motion.button>
+            </Link>
 
-        {/* --- RIGHT ACTIONS (Desktop Enroll + Mobile Toggle) --- */}
-        <div className="flex items-center gap-3 shrink-0 ml-4">
-          <Link href="/admission" className="hidden lg:block">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`bg-rose-500 hover:bg-rose-600 text-white rounded-full shadow-md shadow-rose-200 flex items-center gap-1.5 font-bold transition-all ${bodyFont.className} ${scrolled ? 'px-8 py-3 text-xs' : 'px-10 py-4 text-sm'}`}
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-full text-slate-700 hover:bg-slate-100/80 transition-colors focus:outline-none"
+              aria-label="Toggle Navigation Menu"
             >
-              Enroll <ArrowRight className={scrolled ? 'w-6 h-6' : 'w-5 h-5'} />
-            </motion.button>
-          </Link>
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </nav>
+      </div>
 
-          {/* Mobile Toggle */}
-          <button
-            className="xl:hidden p-2 text-slate-600 hover:bg-rose-50 rounded-full transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* --- MOBILE MENU --- */}
+      {/* Mobile Glassmorphic Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "100vh" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-white border-t border-slate-100 shadow-xl overflow-y-auto absolute w-full left-0 top-full"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden pointer-events-auto max-w-7xl mx-auto px-4 sm:px-6 pt-2"
           >
-            <div className="container mx-auto px-44 py-6 flex flex-col gap-2 pb-32">
-              {navLinks.map((link, i) => {
-                const isActive = pathname === link.href || (pathname === "/" && activeSection === link.href);
+            <div className="bg-white/95 backdrop-blur-xl border border-white/80 rounded-3xl p-5 shadow-soft-lg flex flex-col gap-1.5">
+              <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Navigation
+                </span>
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-pastel-sage-100 text-pastel-sage-700">
+                  Curious Minds Welcome
+                </span>
+              </div>
+
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                const IconComponent = link.icon;
 
                 return (
-                  <motion.div
+                  <Link
                     key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-semibold transition-all
+                      ${isActive
+                        ? `${link.activeColor}`
+                        : "text-slate-700 hover:bg-slate-50"
+                      }
+                    `}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-4 px-4 py-3 rounded-xl text-lg font-bold transition-all ${bodyFont.className} ${isActive
-                        ? "text-rose-500 bg-rose-50"
-                        : "text-slate-600 hover:bg-slate-50"
-                        }`}
-                    >
-                      <div className={`p-2 rounded-full border-2 ${link.colorCls}`}>
-                        <link.icon className="w-5 h-5" />
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-slate-100/80 flex items-center justify-center text-slate-600">
+                        <IconComponent className="w-4 h-4" />
                       </div>
-                      {link.label}
-                    </Link>
-                  </motion.div>
+                      <span>{link.label}</span>
+                    </div>
+                    {link.badge && (
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-white/80 text-slate-500 border border-slate-100">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
                 );
               })}
 
-              <div className="mt-4">
-                <Link href="/admission" onClick={() => setMobileMenuOpen(false)}>
-                  <button className={`w-full bg-rose-500 text-white py-3 rounded-xl font-bold shadow-md flex justify-center items-center gap-2 ${bodyFont.className}`}>
-                    Enroll Now <ArrowRight className="w-5 h-5" />
+              <div className="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2">
+                <Link
+                  href="/admission"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full"
+                >
+                  <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pastel-peach-500 to-rose-600 text-white font-bold py-3.5 rounded-2xl shadow-sm text-sm">
+                    Join Us (Start the Journey)
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
-              </div>
 
-              <div className="flex justify-center gap-6 py-6 border-t border-slate-100 mt-4">
-                {socialLinks.map((social, i) => (
-                  <a
-                    key={i}
-                    href={social.href}
-                    className={`p-3 rounded-full ${social.className}`}
-                  >
-                    <social.icon className="w-6 h-6" />
-                  </a>
-                ))}
+                <p className="text-center text-xs text-slate-400 font-medium pt-1">
+                  Questions? Call <a href="tel:+919071525966" className="text-slate-600 font-bold hover:underline">+91 90715 25966</a>
+                </p>
               </div>
             </div>
           </motion.div>

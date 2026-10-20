@@ -1,110 +1,39 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Home, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { Fredoka, Quicksand } from 'next/font/google';
-
-import orangebanner from "@/public/orange_cultivating_knowledge.png";
-import rosebanner from "@/public/pink_montessori.png";
-import skybanner from "@/public/green_empowering_knowledge.png";
-
-const titleFont = Fredoka({
-  weight: ['500', '600', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const bodyFont = Quicksand({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-const carouselImages = [
-  orangebanner,
-  rosebanner,
-  skybanner
-];
+import React from "react";
+import { motion } from "framer-motion";
+import { Sparkles, BookOpen } from "lucide-react";
 
 const AboutHeader = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <header className={`relative mt-[140px] md:mt-[160px] w-full h-[5vh] md:h-[50vh] lg:h-[60vh] min-h-[75px] md:min-h-[400px] flex items-center justify-center overflow-hidden  md:pt-28 pb-32 md:py-0 ${bodyFont.className}`}>
+    <header className="relative pt-32 sm:pt-40 pb-12 sm:pb-16 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-pastel-lavender-50/40 to-[#FAF8F5]">
+      {/* Ambient Pastel Glows */}
+      <div className="absolute top-10 left-1/3 w-80 h-80 bg-pastel-lavender-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-20 right-10 w-80 h-80 bg-pastel-peach-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* --- BACKGROUND CAROUSEL --- */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={carouselImages[currentImageIndex] || '/gallery1.jpeg'}
-              alt={`Gallery Image ${currentImageIndex + 1}`}
-              fill
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* --- MAIN CONTENT CONTAINER --- */}
-      <div className="absolute z-30 bottom-0 left-0 w-full flex justify-center pb-4 md:pb-8 pointer-events-none">
-
+      <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center"
+          transition={{ duration: 0.6 }}
         >
-          {/* Logo */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
-            className="w-12 h-12 md:w-32 md:h-32 bg-white rounded-full p-2 shadow-2xl flex items-center justify-center pointer-events-auto"
-          >
-            <Image
-              src="/logo.png"
-              alt="Dhwani Montessori Logo"
-              width={120}
-              height={120}
-              className="object-contain"
-            />
-          </motion.div>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastel-lavender-100 border border-pastel-lavender-200 text-pastel-lavender-900 text-xs sm:text-sm font-bold mb-5 shadow-sm">
+            <BookOpen className="w-3.5 h-3.5 text-pastel-lavender-700" />
+            <span>The Vision • Our Story</span>
+          </div>
+
+          <h1 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-5">
+            A space where natural curiosity <br className="hidden sm:inline" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600">
+              becomes a lifelong superpower.
+            </span>
+          </h1>
+
+          <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+            We replace rigid institutional drills with child-led discovery, emotional warmth, and milestone-centered pathways designed for the modern child.
+          </p>
         </motion.div>
       </div>
-
-      {/* --- ELEGANT EDGE DIVIDER (Bottom) --- */}
-      <div className="absolute bottom-0 left-0 w-full leading-none rotate-180 overflow-hidden z-20 pointer-events-none">
-        <svg
-          className="relative block w-[calc(100%+1.3px)] h-[60px] md:h-[100px]"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            style={{ fill: "#ffffff" }}
-          ></path>
-        </svg>
-      </div>
-
     </header>
   );
 };

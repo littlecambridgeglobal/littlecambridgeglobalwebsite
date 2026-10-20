@@ -244,7 +244,42 @@ html {
     background: var(--gradient-card);
   }
 
+  /* --- Playful Bento-Box & Soft Glassmorphism Utilities --- */
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 10px 30px -5px rgba(28, 25, 43, 0.05);
+  }
 
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 20px 40px -15px rgba(28, 25, 43, 0.05);
+  }
+
+  .glass-card-subtle {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 15px 35px -10px rgba(28, 25, 43, 0.04);
+  }
+
+  .bento-card {
+    border-radius: 1.75rem; /* rounded-3xl */
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px -12px rgba(28, 25, 43, 0.08);
+  }
 }
 
 @font-face {

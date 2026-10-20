@@ -162,8 +162,8 @@ const Hero = () => {
 
             {/* Giant Bold Title */}
             <h1 className="mb-4 relative z-10 flex flex-col gap-1 md:gap-2">
-              <BubbleHeading text="Dhwani Cambridge" />
-              <BubbleHeading text="Montessori" />
+              <BubbleHeading text="Little Cambridge" />
+              <BubbleHeading text="Global" />
             </h1>
 
             <h2 className={`${titleFont.className} text-xl sm:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4D96FF] to-indigo-500 mb-5 font-bold`}>
@@ -182,7 +182,7 @@ const Hero = () => {
             <div className="relative mb-8 max-w-xl">
               <div className="absolute inset-0 bg-[#4D96FF]/20 rounded-3xl transform rotate-2"></div>
               <p className={`${bodyFont.className} relative text-slate-700 text-base sm:text-lg leading-relaxed font-semibold bg-white p-5 rounded-3xl border-2 border-[#4D96FF]/40 shadow-sm transform -rotate-1`}>
-                At Dhwani Cambridge Montessori, we are dedicated to creating an enriching early-learning experience that supports every child’s intellectual, emotional, social, and creative development. Our Montessori-based approach encourages independent learning while building essential foundations.
+                At Little Cambridge Global, we are dedicated to creating an enriching early-learning experience that supports every child’s intellectual, emotional, social, and creative development. Our Montessori-based approach encourages independent learning while building essential foundations.
               </p>
             </div>
 
@@ -238,7 +238,7 @@ const Hero = () => {
                 >
                   <img
                     src={carouselImages[currentImageIndex]}
-                    alt={`Happy children at Dhwani Cambridge - Slide ${currentImageIndex + 1}`}
+                    alt={`Happy children at Little Cambridge Global - Slide ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>

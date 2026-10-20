@@ -141,7 +141,7 @@ export default function CenterProfile({ params }: { params: { slug: string } }) 
           <div className="inline-flex items-center gap-2 text-white/90 text-sm font-bold bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6 border border-white/30">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <ChevronRight className="w-3 h-3 opacity-75" />
-              <Link href="/Ourcenters" className="hover:text-white transition-colors">Centers</Link>
+              <Link href="/ourlocations" className="hover:text-white transition-colors">Our Locations</Link>
               <ChevronRight className="w-3 h-3 opacity-75" />
               <span className="text-white truncate max-w-[150px] md:max-w-none">{center.city}</span>
           </div>

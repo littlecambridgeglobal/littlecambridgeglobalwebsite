@@ -1,28 +1,5 @@
-
-import Programs from '@/components/SmallProgram';
-import SmallAbout from '@/components/SmallAbout';
-import HeroNEW from '@/components/HeroNew';
-import Welcome from '@/components/Welcome';
-import ProgramsSection from '@/components/ProgramsNew';
-import BlogSection from '@/components/BlogComponents';
-import Homecta from '@/components/HomeCta';
-import Daycare from '@/components/Daycare';
-import DetailedInfo from '@/components/DetailedInfo';
-import Faqsection from '@/components/Faqsection';
-import OurOffices from '@/components/OurOffices';
-import GallerySection from '@/components/Gallery';
-import Rewards from '@/components/Reward';
+import BentoHomepage from "@/components/BentoHomepage";
 
 export default function Page() {
-  return (
-    <div className="w-full bg-white overflow-x-hidden relative">
-      my app
-      {/* <HeroNEW />
-      <Welcome />
-      <ProgramsSection />
-      <Daycare />
-      <DetailedInfo />
-      <Faqsection /> */}
-    </div>
-  );
+  return <BentoHomepage />;
 }

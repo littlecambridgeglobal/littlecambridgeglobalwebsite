@@ -80,7 +80,7 @@ const ContactHeader = () => {
           >
             <Image
               src="/logo.png"
-              alt="Dhwani Montessori Logo"
+              alt="Little Cambridge Global Logo"
               width={120}
               height={120}
               className="object-contain"

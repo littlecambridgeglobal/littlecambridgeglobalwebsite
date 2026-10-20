@@ -127,20 +127,24 @@ const page: React.FC = () => {
     <div className={`w-full bg-white overflow-hidden ${bodyFont.className}`}>
       
       {/* HEADER */}
-      <div className="text-center pt-20 pb-16 px-4">
+      <div className="text-center pt-32 sm:pt-40 pb-16 px-4 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
-              Academic Programs
-            </span>
-            <h2 className={`text-5xl md:text-7xl mt-4 uppercase leading-tight ${titleFont.className}`}>
-              <span className="text-rose-500">Learning</span>{' '}
-              <span className="text-slate-800">Pathways</span>
-            </h2>
-            <div className="w-24 h-2 bg-amber-300 rounded-full mx-auto mt-4"></div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastel-lavender-100 border border-pastel-lavender-200 text-pastel-lavender-900 text-xs sm:text-sm font-bold mb-4 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-pastel-lavender-700" />
+              <span>Discover • Learning Pathways</span>
+            </div>
+
+            <h1 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-4">
+              Milestones, <span className="text-transparent bg-clip-text bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600">Met.</span>
+            </h1>
+
+            <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+              From their very first steps to kindergarten readiness, explore how we nurture every stage of your child&apos;s growth.
+            </p>
           </motion.div>
       </div>
 
