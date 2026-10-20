@@ -31,6 +31,7 @@ import { BadgeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroSlider from "./HeroSlider";
+import MilestonesSection from "./MilestonesSection";
 import NurturingCarousel from "./NurturingCarousel";
 
 // Images from public
@@ -180,102 +181,8 @@ export default function BentoHomepage() {
       {/* SECTION 1.5: NURTURING CARD CAROUSEL */}
       <NurturingCarousel />
 
-      {/* =========================================================================
-          SECTION 2: LEARNING PATHWAYS BENTO BOX (Formerly Programs)
-      ========================================================================= */}
-      <section id="pathways" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastel-lavender-100 border border-pastel-lavender-200 text-pastel-lavender-900 text-xs sm:text-sm font-bold mb-4">
-            <Compass className="w-3.5 h-3.5 text-pastel-lavender-700" />
-            <span>Discover • Learning Pathways</span>
-          </div>
-          <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Milestones, Met.
-          </h2>
-          <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
-            From their very first steps to kindergarten readiness, explore how we nurture every stage of your child's growth.
-          </p>
-        </div>
-
-        {/* Bento Grid Layout for Pathways */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-
-          {pathways.map((prog, index) => {
-            // Uneven bento column spans:
-            // First 3 items: 4 columns each
-            // 4th item: 7 columns
-            // 5th item: 5 columns
-            const colSpanClass =
-              index < 3
-                ? "lg:col-span-4"
-                : index === 3
-                  ? "lg:col-span-7"
-                  : "lg:col-span-5";
-
-            return (
-              <motion.div
-                key={prog.id}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.25 }}
-                className={`${colSpanClass} ${prog.colorBg} border-2 ${prog.colorBorder} rounded-3xl sm:rounded-[2rem] p-7 sm:p-8 flex flex-col justify-between shadow-soft hover:shadow-soft-lg transition-all relative overflow-hidden`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-3 mb-5">
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${prog.colorBadge}`}>
-                      {prog.age}
-                    </span>
-                    <span className="text-xs font-semibold text-slate-500 bg-white/80 px-2.5 py-0.5 rounded-full">
-                      {prog.tag}
-                    </span>
-                  </div>
-
-                  <h3 className="font-outfit text-2xl font-bold text-slate-900 mb-3">
-                    {prog.stage}
-                  </h3>
-
-                  <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6">
-                    {prog.description}
-                  </p>
-
-                  {/* Developmental Milestones */}
-                  <div className="space-y-2 mb-6">
-                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      Core Milestones
-                    </p>
-                    <ul className="space-y-2">
-                      {prog.milestones.map((m, mIdx) => (
-                        <li key={mIdx} className="flex items-start gap-2 text-xs sm:text-sm font-semibold text-slate-700">
-                          <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${prog.colorAccent}`} />
-                          <span>{m}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-slate-200/50 flex items-center justify-between">
-                  <Link href="/admission">
-                    <button className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-900 hover:text-rose-600 transition-colors">
-                      <span>Enroll in {prog.stage}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </Link>
-
-                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 opacity-80 hover:opacity-100 transition-opacity">
-                    <Image
-                      src={prog.image}
-                      alt={prog.stage}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-
-        </div>
-      </section>
+      {/* SECTION 2: MILESTONES, MET */}
+      <MilestonesSection />
 
       {/* =========================================================================
           SECTION 3: OUR STORY BENTO (Formerly About Us / The Vision)
