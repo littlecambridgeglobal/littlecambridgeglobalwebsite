@@ -91,8 +91,8 @@ const slides: Slide[] = [
     num: "01",
     nav: "Curious Minds",
     badge: "Early Learning Reimagined • 2026/2027",
-    title: "Igniting",
-    highlight: "Curious Minds.",
+    title: "Little Steps",
+    highlight: "to Global Success.",
     text: "A modern space where early learning feels like an adventure. Watch them discover their world through child-led curiosity, sensory wonder, and joyful mentorship.",
     primary: { text: "Start the Journey", href: "/admission" },
     secondary: { text: "Discover Learning Pathways", href: "#pathways" },
@@ -411,9 +411,8 @@ export default function HeroSlider() {
                   onClick={() => go(i)}
                   aria-label={`Go to slide ${i + 1}: ${sl.nav}`}
                   aria-current={active}
-                  className={`rounded-2xl px-3.5 py-2.5 text-left transition-all ${
-                    active ? "bg-white shadow-md" : "bg-white/50 hover:bg-white/80"
-                  }`}
+                  className={`rounded-2xl px-3.5 py-2.5 text-left transition-all ${active ? "bg-white shadow-md" : "bg-white/50 hover:bg-white/80"
+                    }`}
                 >
                   <span className="flex items-center justify-between text-xs font-bold">
                     <span className={active ? "text-[#F65A36]" : "text-slate-400"}>{sl.num}</span>
