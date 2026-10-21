@@ -164,19 +164,19 @@ const FAQItem = ({ item, index, isOpen, onClick }: { item: any, index: number, i
 };
 
 const franchiseFaqData = [
-  { question: "What is the investment required to start a Dhawni Cambridge Montessori franchise?", answer: "The initial setup investment starts at approximately ₹10–12 lakhs and may vary depending on the city, location, property size, and infrastructure requirements. In certain locations, the total investment may extend up to ₹1 crore.", icon: DollarSign },
+  { question: "What is the investment required to start a Little Cambridge Global franchise?", answer: "The initial setup investment starts at approximately ₹10–12 lakhs and may vary depending on the city, location, property size, and infrastructure requirements. In certain locations, the total investment may extend up to ₹1 crore.", icon: DollarSign },
   { question: "When is the franchise fee payable?", answer: "The franchise fee is payable upfront at the time of signing the franchise agreement.", icon: FileText },
   { question: "Is it necessary to own the property?", answer: "No. The preschool can be established on either an owned or leased property. The location, property size, and premises are subject to approval by the Operations Team.", icon: Home },
   { question: "How much space is required?", answer: "A minimum area of approximately 3,500 sq.ft. is required for the Montessori setup, with requirements potentially extending up to 10,000 sq. ft., depending on the centre and location.", icon: MapPin },
   { question: "Is any specific educational qualification required?", answer: "No specific educational qualification is mandatory. The preschool is supported by an experienced academic team. However, franchise partners should have a strong commitment to quality education, good interpersonal skills, and sound business acumen.", icon: Award },
-  { question: "Can an existing preschool be converted into a Dhawni Cambridge Montessori centre?", answer: "Yes, subject to an assessment of the existing infrastructure, premises, location, size, and human resources by the relevant audit team.", icon: Building2 },
+  { question: "Can an existing preschool be converted into a Little Cambridge Global centre?", answer: "Yes, subject to an assessment of the existing infrastructure, premises, location, size, and human resources by the relevant audit team.", icon: Building2 },
   { question: "What support is provided for HR, operations, and training?", answer: "Franchisees receive detailed Academic and Operational Manuals and follow established Standard Operating Procedures (SOPs). Support includes HR and recruitment assistance, faculty training, and periodic third-party training audits.", icon: Users },
   { question: "Where is teacher training conducted?", answer: "Teacher training is generally conducted at the respective centre. Where necessary, training may be arranged at the nearest centre or designated corporate training facility.", icon: BookOpen },
   { question: "What is the tenure of the franchise agreement?", answer: "The franchise agreement is generally valid for 5 or 10 years, depending on the business model and investment structure agreed upon at the time of signing. Renewal is subject to a review of the franchise centre and mutual agreement.", icon: FileText },
   { question: "How long does it take to set up the preschool?", answer: "The typical setup period is approximately 30–45 days. The timeline may vary depending on property identification, surveys, approvals, and other location-specific requirements.", icon: Clock },
   { question: "Is assistance provided for infrastructure and design?", answer: "Yes. The Operations and Design Teams can provide infrastructure planning and design support. Assistance from external agencies, contractors, or interior teams, where required, may involve additional costs.", icon: Briefcase },
   { question: "How are preschool fees determined?", answer: "Fees are recommended based on factors such as local market conditions, competition, infrastructure, and educational offerings. The Operations Team provides inputs, and the final fee structure is determined through mutual discussion.", icon: DollarSign },
-  { question: "What marketing and branding support is provided?", answer: "Dhawni Cambridge Montessori provides extensive national and international marketing support across print, video, ATL, BTL, social media, SEO, and digital advertising. Franchise partners also receive promotional materials and guidance for local marketing and brand visibility.", icon: TrendingUp },
+  { question: "What marketing and branding support is provided?", answer: "Little Cambridge Global provides extensive national and international marketing support across print, video, ATL, BTL, social media, SEO, and digital advertising. Franchise partners also receive promotional materials and guidance for local marketing and brand visibility.", icon: TrendingUp },
   { question: "Is there a royalty fee?", answer: "No separate royalty fee is charged. The business model follows a kit-based pricing structure. Kit pricing is determined based on factors such as the city tier and gross fee structure, with pricing finalised during the initial agreement.", icon: DollarSign },
   { question: "Can school materials be purchased locally?", answer: "The procurement process depends on the type of material. Certain specialized educational materials are sourced through approved company vendors, while infrastructure-related items may be purchased locally based on recommendations from the Operations Team.", icon: CheckCircle }
 ];
@@ -446,7 +446,7 @@ export default function FranchisePage({
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 mt-8">
             <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Dhawni Cambridge Montessori</span> Preschool Franchise?
+              Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Little Cambridge Global</span> Preschool Franchise?
             </h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-12"></div>
           </div>
@@ -454,16 +454,16 @@ export default function FranchisePage({
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="w-full lg:w-1/2 space-y-6">
               <p className="text-slate-600 leading-relaxed text-lg">
-                Dhawni Cambridge Montessori Preschool combines international Montessori principles with a practical and scalable preschool franchise model designed for the growing early education sector in India.
+                Little Cambridge Global Preschool combines international Montessori principles with a practical and scalable preschool franchise model designed for the growing early education sector in India.
               </p>
               <p className="text-slate-600 leading-relaxed text-lg">
                 Our child-focused approach creates a nurturing environment where children develop independence, confidence, creativity, critical thinking, and essential life skills. The learning ecosystem is strengthened by Montessori experts, trained educators, professional trainers, and meaningful parent engagement.
               </p>
               <p className="text-slate-600 leading-relaxed text-lg">
-                For franchise partners, Dhawni Cambridge Montessori offers a cost-effective and structured business model with professional guidance and an established educational framework. The relatively low investment and efficient operational structure make it an attractive opportunity for aspiring entrepreneurs seeking to enter the preschool education sector.
+                For franchise partners, Little Cambridge Global offers a cost-effective and structured business model with professional guidance and an established educational framework. The relatively low investment and efficient operational structure make it an attractive opportunity for aspiring entrepreneurs seeking to enter the preschool education sector.
               </p>
               <p className="text-emerald-600 font-bold italic text-lg mt-4">
-                Dhawni Cambridge Montessori — nurturing young minds while creating opportunities for sustainable growth.
+                Little Cambridge Global — nurturing young minds while creating opportunities for sustainable growth.
               </p>
             </div>
 
@@ -504,7 +504,7 @@ export default function FranchisePage({
             </h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-8"></div>
             <p className="text-slate-600 max-w-3xl mx-auto text-lg leading-relaxed">
-              Dhawni Cambridge Montessori provides franchise partners with a comprehensive support system designed to make preschool operations simpler, more efficient, and growth-oriented.
+              Little Cambridge Global provides franchise partners with a comprehensive support system designed to make preschool operations simpler, more efficient, and growth-oriented.
             </p>
           </div>
 
