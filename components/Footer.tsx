@@ -126,7 +126,7 @@ const Footer = () => {
                 <span>
                   <strong className="font-bold">Corporate office:</strong>
                   <br />
-                  Rachana Towers, Yelahanka New Town, Bangalore &amp; Pitampura, Delhi
+                  Ganesh nagar delhi  &amp; , Delhi
                 </span>
               </li>
               <li className="flex items-center gap-3">
