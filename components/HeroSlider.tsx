@@ -22,10 +22,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import tobbyAndMia from "../public/tobby_And_mia_on_table_painting.png";
-import tobbyTeddy from "../public/tobby_with_his_teddy.png";
-import miaAndLeo from "../public/miaandleoforthankyoupage.png";
-import leoMagnifying from "../public/leo_with_magnyfying_glass.png";
+import tobbyAndMia from "../public/assests/big owl book.png";
+import tobbyTeddy from "../public/assests/onlydogimage.png";
+import miaAndLeo from "../public/assests/boy_pointingtowardform.png";
+import leoMagnifying from "../public/assests/quirillookingcluless.png";
 
 const ORANGE = "#F65A36";
 const NAVY = "#0F2040";
@@ -87,7 +87,8 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: "curious-minds",
-    bg: "#FFEFE6", ink: "#0F2040", accent: "#F65A36",
+    bg: "#E3F1FB", ink: "#0F2040", accent: "#2F8FD0",
+
     num: "01",
     nav: "Curious Minds",
     badge: "Early Learning Reimagined • 2026/2027",
@@ -105,7 +106,7 @@ const slides: Slide[] = [
   },
   {
     id: "milestones-met",
-    bg: "#E3F1FB", ink: "#0F2040", accent: "#2F8FD0",
+    bg: "#FFEFE6", ink: "#0F2040", accent: "#F65A36",
     num: "02",
     nav: "Learning Pathways",
     badge: "Milestones, Met • Learning Pathways",

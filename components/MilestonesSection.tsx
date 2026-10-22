@@ -1,322 +1,346 @@
 "use client";
 
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import Image, { StaticImageData } from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import {
+  Sparkles,
   ArrowRight,
-  Check,
-  Sprout,
-  Puzzle,
-  Palette,
-  Rocket,
-  Brain,
-  Compass,
-  type LucideIcon,
+  CheckCircle2,
+  Users,
+  Clock,
+  Heart,
+  X,
+  Phone,
+  Calendar,
 } from "lucide-react";
-import { orangePattern, navyPattern } from "./NurturingCarousel";
 
-import tobbyTeddy from "../public/tobby_with_his_teddy.png";
-import leoMagnifying from "../public/leo_with_magnyfying_glass.png";
-import tobbyWithBook from "../public/tobby_with_book.png";
-import tobbyAndMia from "../public/tobby_And_mia_on_table_painting.png";
-import miaAndLeo from "../public/miaandleoforthankyoupage.png";
-
-const ORANGE = "#F65A36";
-const NAVY = "#0F2040";
-
-type Stage = {
+type Course = {
   id: string;
-  icon: LucideIcon;
-  stage: string;
-  age: string;
-  tag: string;
+  category: "play" | "arts" | "stem" | "phonics" | "all";
+  title: string;
   description: string;
-  milestones: string[];
-  image: StaticImageData;
+  image: string;
+  alt: string;
+  bgClass: string;
+  borderClass: string;
+  ageBadge: string;
+  seatsBadge: string;
+  price: string;
+  curriculumPoints: string[];
 };
 
-const stages: Stage[] = [
+const courses: Course[] = [
   {
-    id: "toddler",
-    icon: Sprout,
-    stage: "Little Minds",
-    age: "1 – 2 Years",
-    tag: "Sensory & First Steps",
+    id: "creative-play",
+    category: "play",
+    title: "Creative Play Lab",
     description:
-      "Gentle first steps away from home in a cozy, sensory-rich haven. We focus on emotional security, sensory discovery, and joyful motor milestones.",
-    milestones: [
-      "First vocabulary & song rhythm",
-      "Sensory texture discrimination",
-      "Comfortable social separation",
-      "Gross motor coordination",
+      "Kids learn teamwork & imagination through hands-on play, building creativity, problem-solving, & friendships.",
+    image: "/programs/creative_play_lab.jpg",
+    alt: "Children building with colorful magnetic geometric tiles in Montessori play lab",
+    bgClass: "bg-[#DDF0FD]",
+    borderClass: "border-[#C8E5FB]",
+    ageBadge: "Age: 3-6",
+    seatsBadge: "Seats: 12",
+    price: "$300",
+    curriculumPoints: [
+      "Magnetic 3D Geometry",
+      "Social Empathy & Sharing",
+      "Tactile Fine Motor Control",
+      "Collaborative Problem Solving",
     ],
-    image: tobbyTeddy,
   },
   {
-    id: "playgroup",
-    icon: Puzzle,
-    stage: "Curious Minds",
-    age: "2 – 3 Years",
-    tag: "Nature & Social Spark",
+    id: "artists-workshop",
+    category: "arts",
+    title: "Little Artists Workshop",
     description:
-      "An enriching Montessori environment where children explore, question, and make independent choices through tactile materials and joyful peer play.",
-    milestones: [
-      "Expressive vocabulary explosion",
-      "Fine motor grip & pouring",
-      "Turn-taking & empathetic play",
-      "Curiosity-led questioning",
+      "A colorful journey into painting, crafts, & self-expression, sparking confidence, original, & discovery.",
+    image: "/programs/artists_workshop.jpg",
+    alt: "Young boy painting on a canvas easel in preschool art studio",
+    bgClass: "bg-[#D8F6DE]",
+    borderClass: "border-[#C1EED0]",
+    ageBadge: "Age: 4-6",
+    seatsBadge: "Seats: 10",
+    price: "$320",
+    curriculumPoints: [
+      "Color Theory & Mixing",
+      "Easel Canvas Techniques",
+      "Clay Modeling & Textures",
+      "Creative Self-Expression",
     ],
-    image: leoMagnifying,
   },
   {
-    id: "nursery",
-    icon: Palette,
-    stage: "Emerging Learners",
-    age: "3 – 4 Years",
-    tag: "Language & Math Magic",
+    id: "stem-explorers",
+    category: "stem",
+    title: "Mini STEM Explorers",
     description:
-      "Unlocking patterns, phonics, numbers, and creative arts. Hands-on Montessori learning centers build analytical confidence and concentration.",
-    milestones: [
-      "Phonetic awareness & letter sounds",
-      "Early numeracy & spatial sorting",
-      "Artistic expression & story comprehension",
-      "Self-directed work cycles",
+      "Fun experiments introducing science, numbers, & discovery, inspiring curiosity, innovation, and learning.",
+    image: "/programs/stem_explorers.jpg",
+    alt: "Two young kids observing slides through a microscope in early science discovery lab",
+    bgClass: "bg-[#FEE5CF]",
+    borderClass: "border-[#FCD6B6]",
+    ageBadge: "Age: 5-8",
+    seatsBadge: "Seats: 12",
+    price: "$350",
+    curriculumPoints: [
+      "Kid Microscope Discovery",
+      "Plant & Botany Cycles",
+      "Sensory Balance & Scales",
+      "Curiosity-Led Hypothesis",
     ],
-    image: tobbyWithBook,
   },
   {
-    id: "kindergarten",
-    icon: Rocket,
-    stage: "Ready for Tomorrow",
-    age: "4 – 6 Years",
-    tag: "School Readiness & Leadership",
+    id: "storytellers-phonics",
+    category: "phonics",
+    title: "Little Storytellers & Phonics",
     description:
-      "Equipping children with the academic readiness, critical thinking, emotional resilience, and leadership to transition seamlessly to premier primary schools.",
-    milestones: [
-      "Fluent reading & early sentence craft",
-      "Mathematical logic & simple addition",
-      "Scientific observation & inquiry",
-      "Public speaking & group leadership",
+      "Interactive story adventures, phonetic rhythm, and speech expression that spark an enduring love for books & reading.",
+    image: "/programs/storytellers_phonics.jpg",
+    alt: "Group of children gathered reading a picture book in a cozy corner",
+    bgClass: "bg-[#F0E7FE]",
+    borderClass: "border-[#DFD1FB]",
+    ageBadge: "Age: 3-6",
+    seatsBadge: "Seats: 12",
+    price: "$310",
+    curriculumPoints: [
+      "Montessori Sandpaper Letters",
+      "Phonetic Rhyme & Cadence",
+      "Expressive Puppet Theatrics",
+      "Vocabulary & Listening Stamina",
     ],
-    image: tobbyAndMia,
-  },
-  {
-    id: "mindlab",
-    icon: Brain,
-    stage: "Mind Lab & Daycare",
-    age: "Infant to 6 Years",
-    tag: "Holistic Care & Strategy",
-    description:
-      "Higher-order thinking games and warm daycare supervision. Nutritious balanced meals, quiet rest suites, and creative enrichment when parents need peace of mind.",
-    milestones: [
-      "Cognitive strategy & focus games",
-      "Peaceful rest & hygiene routines",
-      "Healthy social dining habits",
-      "Flexible hours for modern parents",
-    ],
-    image: miaAndLeo,
   },
 ];
 
+const categoryTabs = [
+  { id: "all", label: "All Courses" },
+  { id: "play", label: "Creative Play" },
+  { id: "arts", label: "Artists Workshop" },
+  { id: "stem", label: "Mini STEM" },
+  { id: "phonics", label: "Story & Phonics" },
+];
+
 export default function MilestonesSection() {
-  const [active, setActive] = useState(0);
-  const [dir, setDir] = useState(1);
-  const n = stages.length;
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-  const select = (i: number) => {
-    setDir(i >= active ? 1 : -1);
-    setActive(i);
-  };
-
-  const s = stages[active]!;
-  const isNavy = active % 2 === 1;
-  const pct = (active / (n - 1)) * 100;
+  const filteredCourses =
+    activeCategory === "all"
+      ? courses
+      : courses.filter((c) => c.category === activeCategory);
 
   return (
-    <section id="pathways" className="relative w-full overflow-hidden bg-[#FFF8F4] py-16 sm:py-24">
-      {/* ambient accents */}
-      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#F65A36]/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-[#0F2040]/10 blur-3xl" />
+    <section
+      id="pathways"
+      aria-label="Programs and Courses for Kids"
+      className="relative w-full overflow-hidden bg-[#FAF8F5] py-20 sm:py-28 select-none font-jakarta"
+    >
+      {/* Subtle ambient blur accents */}
+      <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-[#E3F1FB]/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-[#FFEFE6]/60 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#F65A36] px-4 py-1.5 text-xs font-bold text-white shadow-[0_8px_16px_-8px_rgba(246,90,54,0.8)] sm:text-sm">
-            <Compass className="h-3.5 w-3.5" />
-            Discover • Learning Pathways
-          </span>
-          <h2 className="font-outfit text-3xl font-extrabold tracking-tight text-[#0F2040] sm:text-4xl lg:text-5xl">
-            Milestones,{" "}
-            <span className="relative inline-block text-[#F65A36]">
-              Met.
-              <svg aria-hidden className="absolute -bottom-2 left-0 h-2.5 w-full" viewBox="0 0 100 10" preserveAspectRatio="none" fill="none">
-                <path d="M2 7C30 1 60 1 98 6" stroke="#F65A36" strokeOpacity="0.45" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </span>
+        {/* =========================================================================
+            HEADER: Centered, clean, exactly matching reference image
+        ========================================================================= */}
+        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+          <h2 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0F2040] leading-[1.12]">
+            Highly Recommended <br className="hidden sm:inline" />
+            Courses for Kids
           </h2>
-          <p className="mt-5 text-base font-medium leading-relaxed text-slate-600 sm:text-lg">
-            From their very first steps to kindergarten readiness, explore how we nurture every stage of your
-            child&apos;s growth.
+          <p className="mt-4 text-base sm:text-lg font-medium text-slate-600 max-w-xl mx-auto leading-relaxed">
+            Hands-on learning journeys designed to ignite curiosity, imaginative play, and lifelong confidence.
           </p>
-        </div>
 
-        {/* Journey stepper */}
-        <div className="relative mb-12 sm:mb-16">
-          {/* track (desktop) */}
-          <div className="absolute left-[10%] right-[10%] top-7 hidden h-[3px] rounded-full bg-[#0F2040]/10 md:block">
-            <motion.div
-              className="h-full rounded-full bg-[#F65A36]"
-              animate={{ width: `${pct}%` }}
-              transition={{ type: "spring", stiffness: 90, damping: 18 }}
-            />
-          </div>
-
-          <ol className="relative grid grid-cols-5 gap-1 sm:gap-3">
-            {stages.map((st, i) => {
-              const Icon = st.icon;
-              const isActive = i === active;
-              const done = i < active;
+          {/* Sleek Category Filter Bar */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+            {categoryTabs.map((tab) => {
+              const isActive = activeCategory === tab.id;
               return (
-                <li key={st.id} className="flex justify-center">
-                  <button
-                    id={`stage-${st.id}`}
-                    onClick={() => select(i)}
-                    aria-current={isActive ? "step" : undefined}
-                    aria-label={`${st.stage}, ${st.age}`}
-                    className="group flex w-full flex-col items-center text-center"
-                  >
-                    <motion.span
-                      animate={{ scale: isActive ? 1.12 : 1 }}
-                      whileHover={{ y: -3 }}
-                      className={`relative flex h-12 w-12 items-center justify-center rounded-full border-2 transition-colors sm:h-14 sm:w-14 ${
-                        isActive
-                          ? "border-[#F65A36] bg-[#F65A36] text-white shadow-[0_12px_24px_-10px_rgba(246,90,54,0.9)]"
-                          : done
-                          ? "border-[#0F2040] bg-[#0F2040] text-white"
-                          : "border-[#F65A36]/40 bg-white text-[#F65A36] group-hover:border-[#F65A36]"
-                      }`}
-                    >
-                      {isActive && (
-                        <span className="absolute inset-0 animate-ping rounded-full bg-[#F65A36]/30" />
-                      )}
-                      <Icon className="relative h-5 w-5 sm:h-6 sm:w-6" />
-                    </motion.span>
-                    <span
-                      className={`mt-3 hidden text-sm font-bold leading-tight sm:block ${
-                        isActive ? "text-[#0F2040]" : "text-slate-500 group-hover:text-[#0F2040]"
-                      }`}
-                    >
-                      {st.stage}
-                    </span>
-                    <span className={`mt-1 text-[10px] font-semibold sm:text-xs ${isActive ? "text-[#F65A36]" : "text-slate-400"}`}>
-                      {st.age}
-                    </span>
-                  </button>
-                </li>
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
+                    isActive
+                      ? "bg-[#0F2040] text-white shadow-md scale-105"
+                      : "bg-white/80 hover:bg-white text-slate-600 border border-slate-200/80 shadow-xs"
+                  }`}
+                >
+                  {tab.label}
+                </button>
               );
             })}
-          </ol>
+          </div>
         </div>
 
-        {/* Stage detail */}
-        <div className="relative min-h-[520px] lg:min-h-[460px]">
-          <AnimatePresence mode="wait" custom={dir}>
-            <motion.div
-              key={s.id}
-              custom={dir}
-              variants={{
-                enter: (d: number) => ({ x: d > 0 ? 50 : -50, opacity: 0 }),
-                center: { x: 0, opacity: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-                exit: (d: number) => ({ x: d > 0 ? -50 : 50, opacity: 0, transition: { duration: 0.25 } }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12"
-            >
-              {/* Doodle panel + character */}
-              <div className="relative mx-auto w-full max-w-[420px] lg:col-span-5 lg:max-w-none">
-                <div
-                  className="relative mx-auto aspect-[1/1] w-full max-w-[430px] rounded-[2.5rem] shadow-[0_30px_50px_-25px_rgba(15,32,64,0.55)] sm:rounded-[3rem]"
-                  style={{
-                    backgroundColor: isNavy ? NAVY : ORANGE,
-                    backgroundImage: isNavy ? navyPattern : orangePattern,
-                    backgroundSize: "210px 210px",
-                  }}
-                >
-                  <div className="absolute inset-x-0 bottom-0 top-[-8%] flex items-end justify-center">
+        {/* =========================================================================
+            COURSES GRID: Exact card layout, soft pastel backgrounds, rounded photos
+        ========================================================================= */}
+        <motion.div
+          layout
+          className={`grid grid-cols-1 gap-6 sm:gap-8 lg:gap-8 ${
+            filteredCourses.length === 1
+              ? "max-w-md mx-auto"
+              : filteredCourses.length === 2
+              ? "max-w-3xl mx-auto md:grid-cols-2"
+              : "md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
+          <AnimatePresence>
+            {filteredCourses.map((course) => (
+              <motion.div
+                layout
+                key={course.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
+                className={`group relative rounded-[28px] sm:rounded-[32px] p-4 sm:p-5 flex flex-col justify-between border-2 ${course.bgClass} ${course.borderClass} transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-15px_rgba(15,32,64,0.12)]`}
+              >
+                <div>
+                  {/* Photo with rounded corners and gentle hover zoom */}
+                  <div className="relative w-full aspect-[4/3] rounded-[20px] sm:rounded-[22px] overflow-hidden mb-5 bg-white/40 shadow-xs">
                     <Image
-                      src={s.image}
-                      alt={s.stage}
-                      className="h-auto max-h-[96%] w-auto max-w-[86%] object-contain drop-shadow-[0_18px_18px_rgba(0,0,0,0.25)]"
+                      src={course.image}
+                      alt={course.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                   </div>
+
+                  {/* Title */}
+                  <h3 className="font-outfit font-extrabold text-xl sm:text-2xl text-[#0F2040] mb-2 leading-tight">
+                    {course.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6">
+                    {course.description}
+                  </p>
                 </div>
 
-                <motion.div
-                  animate={{ y: [0, -7, 0] }}
-                  transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut" }}
-                  className="absolute -left-2 top-6 z-10 rounded-2xl bg-white px-4 py-2.5 shadow-[0_14px_30px_-12px_rgba(15,32,64,0.4)] sm:-left-6"
-                >
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Stage {active + 1} of {n}</span>
-                  <span className="block font-outfit text-lg font-extrabold leading-tight text-[#F65A36]">{s.age}</span>
-                </motion.div>
-              </div>
+                {/* Footer Row: Meta Pills (Left) + Price / CTA (Right) */}
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-black/[0.04] mt-auto">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-white/80 border border-slate-900/5 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+                      {course.ageBadge}
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-white/80 border border-slate-900/5 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+                      {course.seatsBadge}
+                    </span>
+                  </div>
 
-              {/* Content */}
-              <div className="lg:col-span-7">
-                <span className="inline-flex rounded-full border border-[#0F2040]/10 bg-white px-3.5 py-1.5 text-xs font-bold text-[#0F2040] shadow-sm sm:text-sm">
-                  {s.tag}
-                </span>
-                <h3 className="mt-4 font-outfit text-3xl font-extrabold tracking-tight text-[#0F2040] sm:text-4xl">
-                  {s.stage}
-                </h3>
-                <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-600">{s.description}</p>
-
-                <p className="mb-3 mt-7 text-xs font-bold uppercase tracking-wider text-slate-400">Core Milestones</p>
-                <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {s.milestones.map((m, i) => (
-                    <motion.li
-                      key={m}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + i * 0.07 }}
-                      className="flex items-start gap-3 rounded-2xl border border-[#0F2040]/5 bg-white p-3.5 shadow-sm"
-                    >
-                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F65A36] text-white">
-                        <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                      </span>
-                      <span className="text-sm font-semibold leading-snug text-[#0F2040]">{m}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Link href="/admission">
-                    <motion.span
-                      whileHover={{ scale: 1.04, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="inline-flex items-center gap-2.5 rounded-full bg-[#F65A36] px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_20px_-10px_rgba(246,90,54,0.9)] transition-colors hover:bg-[#E84A26]"
-                    >
-                      Enroll in {s.stage}
-                      <ArrowRight className="h-4 w-4" />
-                    </motion.span>
-                  </Link>
                   <button
-                    onClick={() => select((active + 1) % n)}
-                    className="inline-flex items-center gap-2 rounded-full border-2 border-[#0F2040] px-6 py-3 text-sm font-bold text-[#0F2040] transition-colors hover:bg-[#0F2040] hover:text-white"
+                    onClick={() => setSelectedCourse(course)}
+                    className="px-4 sm:px-5 py-2 rounded-xl bg-[#0F2040] hover:bg-[#F65A36] text-white text-xs sm:text-sm font-bold shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
                   >
-                    Next stage
-                    <ArrowRight className="h-4 w-4" />
+                    {course.price}
                   </button>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </AnimatePresence>
+        </motion.div>
+
+        {/* Bottom CTA & Campus Walk Link */}
+        <div className="mt-14 text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-2 pl-4 pr-3 rounded-full bg-white border border-slate-200/80 shadow-xs">
+            <span className="text-xs sm:text-sm font-bold text-[#0F2040]">
+              Looking for our complete academic syllabus & daycare options?
+            </span>
+            <Link
+              href="/Programs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F65A36] hover:bg-[#E84A26] text-white text-xs sm:text-sm font-bold shadow-sm transition-all hover:translate-x-0.5"
+            >
+              <span>Explore All Pathways</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
+
+      {/* =========================================================================
+          COURSE DETAILS MODAL (When clicking on course or price)
+      ========================================================================= */}
+      <AnimatePresence>
+        {selectedCourse && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCourse(null)}
+              className="absolute inset-0 bg-[#0F2040]/50 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25 }}
+              className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl z-10 border border-slate-100"
+            >
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-3 py-1 rounded-full bg-[#FFEFE6] text-[#F65A36] text-xs font-bold">
+                  {selectedCourse.ageBadge}
+                </span>
+                <span className="px-3 py-1 rounded-full bg-[#E3F1FB] text-[#2F8FD0] text-xs font-bold">
+                  {selectedCourse.seatsBadge}
+                </span>
+              </div>
+
+              <h3 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040] mb-2">
+                {selectedCourse.title}
+              </h3>
+
+              <p className="text-slate-600 text-sm font-medium leading-relaxed mb-6">
+                {selectedCourse.description}
+              </p>
+
+              <div className="mb-6 rounded-2xl bg-[#FAF8F5] p-4 border border-slate-200/80">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5">
+                  Core Developmental Highlights
+                </h4>
+                <ul className="space-y-2">
+                  {selectedCourse.curriculumPoints.map((point) => (
+                    <li key={point} className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0F2040]">
+                      <CheckCircle2 className="w-4 h-4 text-[#F65A36] shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 pt-2 border-t border-slate-100">
+                <div>
+                  <span className="block text-[11px] font-bold text-slate-400">Monthly Tuition</span>
+                  <span className="font-outfit text-2xl font-extrabold text-[#0F2040]">
+                    {selectedCourse.price}
+                  </span>
+                </div>
+
+                <Link
+                  href="/admission"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F65A36] hover:bg-[#E84A26] text-white text-sm font-bold shadow-sm transition-all"
+                >
+                  <span>Book a Campus Walk</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

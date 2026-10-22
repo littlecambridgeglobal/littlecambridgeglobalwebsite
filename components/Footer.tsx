@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, Facebook, Instagram, Linkedin, Youtube, MapPin } from "lucide-react";
@@ -40,11 +40,40 @@ const exploreLinks = [
 const linkClass = "text-sm font-medium text-[#0F2040]/85 transition-colors hover:text-white";
 
 const Footer = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => { });
+    }
+  }, []);
+
   return (
     <footer
-      className="relative overflow-hidden bg-[#5DB6E0] font-jakarta text-[#0F2040]"
+      className="relative py-20 overflow-hidden bg-[#5DB6E0] font-jakarta text-[#0F2040]"
       style={{ backgroundImage: footerPattern, backgroundSize: "260px 260px" }}
     >
+      {/* Background Giraffe Video Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ objectFit: "fill" }}
+          className="absolute inset-0 h-full w-full object-fill opacity-40 mix-blend-multiply"
+        >
+          <source src="/assests/girafeemovingirafeefooter.mp4" type="video/mp4" />
+          <source src="/assets/girafeemovingirafeefooter.mp4" type="video/mp4" />
+        </video>
+      </div>
+
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-8 pt-14 lg:px-8 lg:pt-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}

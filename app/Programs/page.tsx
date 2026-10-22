@@ -1,275 +1,319 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Play, ArrowRight, CheckCircle, Sparkles, Star, Cloud } from 'lucide-react';
-import { Titan_One, Nunito, Caveat } from 'next/font/google';
-import Image from 'next/image';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Users,
+  Clock,
+  Heart,
+  ShieldCheck,
+  Calendar,
+  X,
+  GraduationCap,
+} from "lucide-react";
 
-// --- IMAGE IMPORTS ---
-import boywithcup from "../../public/boywithcup.png";
-import girlwithbook from "../../public/girlwithbook 1.svg"
-import boywithelephant from "../../public/boywithelephent.png"
-import girlonswing from "../../public/girlonwing.png"
-import boywithbrush from "../../public/boywithbrush.png"
-
-// --- FONTS ---
-const titleFont = Titan_One({ 
-  weight: '400', 
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const bodyFont = Nunito({ 
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
-  display: 'swap',
-});
-
-const handwritingFont = Caveat({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-});
-
-// --- TYPES ---
-type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
-
-interface Program {
-  id: number;
+type Course = {
+  id: string;
+  category: "play" | "arts" | "stem" | "phonics" | "all";
   title: string;
-  subtitle: string;
   description: string;
-  fullDescription: string;
-  theme: ThemeColor;
-  image: any;
-  features: string[]; // Added bullet points for detail
-  ids?: string;
-}
+  image: string;
+  alt: string;
+  bgClass: string;
+  borderClass: string;
+  ageBadge: string;
+  seatsBadge: string;
+  price: string;
+  curriculumPoints: string[];
+};
 
-// --- DATA ---
-const programs: Program[] = [
+const courses: Course[] = [
   {
-    id: 1,
-    title: "Little Explorers",
-    subtitle: "Play Group – Age 2–3 Years",
-    description: "At Little Dreamers, our Little Explorers begin their joyful learning journey through play and imagination.",
-    fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction. Children learn to adapt, express themselves freely, and gain early confidence.",
-    theme: "rose", 
-    image: boywithcup,
-    features: ["Sensory Play", "Social Interaction", "Motor Skills"],
-    ids: "#explorers"
+    id: "creative-play",
+    category: "play",
+    title: "Creative Play Lab",
+    description:
+      "Kids learn teamwork & imagination through hands-on play, building creativity, problem-solving, & friendships.",
+    image: "/programs/creative_play_lab.jpg",
+    alt: "Children building with colorful magnetic geometric tiles in Montessori play lab",
+    bgClass: "bg-[#DDF0FD]",
+    borderClass: "border-[#C8E5FB]",
+    ageBadge: "Age: 3-6",
+    seatsBadge: "Seats: 12",
+    price: "$300",
+    curriculumPoints: [
+      "Magnetic 3D Geometry",
+      "Social Empathy & Sharing",
+      "Tactile Fine Motor Control",
+      "Collaborative Problem Solving",
+    ],
   },
   {
-    id: 2,
-    title: "Curious Learners",
-    subtitle: "Nursery – Age 3–4 Years",
-    description: "Our Curious Learners explore the world of colors, numbers, and letters through fun, interactive activities.",
-    fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe, question, express, and share their ideas.",
-    theme: "sky",
-    image: girlwithbook,
-    features: ["Early Phonics", "Number Sense", "Creative Arts"],
-    ids: "#learners"
+    id: "artists-workshop",
+    category: "arts",
+    title: "Little Artists Workshop",
+    description:
+      "A colorful journey into painting, crafts, & self-expression, sparking confidence, original, & discovery.",
+    image: "/programs/artists_workshop.jpg",
+    alt: "Young boy painting on a canvas easel in preschool art studio",
+    bgClass: "bg-[#D8F6DE]",
+    borderClass: "border-[#C1EED0]",
+    ageBadge: "Age: 4-6",
+    seatsBadge: "Seats: 10",
+    price: "$320",
+    curriculumPoints: [
+      "Color Theory & Mixing",
+      "Easel Canvas Techniques",
+      "Clay Modeling & Textures",
+      "Creative Self-Expression",
+    ],
   },
   {
-    id: 3,
-    title: "Creative Thinkers",
-    subtitle: "LKG – Age 4–5 Years",
-    description: "Children strengthen early academic skills while exploring creativity, imagination, and expression.",
-    fullDescription: "Through phonics, storytelling, art, and group play, they build confidence. Each day encourages children to think creatively and communicate confidently.",
-    theme: "purple",
-    image: boywithelephant,
-    features: ["Public Speaking", "Logical Reasoning", "Collaborative Play"],
-    ids: "#thinkers"
+    id: "stem-explorers",
+    category: "stem",
+    title: "Mini STEM Explorers",
+    description:
+      "Fun experiments introducing science, numbers, & discovery, inspiring curiosity, innovation, and learning.",
+    image: "/programs/stem_explorers.jpg",
+    alt: "Two young kids observing slides through a microscope in early science discovery lab",
+    bgClass: "bg-[#FEE5CF]",
+    borderClass: "border-[#FCD6B6]",
+    ageBadge: "Age: 5-8",
+    seatsBadge: "Seats: 12",
+    price: "$350",
+    curriculumPoints: [
+      "Kid Microscope Discovery",
+      "Plant & Botany Cycles",
+      "Sensory Balance & Scales",
+      "Curiosity-Led Hypothesis",
+    ],
   },
   {
-    id: 4,
-    title: "Future Leaders",
-    subtitle: "UKG – Age 5–6 Years",
-    description: "Prepares children for formal schooling by building a strong foundation in academics and life skills.",
-    fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity in concepts and confidence in application.",
-    theme: "teal",
-    image: girlonswing,
-    features: ["School Readiness", "Advanced Math", "Leadership Skills"],
-    ids: "#leaders"
+    id: "storytellers-phonics",
+    category: "phonics",
+    title: "Little Storytellers & Phonics",
+    description:
+      "Interactive story adventures, phonetic rhythm, and speech expression that spark an enduring love for books & reading.",
+    image: "/programs/storytellers_phonics.jpg",
+    alt: "Group of children gathered reading a picture book in a cozy corner",
+    bgClass: "bg-[#F0E7FE]",
+    borderClass: "border-[#DFD1FB]",
+    ageBadge: "Age: 3-6",
+    seatsBadge: "Seats: 12",
+    price: "$310",
+    curriculumPoints: [
+      "Montessori Sandpaper Letters",
+      "Phonetic Rhyme & Cadence",
+      "Expressive Puppet Theatrics",
+      "Vocabulary & Listening Stamina",
+    ],
   },
-  {
-    id: 5,
-    title: "Day Care Service",
-    subtitle: "Flexible Hours – 2 Years+",
-    description: "A home away from home where your child is cared for in a safe, engaging, and loving environment.",
-    fullDescription: "Our Day Care program offers structured relaxation, nutritious snacks, and supervised play activities giving parents peace of mind.",
-    theme: "amber",
-    image: boywithbrush,
-    features: ["Nutritious Meals", "Safe Environment", "Homework Help"],
-    ids: "#daycare"
-  }
 ];
 
-// --- WAVE COMPONENT ---
-const WaveSeparator = ({ position, color }: { position: "top" | "bottom", color: string }) => {
-    return (
-      <div className={`absolute left-0 w-full h-[50px] md:h-[80px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
-         <svg className={`relative block w-full h-full ${color}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-             {position === "top" ? (
-                 <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="currentColor"></path>
-             ) : (
-                 <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="currentColor"></path>
-             )}
-         </svg>
-      </div>
-    );
-};
+const categoryTabs = [
+  { id: "all", label: "All Courses" },
+  { id: "play", label: "Creative Play" },
+  { id: "arts", label: "Artists Workshop" },
+  { id: "stem", label: "Mini STEM" },
+  { id: "phonics", label: "Story & Phonics" },
+];
 
-// --- MAIN COMPONENT ---
-const page: React.FC = () => {
+export default function ProgramsPage() {
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+
+  const filteredCourses =
+    activeCategory === "all"
+      ? courses
+      : courses.filter((c) => c.category === activeCategory);
+
   return (
-    <div className={`w-full bg-white overflow-hidden ${bodyFont.className}`}>
-      
-      {/* HEADER */}
-      <div className="text-center pt-32 sm:pt-40 pb-16 px-4 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastel-lavender-100 border border-pastel-lavender-200 text-pastel-lavender-900 text-xs sm:text-sm font-bold mb-4 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-pastel-lavender-700" />
-              <span>Discover • Learning Pathways</span>
-            </div>
+    <div className="w-full bg-[#FAF8F5] text-[#0F2040] font-jakarta overflow-x-hidden selection:bg-[#FFEFE6] selection:text-[#F65A36]">
+      {/* Top Banner */}
+      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#F65A36] text-xs sm:text-sm font-bold shadow-xs mb-4">
+          <Sparkles className="w-3.5 h-3.5 text-[#F65A36]" />
+          <span>Little Cambridge Global • Learning Pathways 2026/27</span>
+        </div>
 
-            <h1 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-4">
-              Milestones, <span className="text-transparent bg-clip-text bg-gradient-to-r from-pastel-peach-500 via-rose-500 to-rose-600">Met.</span>
-            </h1>
+        <h1 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0F2040] tracking-tight leading-tight max-w-4xl mx-auto mb-4">
+          Highly Recommended <br className="hidden sm:inline" />
+          <span className="text-[#F65A36]">Courses for Kids</span>
+        </h1>
 
-            <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-              From their very first steps to kindergarten readiness, explore how we nurture every stage of your child&apos;s growth.
-            </p>
-          </motion.div>
-      </div>
+        <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+          From hands-on sensory discovery to certified Montessori kindergarten preparation, explore experiential pathways tailored for your child.
+        </p>
 
-      {/* PROGRAMS LOOP */}
-      <div className="flex flex-col">
-        {programs.map((program, index) => {
-          // Logic to alternate backgrounds: Color -> White -> Color
-          const isColoredBackground = index % 2 === 0; 
-          const isReversedLayout = index % 2 !== 0;
+        {/* Category Tabs */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+          {categoryTabs.map((tab) => {
+            const isActive = activeCategory === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveCategory(tab.id)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
+                  isActive
+                    ? "bg-[#0F2040] text-white shadow-md scale-105"
+                    : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200/80 shadow-xs"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-          // Map Theme to Tailwind Colors
-          const themeMap: Record<ThemeColor, { bg: string, text: string, wave: string, accent: string }> = {
-            rose:   { bg: 'bg-rose-50', text: 'text-rose-600', wave: 'text-rose-50', accent: 'bg-rose-500' },
-            sky:    { bg: 'bg-sky-50', text: 'text-sky-600', wave: 'text-sky-50', accent: 'bg-sky-500' },
-            purple: { bg: 'bg-purple-50', text: 'text-purple-600', wave: 'text-purple-50', accent: 'bg-purple-500' },
-            teal:   { bg: 'bg-teal-50', text: 'text-teal-600', wave: 'text-teal-50', accent: 'bg-teal-500' },
-            amber:  { bg: 'bg-amber-50', text: 'text-amber-600', wave: 'text-amber-50', accent: 'bg-amber-500' },
-          };
+      {/* Courses Cards Grid */}
+      <section className="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <motion.div
+          layout
+          className={`grid grid-cols-1 gap-6 sm:gap-8 lg:gap-8 ${
+            filteredCourses.length === 1
+              ? "max-w-md mx-auto"
+              : filteredCourses.length === 2
+              ? "max-w-3xl mx-auto md:grid-cols-2"
+              : "md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
+          <AnimatePresence>
+            {filteredCourses.map((course) => (
+              <motion.div
+                layout
+                key={course.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
+                className={`group relative rounded-[28px] sm:rounded-[32px] p-4 sm:p-5 flex flex-col justify-between border-2 ${course.bgClass} ${course.borderClass} transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-15px_rgba(15,32,64,0.12)]`}
+              >
+                <div>
+                  <div className="relative w-full aspect-[4/3] rounded-[20px] sm:rounded-[22px] overflow-hidden mb-5 bg-white/40 shadow-xs">
+                    <Image
+                      src={course.image}
+                      alt={course.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </div>
 
-          const style = themeMap[program.theme];
+                  <h3 className="font-outfit font-extrabold text-xl sm:text-2xl text-[#0F2040] mb-2 leading-tight">
+                    {course.title}
+                  </h3>
 
-          return (
-            <section 
-              key={program.id} 
-              className={`relative py-24 md:py-32 ${isColoredBackground ? style.bg : 'bg-white'}`}
+                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6">
+                    {course.description}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-black/[0.04] mt-auto">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-white/80 border border-slate-900/5 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+                      {course.ageBadge}
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-white/80 border border-slate-900/5 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+                      {course.seatsBadge}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setSelectedCourse(course)}
+                    className="px-4 sm:px-5 py-2 rounded-xl bg-[#0F2040] hover:bg-[#F65A36] text-white text-xs sm:text-sm font-bold shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                  >
+                    {course.price}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </section>
+
+      {/* Modal for Details */}
+      <AnimatePresence>
+        {selectedCourse && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCourse(null)}
+              className="absolute inset-0 bg-[#0F2040]/50 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25 }}
+              className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl z-10 border border-slate-100"
             >
-               {/* WAVES */}
-               {isColoredBackground && (
-                 <>
-                   <WaveSeparator position="top" color="text-white" />
-                   <WaveSeparator position="bottom" color="text-white" />
-                 </>
-               )}
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
 
-               {/* Background Elements (Doodles) */}
-               {isColoredBackground && (
-                 <div className="absolute inset-0 pointer-events-none opacity-20">
-                    <Cloud className="absolute top-20 left-10 w-24 h-24" />
-                    <Star className="absolute bottom-20 right-10 w-16 h-16" />
-                 </div>
-               )}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-3 py-1 rounded-full bg-[#FFEFE6] text-[#F65A36] text-xs font-bold">
+                  {selectedCourse.ageBadge}
+                </span>
+                <span className="px-3 py-1 rounded-full bg-[#E3F1FB] text-[#2F8FD0] text-xs font-bold">
+                  {selectedCourse.seatsBadge}
+                </span>
+              </div>
 
-            <div  id={program.ids} className="container mx-auto px-6 relative z-10">
-                 <div className={`flex flex-col gap-12 items-center ${isReversedLayout ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
-                    
-                    {/* TEXT SIDE */}
-                    <motion.div 
-                      className="w-full lg:w-1/2"
-                      initial={{ opacity: 0, x: isReversedLayout ? 50 : -50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6 }}
-                    >
-                       <span className={`inline-block px-4 py-2 rounded-lg font-bold text-sm mb-4 ${isColoredBackground ? 'bg-white' : style.bg} ${style.text}`}>
-                          {program.subtitle}
-                       </span>
-                       
-                       <h3 className={`text-4xl md:text-5xl mb-6 ${titleFont.className} ${style.text}`}>
-                         {program.title}
-                       </h3>
-                       
-                       <p className="text-slate-700 text-lg md:text-xl font-bold mb-4 leading-relaxed">
-                         {program.description}
-                       </p>
-                       <p className="text-slate-600 text-base leading-relaxed mb-8">
-                         {program.fullDescription}
-                       </p>
+              <h3 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040] mb-2">
+                {selectedCourse.title}
+              </h3>
 
-                       {/* Features List */}
-                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                         {program.features.map((feature, i) => (
-                           <li key={i} className="flex items-center gap-2 text-slate-700 font-semibold">
-                              <CheckCircle className={`w-5 h-5 ${style.text}`} />
-                              {feature}
-                           </li>
-                         ))}
-                       </ul>
+              <p className="text-slate-600 text-sm font-medium leading-relaxed mb-6">
+                {selectedCourse.description}
+              </p>
 
-                       <div className="flex gap-4">
-                          <button className={`px-8 py-3 rounded-full text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center gap-2 ${style.accent}`}>
-                             Enquire Now <ArrowRight className="w-4 h-4" />
-                          </button>
-                       </div>
-                    </motion.div>
+              <div className="mb-6 rounded-2xl bg-[#FAF8F5] p-4 border border-slate-200/80">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5">
+                  Core Developmental Highlights
+                </h4>
+                <ul className="space-y-2">
+                  {selectedCourse.curriculumPoints.map((point) => (
+                    <li key={point} className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0F2040]">
+                      <CheckCircle2 className="w-4 h-4 text-[#F65A36] shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                    {/* IMAGE SIDE */}
-                    <motion.div 
-                      className="w-full lg:w-1/2 flex justify-center"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6 }}
-                    >
-                       <div className="relative w-full max-w-[500px] aspect-square">
-                          {/* Blob Background */}
-                          <div className={`absolute inset-4 rounded-[3rem] ${isColoredBackground ? 'bg-white/50' : style.bg} rotate-3`}></div>
-                          
-                          {/* Image Container */}
-                          <div className={`absolute inset-0 rounded-[3rem] overflow-hidden border-4 ${isColoredBackground ? 'border-white' : style.bg} shadow-2xl bg-white -rotate-3 hover:rotate-0 transition-transform duration-500`}>
-                              <div className="w-full h-full flex items-center justify-center p-8">
-                                <Image 
-                                  src={program.image} 
-                                  alt={program.title}
-                                  width={500}
-                                  height={500}
-                                  className="object-contain w-full h-full drop-shadow-md"
-                                />
-                              </div>
-                          </div>
+              <div className="flex items-center justify-between gap-4 pt-2 border-t border-slate-100">
+                <div>
+                  <span className="block text-[11px] font-bold text-slate-400">Monthly Tuition</span>
+                  <span className="font-outfit text-2xl font-extrabold text-[#0F2040]">
+                    {selectedCourse.price}
+                  </span>
+                </div>
 
-                          {/* Floating Badge */}
-                          <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-full shadow-xl animate-bounce">
-                             <Sparkles className={`w-8 h-8 ${style.text}`} />
-                          </div>
-                       </div>
-                    </motion.div>
-
-                 </div>
-               </div>
-            </section>
-          );
-        })}
-      </div>
+                <Link
+                  href="/admission"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F65A36] hover:bg-[#E84A26] text-white text-sm font-bold shadow-sm transition-all"
+                >
+                  <span>Book a Campus Walk</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
-};
-
-export default page;
+}

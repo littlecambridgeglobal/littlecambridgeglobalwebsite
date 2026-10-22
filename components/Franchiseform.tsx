@@ -1,259 +1,139 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { FranchiseFormSchemaType } from "@/lib/schema";
 import { IFranchiseDetail } from "@/lib/types";
 import Image from "next/image";
-import boyandgirlimage from "@/public/miaandleoforthankyoupage.png"
-
-import orangebanner from "@/public/orange_cultivating_knowledge.png";
-import rosebanner from "@/public/pink_montessori.png";
-import skybanner from "@/public/green_empowering_knowledge.png";
-import tableimage from "@/public/tobby_with_book.png"
 import {
-  Home,
   User,
   Mail,
   Phone,
   Building2,
-  ChevronRight,
+  ChevronDown,
   Send,
   Loader2,
   TrendingUp,
   Award,
   Users,
-  CheckCircle,
-  Briefcase,
+  CheckCircle2,
   DollarSign,
   Download,
   Star,
   MapPin,
   FileText,
-  Plus,
-  Minus,
-  BookOpen,
   Clock,
   Sparkles,
-  Search,
-  School,
-  Smile,
   ShieldCheck,
-  MessageCircle,
-  HeartHandshake
+  Check,
+  HelpCircle,
+  ArrowRight,
+  BookOpen,
+  Heart,
+  Calendar,
+  Smile,
+  ArrowUpRight,
 } from "lucide-react";
-import { Fredoka, Quicksand } from 'next/font/google';
+import { doodleTile, toDataUri } from "./NurturingCarousel";
 
-// --- FONTS ---
-const titleFont = Fredoka({
-  weight: ['500', '600', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-});
+const ORANGE = "#F65A36";
+const NAVY = "#0F2040";
 
-const bodyFont = Quicksand({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
+// Reusable SVG Doodle Patterns
+const heroPattern = toDataUri(doodleTile("rgba(15,32,64,0.08)"));
+const darkPattern = toDataUri(doodleTile("rgba(255,255,255,0.06)"));
+const peachPattern = toDataUri(doodleTile("rgba(246,90,54,0.12)"));
 
-// --- REUSABLE EDGE COMPONENT ---
-const ElegantEdge = ({ position, fillColor = "#b2f5ea " }: { position: "top" | "bottom", fillColor?: string }) => {
-  return (
-    <div className={`absolute left-0 w-full overflow-hidden leading-none z-20 pointer-events-none ${position === "top" ? "top-0" : "bottom-0 rotate-180"}`}>
-      <svg
-        className="relative block w-[calc(100%+1.3px)] h-[50px] md:h-[90px] lg:h-[120px]"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-          style={{ fill: fillColor }}
-        ></path>
-      </svg>
-    </div>
-  );
-};
-
-
-const carouselImages = [
-  orangebanner,
-  rosebanner,
-  skybanner
+// Hero Interactive Tabs Data
+const franchiseSlides = [
+  {
+    id: "turnkey",
+    tab: "30–45 Days Setup",
+    num: "01",
+    badge: "Turnkey Launch Model • 2026/2027",
+    title: "Turnkey Setup.",
+    highlight: "Launch in 30–45 Days.",
+    text: "Complete end-to-end support from site feasibility, 3D architectural blueprints, child-safe interior specifications, to Montessori materials and recruitment.",
+    image: "/assests/big_owl_book.png",
+    alt: "Little Cambridge Academic Mentor Owl",
+    panelColor: "#0F2040",
+    card1: { icon: Clock, title: "45-Day Fast Setup", sub: "Design & supply support" },
+    card2: { icon: ShieldCheck, title: "100% Child-Safe", sub: "Architectural blueprint" },
+    points: ["Site Feasibility Survey", "Child-Safe Interiors", "Equipment Sourcing", "Launch Marketing"],
+  },
+  {
+    id: "economics",
+    tab: "40%–50% ROI",
+    num: "02",
+    badge: "Unit Economics • Zero Royalty",
+    title: "Zero Royalty.",
+    highlight: "Keep 100% of Tuition.",
+    text: "Unlike traditional 15%–20% royalty franchises, we operate on a transparent kit-based model. High student retention and daycare demand yield rapid operational breakeven.",
+    image: "/assests/boy_pointingtowardform.png",
+    alt: "Little Cambridge Smiling Student",
+    panelColor: "#F65A36",
+    card1: { icon: TrendingUp, title: "40% – 50% ROI", sub: "High-yield preschool model" },
+    card2: { icon: DollarSign, title: "Zero Royalty", sub: "Kit-based transparent pricing" },
+    points: ["₹10–12L Initial Setup", "Daycare Revenue Stream", "No Monthly Royalty Cut", "Predictable Cashflow"],
+  },
+  {
+    id: "pedagogy",
+    tab: "Montessori Academy",
+    num: "03",
+    badge: "Academic Excellence • Training",
+    title: "Centralized Academy.",
+    highlight: "Certified Teachers.",
+    text: "Continuous teacher recruitment, child psychology workshops, and seasonal lesson plans powered by our Centralized Montessori Training Academy.",
+    image: "/assests/onlydogimage.png",
+    alt: "Welcoming Mascot Buddy",
+    panelColor: "#0F2040",
+    card1: { icon: Award, title: "Montessori Certified", sub: "Global early syllabus" },
+    card2: { icon: Users, title: "1:8 Educator Ratio", sub: "Faculty recruitment help" },
+    points: ["Centralized Curriculum", "Pediatric First-Aid", "Interactive Classrooms", "Parent App Tech"],
+  },
 ];
 
-type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
-
-const themeColors: ThemeColor[] = ['rose', 'sky', 'purple', 'teal', 'amber'];
-
-const getThemeStyles = (color: ThemeColor) => {
-  const styles = {
-    rose: { border: 'border-rose-200', activeBorder: 'border-rose-400', bg: 'bg-rose-50', text: 'text-rose-700', icon: 'text-rose-500' },
-    sky: { border: 'border-sky-200', activeBorder: 'border-sky-400', bg: 'bg-sky-50', text: 'text-sky-700', icon: 'text-sky-500' },
-    purple: { border: 'border-purple-200', activeBorder: 'border-purple-400', bg: 'bg-purple-50', text: 'text-purple-700', icon: 'text-purple-500' },
-    teal: { border: 'border-teal-200', activeBorder: 'border-teal-400', bg: 'bg-teal-50', text: 'text-teal-700', icon: 'text-teal-500' },
-    amber: { border: 'border-amber-200', activeBorder: 'border-amber-400', bg: 'bg-amber-50', text: 'text-amber-700', icon: 'text-amber-500' },
-  };
-  return styles[color];
-};
-
-const FAQItem = ({ item, index, isOpen, onClick }: { item: any, index: number, isOpen: boolean, onClick: () => void }) => {
-  const themeKey: ThemeColor = themeColors[index % themeColors.length] || 'rose';
-  const theme = getThemeStyles(themeKey);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: (index % 5) * 0.05 }}
-      className={`
-        w-full mb-4 rounded-[30px] border-2 bg-white overflow-hidden transition-all duration-300
-        ${isOpen ? `${theme.activeBorder} shadow-lg` : `${theme.border} shadow-sm hover:shadow-md`}
-      `}
-    >
-      <button
-        onClick={onClick}
-        type="button"
-        className={`w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none ${isOpen ? theme.bg : 'bg-white'}`}
-      >
-        <div className="flex items-center gap-4">
-          <div className={`
-             hidden md:flex w-10 h-10 rounded-full items-center justify-center shrink-0 
-             ${isOpen ? 'bg-white' : theme.bg}
-          `}>
-            <item.icon className={`w-5 h-5 ${theme.icon}`} />
-          </div>
-          <span className={`text-lg md:text-xl font-bold ${isOpen ? theme.text : 'text-slate-700'}`}>
-            {item.question}
-          </span>
-        </div>
-
-        <div className={`
-          w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300
-          ${isOpen ? 'bg-white rotate-180' : `${theme.bg} rotate-0`}
-        `}>
-          {isOpen ? (
-            <Minus className={`w-5 h-5 ${theme.icon}`} />
-          ) : (
-            <Plus className={`w-5 h-5 ${theme.icon}`} />
-          )}
-        </div>
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className={`p-6 pt-0 ${theme.bg}`}>
-              <p className="text-slate-600 font-semibold leading-relaxed ml-0 md:ml-14 border-t border-slate-200/50 pt-4">
-                {item.answer}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-};
-
+// FAQs Data
 const franchiseFaqData = [
-  { question: "What is the investment required to start a Little Cambridge Global franchise?", answer: "The initial setup investment starts at approximately ₹10–12 lakhs and may vary depending on the city, location, property size, and infrastructure requirements. In certain locations, the total investment may extend up to ₹1 crore.", icon: DollarSign },
-  { question: "When is the franchise fee payable?", answer: "The franchise fee is payable upfront at the time of signing the franchise agreement.", icon: FileText },
-  { question: "Is it necessary to own the property?", answer: "No. The preschool can be established on either an owned or leased property. The location, property size, and premises are subject to approval by the Operations Team.", icon: Home },
-  { question: "How much space is required?", answer: "A minimum area of approximately 3,500 sq.ft. is required for the Montessori setup, with requirements potentially extending up to 10,000 sq. ft., depending on the centre and location.", icon: MapPin },
-  { question: "Is any specific educational qualification required?", answer: "No specific educational qualification is mandatory. The preschool is supported by an experienced academic team. However, franchise partners should have a strong commitment to quality education, good interpersonal skills, and sound business acumen.", icon: Award },
-  { question: "Can an existing preschool be converted into a Little Cambridge Global centre?", answer: "Yes, subject to an assessment of the existing infrastructure, premises, location, size, and human resources by the relevant audit team.", icon: Building2 },
-  { question: "What support is provided for HR, operations, and training?", answer: "Franchisees receive detailed Academic and Operational Manuals and follow established Standard Operating Procedures (SOPs). Support includes HR and recruitment assistance, faculty training, and periodic third-party training audits.", icon: Users },
-  { question: "Where is teacher training conducted?", answer: "Teacher training is generally conducted at the respective centre. Where necessary, training may be arranged at the nearest centre or designated corporate training facility.", icon: BookOpen },
-  { question: "What is the tenure of the franchise agreement?", answer: "The franchise agreement is generally valid for 5 or 10 years, depending on the business model and investment structure agreed upon at the time of signing. Renewal is subject to a review of the franchise centre and mutual agreement.", icon: FileText },
-  { question: "How long does it take to set up the preschool?", answer: "The typical setup period is approximately 30–45 days. The timeline may vary depending on property identification, surveys, approvals, and other location-specific requirements.", icon: Clock },
-  { question: "Is assistance provided for infrastructure and design?", answer: "Yes. The Operations and Design Teams can provide infrastructure planning and design support. Assistance from external agencies, contractors, or interior teams, where required, may involve additional costs.", icon: Briefcase },
-  { question: "How are preschool fees determined?", answer: "Fees are recommended based on factors such as local market conditions, competition, infrastructure, and educational offerings. The Operations Team provides inputs, and the final fee structure is determined through mutual discussion.", icon: DollarSign },
-  { question: "What marketing and branding support is provided?", answer: "Little Cambridge Global provides extensive national and international marketing support across print, video, ATL, BTL, social media, SEO, and digital advertising. Franchise partners also receive promotional materials and guidance for local marketing and brand visibility.", icon: TrendingUp },
-  { question: "Is there a royalty fee?", answer: "No separate royalty fee is charged. The business model follows a kit-based pricing structure. Kit pricing is determined based on factors such as the city tier and gross fee structure, with pricing finalised during the initial agreement.", icon: DollarSign },
-  { question: "Can school materials be purchased locally?", answer: "The procurement process depends on the type of material. Certain specialized educational materials are sourced through approved company vendors, while infrastructure-related items may be purchased locally based on recommendations from the Operations Team.", icon: CheckCircle }
+  {
+    question: "What is the initial investment required to start a Little Cambridge Global franchise?",
+    answer:
+      "The initial setup investment starts at approximately ₹10–12 lakhs and may vary depending on the city tier, property size, and custom infrastructure requirements. In premier metropolitan hubs, total capital may extend up to ₹1 crore for flagship campuses.",
+    icon: DollarSign,
+  },
+  {
+    question: "Is there any royalty fee on gross revenue?",
+    answer:
+      "No separate monthly or quarterly royalty fee is charged. Little Cambridge Global follows an entrepreneur-friendly kit-based pricing model, allowing franchise partners to retain 100% of their tuition fee collections.",
+    icon: Award,
+  },
+  {
+    question: "Is it necessary to own commercial property?",
+    answer:
+      "No. The preschool can be established on either an owned or leased commercial or residential premises. Our Operations & Architecture teams conduct a free site feasibility survey to approve the property.",
+    icon: Award,
+  },
+  {
+    question: "How much space is required for a campus?",
+    answer:
+      "A minimum covered area of approximately 3,500 sq. ft. is required for the Montessori setup, with potential to scale up to 10,000 sq. ft. including an outdoor sensory play courtyard.",
+    icon: MapPin,
+  },
+  {
+    question: "What is the typical setup timeline from agreement to launch?",
+    answer:
+      "The typical turnkey setup timeline is 30–45 days. Our project managers oversee interior branding, child-safe fixtures, play zones, and curriculum delivery to ensure a smooth launch.",
+    icon: Clock,
+  },
+  {
+    question: "What marketing and brand-building support do partners receive?",
+    answer:
+      "Partners receive 360° support: national digital marketing campaigns, Google Ads, hyper-local social media presence, event kits, brochures, and dedicated admissions lead generation for your pin code.",
+    icon: TrendingUp,
+  },
 ];
 
-const FranchiseFAQSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  return (
-    <section className="w-full py-24 bg-indigo-50 relative overflow-hidden">
-      <ElegantEdge position="top" fillColor="#eef2ff" />
-
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-30">
-        <div className="absolute top-20 right-10 w-32 h-32 bg-emerald-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" />
-        <div className="absolute top-40 -left-10 w-40 h-40 bg-teal-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" />
-      </div>
-
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 mt-8">
-          <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-            Frequently Asked <span className="text-emerald-500">Questions</span>
-          </h2>
-          <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-12"></div>
-        </div>
-
-        <div className="flex flex-col">
-          {franchiseFaqData.map((item, index) => (
-            <FAQItem
-              key={index}
-              item={item}
-              index={index}
-              isOpen={openIndex === index}
-              onClick={() => toggleFAQ(index)}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- HEADER COMPONENT ---
-const FranchiseHeader = () => {
-  return (
-    <header className="relative pt-32 sm:pt-40 pb-10 sm:pb-14 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-pastel-mint-50/50 to-[#FAF8F5]">
-      {/* Ambient Pastel Glows */}
-      <div className="absolute top-10 left-1/4 w-80 h-80 bg-emerald-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-20 right-1/4 w-80 h-80 bg-pastel-sage-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastel-mint-100 border border-pastel-mint-200 text-emerald-900 text-xs sm:text-sm font-bold mb-4 shadow-sm">
-            <HeartHandshake className="w-3.5 h-3.5 text-emerald-700" />
-            <span>Partner • Collaborate</span>
-          </div>
-
-          <h1 className="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-4">
-            Build the Future <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600">With Us.</span>
-          </h1>
-
-          <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-            Bring our modern approach to early education to your city and empower the next generation.
-          </p>
-        </motion.div>
-      </div>
-    </header>
-  );
-};
-
-// --- MAIN PAGE COMPONENT ---
 export default function FranchisePage({
   onHandleSubmit,
   defaultFranchise,
@@ -263,6 +143,8 @@ export default function FranchisePage({
   onHandleSubmit: (data: FranchiseFormSchemaType) => void;
   isLoading: boolean;
 }) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const form = useForm<FranchiseFormSchemaType>({
     mode: "all",
@@ -272,401 +154,856 @@ export default function FranchisePage({
       phone: defaultFranchise?.phone || "",
       city: defaultFranchise?.city || "",
       budget: defaultFranchise?.budget || "Playway (5 to 6 lakh)",
-      property: defaultFranchise?.property || "Yes, I own commercial property"
+      property: defaultFranchise?.property || "Yes, I own commercial property",
     },
   });
 
-  const { register, formState: { errors } } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
   const onSubmit = (data: FranchiseFormSchemaType) => {
-    // Pass the fully gathered data to the parent handler
     onHandleSubmit(data);
   };
 
+  const currentSlide = franchiseSlides[activeSlide]!;
+  const CardIcon1 = currentSlide.card1.icon;
+  const CardIcon2 = currentSlide.card2.icon;
+
+  const scrollToForm = () => {
+    const el = document.getElementById("franchise-application-form");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className={`w-full flex flex-col font-jakarta bg-[#FAF8F5]`}>
+    <div className="w-full bg-[#FAF8F5] text-[#0F2040] font-jakarta selection:bg-[#FFEFE6] selection:text-[#F65A36]">
+      {/* =========================================================================
+          HERO STAGE: Exact HeroSlider DNA with Dynamic Character Pop-Out
+      ========================================================================= */}
+      <section
+        aria-label="Franchise Hero Stage"
+        className="relative w-full overflow-hidden bg-[#FFF8F4] pt-32 sm:pt-40 pb-16 sm:pb-24 select-none"
+        style={{ backgroundImage: heroPattern, backgroundSize: "360px 360px" }}
+      >
+        {/* Soft Ambient Radial Glows */}
+        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-[#F65A36]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -right-20 bottom-10 h-96 w-96 rounded-full bg-[#2F8FD0]/10 blur-3xl pointer-events-none" />
 
-      <FranchiseHeader />
+        {/* Hand-drawn wavy line background accent */}
+        <svg
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 w-full"
+          viewBox="0 0 1440 400"
+          preserveAspectRatio="none"
+          fill="none"
+        >
+          <path
+            d="M0 340C260 310 480 250 720 285S1180 240 1440 130"
+            stroke="#F65A36"
+            strokeOpacity="0.45"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
 
-      {/* =========================================
-          SECTION 1: PARTNER FORM (Modern Glassmorphism)
-      ========================================= */}
-      <section className="relative w-full bg-pastel-mint-50/40 pt-12 pb-28 overflow-hidden">
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
+            {/* ---------- LEFT: Hero Headline & Action ---------- */}
+            <div className="flex flex-col items-start lg:col-span-7">
+              {/* Badge with pulsing white dot */}
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#F65A36] px-4 py-1.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_16px_-8px_rgba(246,90,54,0.8)]">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                {currentSlide.badge}
+              </span>
 
-        {/* Background Blobs */}
-        <div className="absolute bottom-20 right-0 w-[500px] h-[500px] bg-teal-100/40 rounded-full blur-[100px] pointer-events-none translate-y-1/3 translate-x-1/3"></div>
-
-        <div className="mx-auto px-6 relative z-10 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-3 font-outfit">
-              Partner With <span className="text-emerald-700">Little Cambridge</span>
-            </h2>
-            <p className="text-slate-600 text-base sm:text-lg font-medium max-w-xl mx-auto">
-              Fill out the form below to connect with our partner advisory team and receive a comprehensive prospectus.
-            </p>
-          </div>
-
-          {/* FORM CARD */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-white relative"
-          >
-            <div className="absolute -top-10 -right-6 w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center animate-bounce-slow shadow-sm border-4 border-white">
-              <Briefcase className="w-8 h-8 text-emerald-600" />
-            </div>
-
-            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-
-              {/* Name */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">Full Name <span className="text-red-500">*</span></label>
-                <div className="relative group">
-                  <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                  <input
-                    {...register("name", { required: true })}
-                    type="text"
-                    placeholder="Your name"
-                    disabled={isLoading}
-                    className={`w-full bg-slate-50/50 border-2 rounded-2xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'}`}
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">Phone Number <span className="text-red-500">*</span></label>
-                <div className="relative group">
-                  <Phone className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                  <input
-                    {...register("phone", { required: true })}
-                    type="tel"
-                    placeholder="Your Number"
-                    disabled={isLoading}
-                    className={`w-full bg-slate-50/50 border-2 rounded-2xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all ${errors.phone ? 'border-red-400' : 'border-slate-200'}`}
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">Email Address <span className="text-red-500">*</span></label>
-                <div className="relative group">
-                  <Mail className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                  <input
-                    {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                    type="email"
-                    placeholder="email@example.com"
-                    disabled={isLoading}
-                    className={`w-full bg-slate-50/50 border-2 rounded-2xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'}`}
-                  />
-                </div>
-              </div>
-
-              {/* City */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">City / Location <span className="text-red-500">*</span></label>
-                <div className="relative group">
-                  <MapPin className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                  <input
-                    {...register("city", { required: true })}
-                    type="text"
-                    placeholder="e.g. Mumbai, Andheri West"
-                    disabled={isLoading}
-                    className={`w-full bg-slate-50/50 border-2 rounded-2xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all ${errors.city ? 'border-red-400' : 'border-slate-200'}`}
-                  />
-                </div>
-              </div>
-
-              {/* Budget */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">Investment Budget</label>
-                <div className="relative group">
-                  <DollarSign className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors z-10" />
-                  <select
-                    {...register("budget")}
-                    disabled={isLoading}
-                    className="w-full bg-slate-50/50 border-2 border-slate-200 rounded-2xl py-3 pl-12 pr-10 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all appearance-none cursor-pointer"
+              {/* Massive Outfit Title with Hand-Drawn Wavy Underline */}
+              <h1 className="mb-5 font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#0F2040]">
+                {currentSlide.title}{" "}
+                <span className="relative inline-block text-[#F65A36]">
+                  {currentSlide.highlight}
+                  <svg
+                    aria-hidden
+                    className="absolute -bottom-2 left-0 h-2.5 w-full"
+                    viewBox="0 0 200 10"
+                    preserveAspectRatio="none"
+                    fill="none"
                   >
-                    <option value="Playway (5 to 6 lakh)">Playway (5 to 6 lakh)</option>
-                    <option value="Montessori (6-7 lakh)">Montessori (6-7 lakh)</option>
-                  </select>
-                  <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none group-focus-within:text-emerald-500" />
-                </div>
-              </div>
+                    <path
+                      d="M2 7C50 1 100 1 198 6"
+                      stroke="#F65A36"
+                      strokeOpacity="0.5"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+              </h1>
 
-              {/* Property */}
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-slate-700 text-sm tracking-wide">Do you own property?</label>
-                <div className="relative group">
-                  <Building2 className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors z-10" />
-                  <select
-                    {...register("property")}
-                    disabled={isLoading}
-                    className="w-full bg-slate-50/50 border-2 border-slate-200 rounded-2xl py-3 pl-12 pr-10 text-slate-700 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="Yes, I own commercial property">Yes, I own commercial property</option>
-                    <option value="No, I will rent/lease">No, I will rent/lease</option>
-                  </select>
-                  <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none group-focus-within:text-emerald-500" />
-                </div>
-              </div>
+              {/* Subtitle */}
+              <p className="mb-7 max-w-xl text-base sm:text-lg font-medium leading-relaxed text-slate-600">
+                {currentSlide.text}
+              </p>
 
-              <div className="md:col-span-2 mt-4">
+              {/* Hero Action Buttons */}
+              <div className="mb-7 flex flex-wrap items-center gap-3 sm:gap-4">
                 <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-lg ${isLoading ? 'opacity-70 cursor-not-allowed hover:translate-y-0 hover:shadow-lg' : ''}`}
+                  onClick={scrollToForm}
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[#F65A36] px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white shadow-[0_10px_20px_-10px_rgba(246,90,54,0.9)] transition-all hover:bg-[#E84A26] hover:-translate-y-0.5"
                 >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-6 h-6 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      Request Franchise Details
-                      <Send className="w-5 h-5" />
-                    </>
-                  )}
+                  <span>Apply for Franchise</span>
+                  <ArrowRight className="h-4 w-4" />
                 </button>
+
+                <a
+                  href="/brochures/franchise-prospectus.pdf"
+                  download
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-[#0F2040] px-6 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-[#0F2040] transition-all hover:bg-[#0F2040] hover:text-white"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download Prospectus</span>
+                </a>
               </div>
-            </form>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* =========================================
-          SECTION 2: WHY CHOOSE DHAWNI
-      ========================================= */}
-      <section className="relative w-full bg-white py-24 overflow-hidden">
-        <ElegantEdge position="top" fillColor="#ecfdf5" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 mt-8">
-            <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Little Cambridge Global</span> Preschool Franchise?
-            </h2>
-            <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-12"></div>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="w-full lg:w-1/2 space-y-6">
-              <p className="text-slate-600 leading-relaxed text-lg">
-                Little Cambridge Global Preschool combines international Montessori principles with a practical and scalable preschool franchise model designed for the growing early education sector in India.
-              </p>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                Our child-focused approach creates a nurturing environment where children develop independence, confidence, creativity, critical thinking, and essential life skills. The learning ecosystem is strengthened by Montessori experts, trained educators, professional trainers, and meaningful parent engagement.
-              </p>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                For franchise partners, Little Cambridge Global offers a cost-effective and structured business model with professional guidance and an established educational framework. The relatively low investment and efficient operational structure make it an attractive opportunity for aspiring entrepreneurs seeking to enter the preschool education sector.
-              </p>
-              <p className="text-emerald-600 font-bold italic text-lg mt-4">
-                Little Cambridge Global — nurturing young minds while creating opportunities for sustainable growth.
-              </p>
+              {/* Dynamic Checkmark Pills */}
+              <ul className="flex flex-wrap gap-2.5">
+                {currentSlide.points.map((p) => (
+                  <li
+                    key={p}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#0F2040]/10 bg-white px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-[#0F2040] shadow-sm"
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-[#F65A36]" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="w-full lg:w-1/2 flex items-center justify-center relative h-[400px]">
+            {/* ---------- RIGHT: Giant Doodle Panel with Character Pop-Out ---------- */}
+            <div className="relative mx-auto w-full max-w-[420px] lg:col-span-5 lg:max-w-none">
+              <div
+                className="relative mx-auto aspect-[1/1.02] w-full max-w-[440px] rounded-[2.5rem] sm:rounded-[3rem] shadow-[0_30px_50px_-25px_rgba(15,32,64,0.55)] transition-colors duration-500 overflow-visible"
+                style={{ backgroundColor: currentSlide.panelColor }}
+              >
+                {/* Character pops out of the top/bottom boundary */}
+                <div className="absolute inset-x-0 bottom-0 top-[-10%] flex items-end justify-center pointer-events-none">
+                  <Image
+                    src={currentSlide.image}
+                    alt={currentSlide.alt}
+                    width={400}
+                    height={440}
+                    priority
+                    className="h-auto max-h-[98%] w-auto max-w-[90%] object-contain drop-shadow-[0_20px_20px_rgba(0,0,0,0.3)] transition-transform duration-500"
+                  />
+                </div>
+              </div>
+
+              {/* Floating Animated Badge 1 (Top-Left) */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-tr from-emerald-300 to-teal-300 shadow-2xl opacity-60 m-auto"
-                animate={{
-                  borderRadius: ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%"]
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                style={{ width: '90%', height: '90%' }}
-              />
-              <div className="relative z-10 w-full h-full p-8 flex items-center justify-center">
-                <Image className="slow-bounce" alt="table image" src={tableimage} width={400} height={400}></Image>
-                {/* <div className="w-full max-w-sm aspect-square bg-white/40 backdrop-blur-sm rounded-3xl border border-white/50 shadow-xl flex items-center justify-center p-8 text-center">
-                  <div>
-                    <TrendingUp className="w-16 h-16 text-emerald-600 opacity-80 mx-auto mb-4" />
-                    <h3 className="font-bold text-slate-800 text-xl mb-2">Preschool Franchise in India</h3>
-                    <p className="text-slate-600 text-sm">Combines educational purpose with entrepreneurial opportunity. Focuses on physical, cognitive, social, and emotional development.</p>
-                  </div>
-                </div> */}
-              </div>
+                animate={{ y: [0, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut" }}
+                className="absolute -left-2 top-6 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_14px_30px_-12px_rgba(15,32,64,0.35)] sm:-left-6"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFEFE6] text-[#F65A36]">
+                  <CardIcon1 className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs font-bold leading-tight text-[#0F2040]">
+                    {currentSlide.card1.title}
+                  </span>
+                  <span className="block text-[11px] font-medium leading-tight text-slate-500">
+                    {currentSlide.card1.sub}
+                  </span>
+                </span>
+              </motion.div>
+
+              {/* Floating Animated Badge 2 (Bottom-Right) */}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.4 }}
+                className="absolute -right-2 bottom-6 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_14px_30px_-12px_rgba(15,32,64,0.35)] sm:-right-4"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E3F1FB] text-[#2F8FD0]">
+                  <CardIcon2 className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs font-bold leading-tight text-[#0F2040]">
+                    {currentSlide.card2.title}
+                  </span>
+                  <span className="block text-[11px] font-medium leading-tight text-slate-500">
+                    {currentSlide.card2.sub}
+                  </span>
+                </span>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* ---------- Interactive Model Switcher Tabs (Same as HeroSlider tabs) ---------- */}
+          <div className="mt-12 pt-6 border-t border-[#0F2040]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="grid w-full max-w-3xl grid-cols-1 sm:grid-cols-3 gap-3">
+              {franchiseSlides.map((slide, idx) => {
+                const isActive = idx === activeSlide;
+                return (
+                  <button
+                    key={slide.id}
+                    onClick={() => setActiveSlide(idx)}
+                    className={`rounded-2xl p-3.5 text-left transition-all ${isActive
+                        ? "bg-white border-2 border-[#F65A36] shadow-md ring-2 ring-[#F65A36]/15 scale-[1.01]"
+                        : "bg-white/60 hover:bg-white border border-slate-200/80 shadow-xs"
+                      }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-xs font-black ${isActive ? "text-[#F65A36]" : "text-slate-400"}`}>
+                        {slide.num}
+                      </span>
+                      {isActive && (
+                        <span className="inline-block w-2 h-2 rounded-full bg-[#F65A36] animate-pulse" />
+                      )}
+                    </div>
+                    <span className="block font-outfit text-sm font-bold text-[#0F2040]">
+                      {slide.tab}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
+              <Sparkles className="w-4 h-4 text-[#F65A36]" />
+              <span>Click a model to explore unit economics & architecture</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================
-          SECTION 3: BENEFITS & SUPPORT ECOSYSTEM
-      ========================================= */}
-      <section className="relative w-full bg-slate-50 py-24 overflow-hidden">
-        <ElegantEdge position="top" fillColor="#ffffff" />
+      {/* =========================================================================
+          SECTION 2: APPLICATION DESK & FORM (With boy_pointingtowardform.png)
+      ========================================================================= */}
+      <section id="franchise-application-form" className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 lg:p-16 border border-white shadow-soft relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Column (Col 5) - Character pointing directly at form */}
+            <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#F65A36] text-xs sm:text-sm font-bold shadow-xs">
+                <Send className="w-3.5 h-3.5 text-[#F65A36]" />
+                <span>Partner Desk • Fast-Track Application</span>
+              </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 mt-8">
-            <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              A Complete Support Ecosystem for <span className="text-emerald-500">Franchise Success</span>
+              <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F2040] tracking-tight leading-tight">
+                Request Franchise <span className="text-[#F65A36]">Prospectus</span>
+              </h2>
+
+              <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
+                Connect directly with our National Expansion Leadership. Receive a city-specific financial model, spatial blueprints, and turnkey onboarding kits.
+              </p>
+
+              {/* Boy pointing right at the form */}
+              <div className="pt-2 flex justify-center lg:justify-start">
+                <div className="relative w-52 h-56 sm:w-60 sm:h-64">
+                  <Image
+                    src="/assests/boy_pointingtowardform.png"
+                    alt="Boy Pointing to Franchise Form"
+                    width={260}
+                    height={280}
+                    className="object-contain drop-shadow-xl"
+                  />
+                </div>
+              </div>
+
+              {/* Quick direct contact card */}
+              <div className="bg-[#FAF8F5] rounded-2xl p-4 border border-slate-200/80 shadow-xs text-left max-w-sm mx-auto lg:mx-0">
+                <p className="text-xs font-bold text-[#0F2040]">Need an instant conversation?</p>
+                <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                  Call our Director of Franchise Partnerships directly:
+                </p>
+                <a
+                  href="tel:+917340655077"
+                  className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-[#F65A36] hover:underline"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>+91 734 065 5077 (10 AM – 7 PM IST)</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column (Col 7) - High-Conversion Application Form */}
+            <div className="lg:col-span-7 bg-[#FAF8F5] rounded-3xl p-6 sm:p-9 border border-slate-200/90 shadow-sm">
+              <div className="mb-6 pb-4 border-b border-slate-200/70 flex items-center justify-between">
+                <div>
+                  <h3 className="font-outfit text-xl sm:text-2xl font-extrabold text-[#0F2040]">
+                    Franchise Inquiry Form
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">
+                    Takes under 2 minutes • 100% Confidential
+                  </p>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F5E9] text-emerald-800 text-xs font-bold">
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  Pan-India 2026/27
+                </span>
+              </div>
+
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Full Name */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                    Full Name <span className="text-[#F65A36]">*</span>
+                  </label>
+                  <div className="relative group">
+                    <User className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors" />
+                    <input
+                      {...register("name", { required: "Full name is required" })}
+                      type="text"
+                      placeholder="e.g. Rohil Sharma"
+                      disabled={isLoading}
+                      className={`w-full bg-white border-2 rounded-2xl py-3 pl-11 pr-4 text-sm text-[#0F2040] font-medium placeholder:text-slate-400 focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all ${errors.name ? "border-red-400" : "border-slate-200/80"
+                        }`}
+                    />
+                  </div>
+                  {errors.name && (
+                    <p className="text-[11px] font-bold text-red-500">{errors.name.message}</p>
+                  )}
+                </div>
+
+                {/* Phone & Email Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Phone */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                      Phone Number <span className="text-[#F65A36]">*</span>
+                    </label>
+                    <div className="relative group">
+                      <Phone className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors" />
+                      <input
+                        {...register("phone", {
+                          required: "Phone number is required",
+                          minLength: { value: 10, message: "Enter at least 10 digits" },
+                        })}
+                        type="tel"
+                        placeholder="e.g. 9876543210"
+                        disabled={isLoading}
+                        className={`w-full bg-white border-2 rounded-2xl py-3 pl-11 pr-4 text-sm text-[#0F2040] font-medium placeholder:text-slate-400 focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all ${errors.phone ? "border-red-400" : "border-slate-200/80"
+                          }`}
+                      />
+                    </div>
+                    {errors.phone && (
+                      <p className="text-[11px] font-bold text-red-500">{errors.phone.message}</p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                      Email Address <span className="text-[#F65A36]">*</span>
+                    </label>
+                    <div className="relative group">
+                      <Mail className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors" />
+                      <input
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: { value: /^\S+@\S+$/i, message: "Enter a valid email address" },
+                        })}
+                        type="email"
+                        placeholder="name@email.com"
+                        disabled={isLoading}
+                        className={`w-full bg-white border-2 rounded-2xl py-3 pl-11 pr-4 text-sm text-[#0F2040] font-medium placeholder:text-slate-400 focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all ${errors.email ? "border-red-400" : "border-slate-200/80"
+                          }`}
+                      />
+                    </div>
+                    {errors.email && (
+                      <p className="text-[11px] font-bold text-red-500">{errors.email.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* City */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                    Proposed City / Location <span className="text-[#F65A36]">*</span>
+                  </label>
+                  <div className="relative group">
+                    <MapPin className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors" />
+                    <input
+                      {...register("city", { required: "City is required" })}
+                      type="text"
+                      placeholder="e.g. Bangalore, Whitefield / Hyderabad"
+                      disabled={isLoading}
+                      className={`w-full bg-white border-2 rounded-2xl py-3 pl-11 pr-4 text-sm text-[#0F2040] font-medium placeholder:text-slate-400 focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all ${errors.city ? "border-red-400" : "border-slate-200/80"
+                        }`}
+                    />
+                  </div>
+                  {errors.city && (
+                    <p className="text-[11px] font-bold text-red-500">{errors.city.message}</p>
+                  )}
+                </div>
+
+                {/* Planned Budget & Property */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                      Planned Investment Budget
+                    </label>
+                    <div className="relative group">
+                      <DollarSign className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors z-10" />
+                      <select
+                        {...register("budget")}
+                        disabled={isLoading}
+                        className="w-full bg-white border-2 border-slate-200/80 rounded-2xl py-3 pl-11 pr-10 text-xs sm:text-sm text-[#0F2040] font-medium focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="Playway (5 to 6 lakh)">Playway (₹5–6 Lakh)</option>
+                        <option value="Montessori (6-7 lakh)">Montessori (₹6–12 Lakh)</option>
+                        <option value="Flagship Campus (15+ lakh)">Flagship Campus (₹15+ Lakh)</option>
+                      </select>
+                      <ChevronDown className="absolute right-4 top-3.5 w-4 h-4 text-slate-400 pointer-events-none group-focus-within:text-[#F65A36]" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-bold text-[#0F2040] text-xs sm:text-sm">
+                      Property Availability
+                    </label>
+                    <div className="relative group">
+                      <Building2 className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#F65A36] transition-colors z-10" />
+                      <select
+                        {...register("property")}
+                        disabled={isLoading}
+                        className="w-full bg-white border-2 border-slate-200/80 rounded-2xl py-3 pl-11 pr-10 text-xs sm:text-sm text-[#0F2040] font-medium focus:outline-none focus:border-[#F65A36] focus:ring-4 focus:ring-[#F65A36]/10 transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="Yes, I own commercial property">Yes, I own property</option>
+                        <option value="No, I will rent/lease">No, I will rent/lease</option>
+                        <option value="Currently scouting locations">Scouting locations</option>
+                      </select>
+                      <ChevronDown className="absolute right-4 top-3.5 w-4 h-4 text-slate-400 pointer-events-none group-focus-within:text-[#F65A36]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit CTA */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className={`w-full bg-[#F65A36] hover:bg-[#E84A26] text-white font-bold py-4 px-8 rounded-full shadow-soft hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base sm:text-lg ${isLoading ? "opacity-75 cursor-not-allowed hover:translate-y-0" : ""
+                      }`}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Submitting Application...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Franchise Application</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="pt-2 text-center text-xs text-slate-500 font-semibold flex items-center justify-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Confidential Advisory • No Third-Party Spam</span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 3: 4 REVOLUTIONARY PILLARS (Bento Grid)
+      ========================================================================= */}
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#0F2040] text-xs sm:text-sm font-bold shadow-xs mb-4">
+            <Star className="w-3.5 h-3.5 text-[#F65A36]" />
+            <span>The Little Cambridge Business Model</span>
+          </div>
+          <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F2040] tracking-tight mb-4">
+            Built for Early Childhood Joy, <span className="text-[#F65A36]">Engineered for Profit</span>
+          </h2>
+          <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
+            Our partnership framework resolves the three biggest headaches in preschool operations: licensing complexity, educator turnover, and predatory royalties.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Card 1 */}
+          <div className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#FFEFE6] text-[#F65A36] flex items-center justify-center mb-5">
+                <DollarSign className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-extrabold text-xl text-[#0F2040] mb-2">
+                Zero Royalty Fees
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                Retain 100% of all tuition and daycare fees. We only charge transparent student kit pricing, giving you maximum unit profit margins.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-slate-100 mt-6 text-xs font-bold text-[#F65A36]">
+              Keep 100% Student Tuition
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#E3F1FB] text-[#2F8FD0] flex items-center justify-center mb-5">
+                <Clock className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-extrabold text-xl text-[#0F2040] mb-2">
+                30–45 Days Launch
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                From agreement signing to your grand opening. Our project team delivers turnkey spatial plans, branding assets, and sensory play modules.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-slate-100 mt-6 text-xs font-bold text-[#2F8FD0]">
+              Fast-Track Feasibility & Build
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#E8F5E9] text-emerald-700 flex items-center justify-center mb-5">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-extrabold text-xl text-[#0F2040] mb-2">
+                Parent CCTV Tech
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                Stand out in your local market with live CCTV parent streaming, cloud ERP, digital attendance, and developmental portfolios on the parent app.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-slate-100 mt-6 text-xs font-bold text-emerald-700">
+              #1 Parent Trust Factor
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#FAF5ED] text-amber-700 flex items-center justify-center mb-5">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-extrabold text-xl text-[#0F2040] mb-2">
+                40%–50% ROI
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                Multi-revenue streams from Toddler Playgroup, Nursery, Kindergarten, Mind Lab, Daycare, and holiday enrichment camps.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-slate-100 mt-6 text-xs font-bold text-amber-700">
+              Rapid Capital Breakeven
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 4: 360° OPERATIONAL ECOSYSTEM (Navy Theme matching Hero)
+      ========================================================================= */}
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div
+          className="relative bg-gradient-to-br from-[#0F2040] via-[#162B50] to-[#0A172D] text-white rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 lg:p-16 shadow-xl overflow-hidden border border-white/10"
+          style={{ backgroundImage: darkPattern, backgroundSize: "300px 300px" }}
+        >
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#5DB6E0] text-xs sm:text-sm font-bold mb-4 shadow-sm">
+              <Building2 className="w-3.5 h-3.5 text-[#5DB6E0]" />
+              <span>Full-Stack Operational Guidance</span>
+            </div>
+            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+              Everything Provided, <span className="text-[#F65A36]">Zero Guesswork</span>
             </h2>
-            <div className="w-20 h-1.5 bg-gradient-to-r from-slate-200 to-transparent mx-auto rounded-full mb-8"></div>
-            <p className="text-slate-600 max-w-3xl mx-auto text-lg leading-relaxed">
-              Little Cambridge Global provides franchise partners with a comprehensive support system designed to make preschool operations simpler, more efficient, and growth-oriented.
+            <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
+              From day one, you get dedicated operational managers, teacher certification, and national brand power.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Operational Excellence", desc: "Comprehensive management, academic, accounting, security, and day-to-day operational support.", icon: Building2 },
-              { title: "People & Training", desc: "Assistance with recruiting qualified talent and continuous teacher training to uphold educational standards.", icon: Users },
-              { title: "Technology-Driven Management", desc: "Customised school management software, CCTV surveillance, live monitoring, and app-based parent-teacher communication.", icon: TrendingUp },
-              { title: "Marketing & Brand Building", desc: "National-level marketing initiatives supported by local marketing opportunities for individual franchise centres.", icon: Award },
-              { title: "Expert Guidance", desc: "Access to an experienced management and academic team for continuous professional assistance.", icon: CheckCircle },
-              { title: "Value-Added Programs", desc: "Specialised offerings such as Mind Lab and daycare programs help create a broader early-learning experience.", icon: Star },
-              { title: "End-to-End Partnership", desc: "From planning and setup to daily operations and ongoing growth, receive hands-on guidance from the Head Office.", icon: CheckCircle },
-              { title: "Key Advantages", desc: "Low-investment model, international Montessori guidance, established brand, and long-term business growth potential with 40%-50% ROI.", icon: DollarSign },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 group"
+              {
+                title: "Architectural & Interior Blueprint",
+                desc: "3D architectural floor plans, sensory park designs, child-safe fixtures, and acoustic materials tailored to your premises.",
+                icon: Building2,
+              },
+              {
+                title: "Recruitment & Montessori Academy",
+                desc: "Continuous recruitment assistance and certified training through our Centralized Montessori Academy with periodic audits.",
+                icon: Users,
+              },
+              {
+                title: "Digital ERP & Parent Mobile App",
+                desc: "Cloud school ERP, student fee management, automated receipts, bus tracking, and real-time CCTV parent streaming.",
+                icon: ShieldCheck,
+              },
+              {
+                title: "Hyper-Local Digital Marketing",
+                desc: "Geo-targeted Google Ads, Instagram lead campaigns, local school tie-ups, brochures, and admissions open-house events.",
+                icon: TrendingUp,
+              },
+              {
+                title: "Health, Safety & Hygiene SOPs",
+                desc: "Standard operating procedures covering pediatric first-aid, sanitization routines, child-proofing, and emergency drills.",
+                icon: CheckCircle2,
+              },
+              {
+                title: "Mind Lab & Daycare Integration",
+                desc: "Generate full-day operational revenue with cognitive Mind Lab strategy games, infant suites, and nutritious meal routines.",
+                icon: Star,
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white/10 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-white/15 shadow-sm hover:bg-white/15 transition-all duration-300"
               >
-                <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
-                  <item.icon className="w-7 h-7 text-emerald-500 group-hover:text-white transition-colors duration-300" />
+                <div className="w-12 h-12 rounded-2xl bg-[#FFEFE6] text-[#F65A36] flex items-center justify-center mb-5">
+                  <item.icon className="w-6 h-6" />
                 </div>
-                <h3 className={`text-xl font-bold text-slate-800 mb-3 ${bodyFont.className}`}>{item.title}</h3>
-                <p className="text-slate-600 leading-relaxed text-sm">{item.desc}</p>
-              </motion.div>
+                <h3 className="font-outfit font-bold text-lg sm:text-xl text-white mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm font-medium leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* =========================================
-          SECTION 4: REQUIREMENTS
-      ========================================= */}
-      <section className="relative w-full bg-white py-24 overflow-hidden">
-        <ElegantEdge position="top" fillColor="#f8fafc" />
+      {/* =========================================================================
+          SECTION 5: SPACE, CRITERIA & DOWNLOADS (Featuring onlydogimage.png)
+      ========================================================================= */}
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 lg:p-16 border border-white shadow-soft relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left: Mascot Community Banner (Col 5) */}
+            <div className="lg:col-span-5 flex justify-center order-2 lg:order-1">
+              <div className="relative w-full max-w-[380px] rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-br from-[#FFEFE6] via-[#FAF8F5] to-[#E3F1FB] p-6 sm:p-8 border border-slate-200/80 shadow-soft text-center flex flex-col items-center">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-xs font-bold text-[#0F2040] shadow-xs mb-3">
+                  <Heart className="w-3.5 h-3.5 text-[#F65A36]" />
+                  A Trusted Preschool Family
+                </span>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                <div className="relative w-48 h-56 my-2">
+                  <Image
+                    src="/assests/onlydogimage.png"
+                    alt="Campus Mascot Dog"
+                    width={220}
+                    height={250}
+                    className="object-contain drop-shadow-md"
+                  />
+                </div>
 
-            <div className="w-full lg:w-1/2 space-y-6">
-              <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-6 ${titleFont.className}`}>
-                Franchise <span className="text-teal-500">Requirements & Support</span>
+                <div className="mt-2 bg-white rounded-2xl p-4 border border-slate-100 shadow-xs w-full text-center">
+                  <p className="text-xs sm:text-sm font-bold text-[#0F2040]">
+                    &quot;We look forward to welcoming you to the Little Cambridge family!&quot;
+                  </p>
+                  <p className="text-[11px] text-slate-500 font-semibold mt-1">
+                    Free Property Site Audit Available
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Space Criteria & Direct Downloads (Col 7) */}
+            <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E3F1FB] border border-[#2F8FD0]/20 text-[#2F8FD0] text-xs sm:text-sm font-bold shadow-xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#2F8FD0]" />
+                <span>Eligibility & Property Criteria</span>
+              </div>
+
+              <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F2040] tracking-tight leading-tight">
+                Campus Space & <span className="text-[#F65A36]">Criteria</span>
               </h2>
-              <div className="space-y-4">
+
+              <div className="space-y-3.5">
                 {[
-                  { title: "Space Requirement", desc: "A minimum property area of 3,500 sq. ft., with the flexibility to extend up to 10,000 sq. ft., located in a well-connected residential or commercial area with a safe and low-pollution environment." },
-                  { title: "Investment", desc: "The estimated initial investment starts from ₹10–12 lakhs, covering franchise fees and basic setup requirements. The overall investment may reach up to ₹1 crore in certain cities." },
-                  { title: "Property", desc: "The preschool can be established on either an owned or leased property, subject to approval from the operations team." },
-                  { title: "Experience", desc: "No prior preschool or business experience is mandatory. However, partners should demonstrate a genuine commitment to quality education and strong interpersonal skills." },
-                  { title: "Training & Support", desc: "Franchisees and staff receive comprehensive training, supported by operational guidelines, manuals, and ongoing guidance from experienced Montessori professionals." },
-                  { title: "Franchise Agreement", desc: "The standard franchise agreement is generally valid for five years, with an option for renewal for an additional term, subject to the applicable terms and conditions." }
-                ].map((req, i) => (
-                  <div key={i} className="flex gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
-                    <div className="mt-1 shrink-0">
-                      <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-teal-600" />
-                      </div>
+                  {
+                    title: "Space Requirement",
+                    desc: "Minimum 3,500 sq. ft. of covered area, expandable up to 10,000 sq. ft. Ground-floor access with outdoor play space preferred.",
+                  },
+                  {
+                    title: "Investment Profile",
+                    desc: "Initial capital starts at ₹10–12 Lakhs (covering setup, branding, and curriculum kits) up to ₹1 Crore for premier multi-floor centers.",
+                  },
+                  {
+                    title: "Property Status",
+                    desc: "Can be established on owned or leased property in prime residential zones or well-connected commercial areas.",
+                  },
+                  {
+                    title: "Agreement Tenure",
+                    desc: "Standard 5 or 10-year renewable franchise agreement with complete ongoing support.",
+                  },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-2xl bg-[#FAF8F5] border border-slate-200/80"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-[#FFEFE6] text-[#F65A36] flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-4 h-4" />
                     </div>
                     <div>
-                      <h3 className={`text-lg font-bold text-slate-800 mb-1 ${bodyFont.className}`}>{req.title}</h3>
-                      <p className="text-slate-600 text-sm md:text-base">{req.desc}</p>
+                      <h4 className="font-outfit font-bold text-[#0F2040] text-sm sm:text-base">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 font-medium mt-0.5 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <div className="w-full lg:w-1/2 flex items-center justify-center relative h-[550px]">
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-tr from-teal-300 to-emerald-300 shadow-2xl opacity-60 m-auto"
-                animate={{
-                  borderRadius: ["60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%"]
-                }}
-                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-                style={{ width: '90%', height: '90%' }}
-              />
-              <div className="relative z-10 w-full h-full p-16 flex items-center justify-center">
+              {/* Official Download Buttons */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a
+                  href="/brochures/franchise-prospectus.pdf"
+                  download
+                  className="inline-flex items-center justify-center gap-2 p-4 rounded-2xl bg-[#0F2040] hover:bg-[#1a3464] text-white text-xs sm:text-sm font-bold shadow-sm transition-all"
+                >
+                  <Download className="w-4 h-4 text-[#F65A36]" />
+                  <span>Download Franchise Prospectus</span>
+                </a>
 
-                <Image alt="boyandgirl" src={boyandgirlimage}></Image>
-
+                <a
+                  href="/brochures/curriculum-overview.pdf"
+                  download
+                  className="inline-flex items-center justify-center gap-2 p-4 rounded-2xl bg-white border-2 border-slate-200 text-[#0F2040] hover:border-[#F65A36] text-xs sm:text-sm font-bold transition-all shadow-xs"
+                >
+                  <Download className="w-4 h-4 text-[#2F8FD0]" />
+                  <span>Download Curriculum Guide</span>
+                </a>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* =========================================
-          SECTION 5: DOWNLOAD BROCHURES
-      ========================================= */}
-      <section className="relative w-full bg-indigo-50 py-24 overflow-hidden">
-        <ElegantEdge position="top" fillColor="#ffffff" />
+      {/* =========================================================================
+          SECTION 6: FRANCHISE FAQS (Featuring quirillookingcluless.png)
+      ========================================================================= */}
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Left Column (Col 4) - Curious Squirrel Mascot */}
+          <div className="lg:col-span-4 bg-gradient-to-br from-[#FFF5EE] via-white to-[#F0F8FF] rounded-3xl p-7 sm:p-8 border border-white shadow-soft flex flex-col justify-between text-center sm:text-left">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/80 text-[#0F2040] text-xs font-bold shadow-xs mb-4">
+                <HelpCircle className="w-3.5 h-3.5 text-[#F65A36]" />
+                <span>Franchise Queries & Clarity</span>
+              </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 mt-8">
-            <h2 className={`text-4xl md:text-5xl font-bold text-slate-800 mb-4 ${titleFont.className}`}>
-              Download <span className="text-emerald-500">Brochures</span>
-            </h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-              Get detailed insights into our franchise models, curriculum, and support systems.
-            </p>
+              <h2 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040] tracking-tight">
+                Curious About Partnering?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium mt-2 leading-relaxed">
+                Clear, transparent business answers to help you evaluate your city&apos;s early education opportunity.
+              </p>
+            </div>
+
+            {/* Mascot Image - quirillookingcluless.png */}
+            <div className="my-6 flex justify-center">
+              <div className="relative w-44 h-44">
+                <Image
+                  src="/assests/quirillookingcluless.png"
+                  alt="Curious Squirrel Mascot"
+                  width={180}
+                  height={180}
+                  className="object-contain drop-shadow-md"
+                />
+              </div>
+            </div>
+
+            {/* Direct Helpline Box */}
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs text-left">
+              <p className="text-xs font-bold text-[#0F2040] mb-0.5">
+                Speak directly to our Director of Expansion
+              </p>
+              <p className="text-[11px] text-slate-500 mb-3 font-medium">
+                Get one-on-one financial modeling for your city.
+              </p>
+              <a
+                href="tel:+917340655077"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-[#0F2040] hover:bg-[#1a3464] text-white text-xs font-bold transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#F65A36]" />
+                <span>Call +91 734 065 5077</span>
+              </a>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Brochure 1 */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white rounded-[2rem] p-6 shadow-lg border border-emerald-100 flex flex-col items-center text-center group"
-            >
-              <div className="w-32 h-40 bg-emerald-100 rounded-xl mb-6 flex items-center justify-center shadow-inner relative overflow-hidden group-hover:shadow-emerald-200/50 transition-all">
-                <FileText className="w-16 h-16 text-emerald-400 opacity-50 absolute" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-500/10"></div>
-                <div className="relative z-10 bg-white p-2 rounded-lg shadow-sm">
-                  <FileText className="w-10 h-10 text-emerald-600" />
+          {/* Right Column (Col 8) - Interactive Accordion */}
+          <div className="lg:col-span-8 space-y-3.5">
+            <div className="mb-6">
+              <h3 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040]">
+                Frequently Asked Partner Questions
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
+                Click on any question to view clear, detailed business answers.
+              </p>
+            </div>
+
+            {franchiseFaqData.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+
+              return (
+                <div
+                  key={idx}
+                  className={`rounded-2xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${isOpen
+                      ? "bg-white border-[#F65A36]/40 shadow-sm"
+                      : "bg-white/80 hover:bg-white border-slate-200/80 shadow-xs"
+                    }`}
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 focus:outline-none"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-[#FFEFE6] text-[#F65A36] flex items-center justify-center shrink-0">
+                        <faq.icon className="w-4 h-4" />
+                      </div>
+                      <span className="font-outfit text-base sm:text-lg font-bold text-[#0F2040]">
+                        {faq.question}
+                      </span>
+                    </div>
+
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen
+                          ? "rotate-180 bg-[#0F2040] text-white"
+                          : "bg-slate-100 text-slate-600"
+                        }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-slate-600 leading-relaxed font-medium border-t border-slate-100 pt-4 ml-0 sm:ml-11">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </div>
-              <h3 className={`text-xl font-bold text-slate-800 mb-2 ${bodyFont.className}`}>Franchise Prospectus</h3>
-              <p className="text-slate-500 text-sm mb-6">Complete guide covering investment, returns, and support structure.</p>
-
-              <a
-                href="/brochures/franchise-prospectus.pdf"
-                download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white font-bold rounded-xl hover:bg-emerald-600 transition-colors shadow-md hover:shadow-lg w-full justify-center"
-              >
-                <Download className="w-5 h-5" />
-                Download PDF
-              </a>
-            </motion.div>
-
-            {/* Brochure 2 */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white rounded-[2rem] p-6 shadow-lg border border-teal-100 flex flex-col items-center text-center group"
-            >
-              <div className="w-32 h-40 bg-teal-100 rounded-xl mb-6 flex items-center justify-center shadow-inner relative overflow-hidden group-hover:shadow-teal-200/50 transition-all">
-                <FileText className="w-16 h-16 text-teal-400 opacity-50 absolute" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-teal-500/10"></div>
-                <div className="relative z-10 bg-white p-2 rounded-lg shadow-sm">
-                  <FileText className="w-10 h-10 text-teal-600" />
-                </div>
-              </div>
-              <h3 className={`text-xl font-bold text-slate-800 mb-2 ${bodyFont.className}`}>Curriculum Overview</h3>
-              <p className="text-slate-500 text-sm mb-6">Explore our international standard Montessori curriculum details.</p>
-
-              <a
-                href="/brochures/curriculum-overview.pdf"
-                download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-600 transition-colors shadow-md hover:shadow-lg w-full justify-center"
-              >
-                <Download className="w-5 h-5" />
-                Download PDF
-              </a>
-            </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
-
-      <FranchiseFAQSection />
-
     </div>
   );
 }
