@@ -111,7 +111,7 @@ const Footer = () => {
                 label="LinkedIn"
               />
               <SocialIcon
-                href="https://www.youtube.com/@LittleDreamersAtCambridge"
+                href="https://www.youtube.com/@LittleCambridgeGlobalPreschool"
                 icon={<Youtube className="h-4 w-4" />}
                 label="YouTube"
               />
