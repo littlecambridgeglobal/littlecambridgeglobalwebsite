@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import Navbar from './navbar/navbar';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import logo from '../public/logo.png';
+import logonew from "../public/newlogo.jpeg";
 import { Outfit, Plus_Jakarta_Sans } from 'next/font/google';
 
 const outfit = Outfit({
@@ -28,18 +29,28 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: 'Little Cambridge Global | Igniting Curious Minds',
-  description: 'A modern space where early learning feels like an adventure. Watch them discover their world with milestone-driven learning pathways, vibrant campuses, and joyful guidance.',
+  title: 'Little Cambridge Global | Little Steps to Global Success',
+  description: 'Preschool and Daycare',
   keywords: [
     'Little Cambridge Global', 'early learning', 'preschool', 'montessori', 'learning pathways',
     'curious minds', 'daycare', 'kindergarten', 'nursery', 'playgroup', 'child development',
     'modern early education', 'preschool franchise', 'delhi preschool', 'bangalore preschool'
   ],
-  images: [
-    {
-      url: logo,
-    }
-  ],
+  openGraph: {
+    title: 'Little Cambridge Global | Little Steps to Global Success',
+    description: 'Preschool and Daycare',
+    url: 'https://www.littlecambridgeglobal.com/',
+    siteName: 'Little Cambridge Global',
+    images: [
+      {
+        url: "./public/newlogo.jpeg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
