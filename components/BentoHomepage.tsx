@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +28,7 @@ import Link from "next/link";
 import HeroSlider from "./HeroSlider";
 import MilestonesSection from "./MilestonesSection";
 import NurturingCarousel, { doodleTile, toDataUri } from "./NurturingCarousel";
+import DirectorMessage from "./DirectorMessage";
 
 // Campus Locations data
 const campusLocations = [
@@ -106,6 +107,9 @@ export default function BentoHomepage() {
 
       {/* SECTION 1.5: NURTURING CARD CAROUSEL */}
       <NurturingCarousel />
+
+      {/* SECTION: FOUNDER & DIRECTOR'S MESSAGE */}
+      <DirectorMessage />
 
       {/* SECTION 2: MILESTONES, MET */}
       {/* <MilestonesSection /> */}

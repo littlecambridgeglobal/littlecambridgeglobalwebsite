@@ -148,7 +148,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] sm:h-[80px] flex items-center justify-between gap-3 sm:gap-4">
           {/* Brand Logo + Text */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 lg:w-28 lg:h-28 transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 py-20 transition-transform duration-300 group-hover:scale-105 shrink-0">
               <Image
                 src={logonew}
                 alt="Little Cambridge Global"
