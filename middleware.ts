@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
 
     // Refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-    const {data} = await supabase.auth.getSession()
+    const { data } = await supabase.auth.getSession()
 
     return response
   } catch (e) {
@@ -23,4 +23,18 @@ export async function middleware(request: NextRequest) {
     })
   }
 
+}
+// ADD THIS EXPORT:
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - opengraph-image (the auto-generated open graph image)
+     * - Any file with an image extension (.jpg, .jpeg, .png, etc.)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|opengraph-image|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 }
