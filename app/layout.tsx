@@ -41,13 +41,6 @@ export const metadata = {
     description: 'Preschool and Daycare',
     url: 'https://www.littlecambridgeglobal.com',
     siteName: 'Little Cambridge Global',
-    images: [
-      {
-        url: "https://www.littlecambridgeglobal.com/newlogo.jpeg",
-        width: 1200,
-        height: 630,
-      },
-    ],
     locale: 'en_IN',
     type: 'website',
   },
