@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logonew from "../../public/newlogo.jpeg";
+import logonew from "../../public/newlogo.png";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -159,10 +159,10 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col justify-center">
               <span className="font-outfit font-black text-[15px] sm:text-[18px] lg:text-[21px] text-[#0F2040] leading-tight tracking-tight group-hover:text-[#F65A36] transition-colors">
-                Little Cambridge
+                Little Cambridge Global
               </span>
               <span className="font-jakarta text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#F65A36] mt-0.5">
-                Global
+                Preschool | Daycare | Mind Labs
               </span>
             </div>
           </Link>
