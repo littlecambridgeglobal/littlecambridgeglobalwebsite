@@ -39,7 +39,7 @@ export const metadata = {
   openGraph: {
     title: 'Little Cambridge Global | Little Steps to Global Success',
     description: 'Preschool and Daycare',
-    url: 'https://www.littlecambridgeglobal.com/',
+    url: 'https://www.littlecambridgeglobal.com',
     siteName: 'Little Cambridge Global',
     images: [
       {
