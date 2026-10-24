@@ -43,7 +43,7 @@ export const metadata = {
     siteName: 'Little Cambridge Global',
     images: [
       {
-        url: "/newlogo.jpeg",
+        url: "https://www.littlecambridgeglobal.com/newlogo.jpeg",
         width: 1200,
         height: 630,
       },
