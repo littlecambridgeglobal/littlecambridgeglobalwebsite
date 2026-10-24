@@ -113,9 +113,8 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       {/* Top contact strip (collapses on scroll) */}
       <div
-        className={`pointer-events-auto bg-[#0F2040] text-white overflow-hidden transition-all duration-300 ${
-          scrolled ? "max-h-0" : "max-h-12"
-        }`}
+        className={`pointer-events-auto bg-[#0F2040] text-white overflow-hidden transition-all duration-300 ${scrolled ? "max-h-0" : "max-h-12"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between text-[11px] sm:text-xs font-medium">
           <span className="hidden md:flex items-center gap-2">
@@ -143,14 +142,13 @@ const Navbar = () => {
 
       {/* Main bar */}
       <nav
-        className={`pointer-events-auto py-2 bg-white transition-shadow duration-300 ${
-          scrolled ? "shadow-[0_6px_20px_-8px_rgba(15,32,64,0.25)]" : "shadow-sm"
-        }`}
+        className={`pointer-events-auto py-2 bg-white transition-shadow duration-300 ${scrolled ? "shadow-[0_6px_20px_-8px_rgba(15,32,64,0.25)]" : "shadow-sm"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] sm:h-[80px] flex items-center justify-between gap-3 sm:gap-4">
           {/* Brand Logo + Text */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 lg:w-28 lg:h-28 transition-transform duration-300 group-hover:scale-105 shrink-0">
               <Image
                 src={logonew}
                 alt="Little Cambridge Global"
@@ -184,20 +182,18 @@ const Navbar = () => {
                   className="group flex flex-col items-center gap-1.5 w-[88px] xl:w-[98px] text-center"
                 >
                   <span
-                    className={`w-9 h-9 rounded-full flex items-center justify-center text-white shadow-sm transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md ${
-                      isActive
-                        ? "bg-[#0F2040]"
-                        : "bg-[#F65A36] group-hover:bg-[#E84A26]"
-                    }`}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center text-white shadow-sm transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md ${isActive
+                      ? "bg-[#0F2040]"
+                      : "bg-[#F65A36] group-hover:bg-[#E84A26]"
+                      }`}
                   >
                     <IconComponent className="w-4 h-4" />
                   </span>
                   <span
-                    className={`text-[12px] xl:text-[13px] font-semibold leading-tight transition-colors ${
-                      isActive
-                        ? "text-[#F65A36]"
-                        : "text-slate-900 group-hover:text-[#F65A36]"
-                    }`}
+                    className={`text-[12px] xl:text-[13px] font-semibold leading-tight transition-colors ${isActive
+                      ? "text-[#F65A36]"
+                      : "text-slate-900 group-hover:text-[#F65A36]"
+                      }`}
                   >
                     {link.label}
                   </span>
@@ -316,37 +312,33 @@ const Navbar = () => {
                         key={link.href}
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className={`group flex items-center justify-between px-3.5 py-3 rounded-2xl transition-all ${
-                          isActive
-                            ? "bg-[#0F2040] text-white shadow-sm"
-                            : "text-slate-700 hover:bg-slate-50"
-                        }`}
+                        className={`group flex items-center justify-between px-3.5 py-3 rounded-2xl transition-all ${isActive
+                          ? "bg-[#0F2040] text-white shadow-sm"
+                          : "text-slate-700 hover:bg-slate-50"
+                          }`}
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
-                              isActive
-                                ? "bg-[#F65A36] text-white shadow-sm"
-                                : "bg-slate-100 text-slate-600 group-hover:bg-[#F65A36]/10 group-hover:text-[#F65A36]"
-                            }`}
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${isActive
+                              ? "bg-[#F65A36] text-white shadow-sm"
+                              : "bg-slate-100 text-slate-600 group-hover:bg-[#F65A36]/10 group-hover:text-[#F65A36]"
+                              }`}
                           >
                             <IconComponent className="w-4 h-4" />
                           </div>
                           <div className="flex flex-col text-left">
                             <span
-                              className={`text-sm font-bold leading-tight ${
-                                isActive
-                                  ? "text-white"
-                                  : "text-slate-800 group-hover:text-[#F65A36]"
-                              }`}
+                              className={`text-sm font-bold leading-tight ${isActive
+                                ? "text-white"
+                                : "text-slate-800 group-hover:text-[#F65A36]"
+                                }`}
                             >
                               {link.label}
                             </span>
                             {link.badge && (
                               <span
-                                className={`text-[10px] font-medium leading-none mt-0.5 ${
-                                  isActive ? "text-slate-300" : "text-slate-400"
-                                }`}
+                                className={`text-[10px] font-medium leading-none mt-0.5 ${isActive ? "text-slate-300" : "text-slate-400"
+                                  }`}
                               >
                                 {link.badge}
                               </span>
@@ -355,9 +347,8 @@ const Navbar = () => {
                         </div>
 
                         <ChevronRight
-                          className={`w-4 h-4 transition-transform group-hover:translate-x-0.5 ${
-                            isActive ? "text-[#F65A36]" : "text-slate-300"
-                          }`}
+                          className={`w-4 h-4 transition-transform group-hover:translate-x-0.5 ${isActive ? "text-[#F65A36]" : "text-slate-300"
+                            }`}
                         />
                       </Link>
                     );
