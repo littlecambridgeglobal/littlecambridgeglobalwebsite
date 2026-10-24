@@ -48,11 +48,11 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: '/newlogo.png' },
+      { url: '/newlogo.jpeg' },
       { url: '/favicon.ico' },
     ],
-    apple: '/newlogo.png',
-    shortcut: '/newlogo.png',
+    apple: '/newlogo.jpeg',
+    shortcut: '/newlogo.jpeg',
   },
   openGraph: {
     title: 'Little Cambridge Global | Little Steps to Global Success',
@@ -63,12 +63,6 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     type: 'website',
     images: [
-      {
-        url: '/newlogo.png',
-        width: 1200,
-        height: 1200,
-        alt: 'Little Cambridge Global Logo',
-      },
       {
         url: '/newlogo.jpeg',
         width: 1196,
@@ -82,7 +76,7 @@ export const metadata: Metadata = {
     title: 'Little Cambridge Global | Little Steps to Global Success',
     description:
       'A modern space where early learning feels like an adventure. Watch them discover their world with milestone-driven learning pathways, vibrant campuses, and joyful guidance.',
-    images: ['/newlogo.png'],
+    images: ['/newlogo.jpeg'],
   },
 }
 

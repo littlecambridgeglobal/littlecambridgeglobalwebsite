@@ -28,7 +28,7 @@ import Link from "next/link";
 import HeroSlider from "./HeroSlider";
 import MilestonesSection from "./MilestonesSection";
 import NurturingCarousel, { doodleTile, toDataUri } from "./NurturingCarousel";
-import DirectorMessage from "./DirectorMessage";
+import LeadershipMessages from "./LeadershipMessages";
 
 // Campus Locations data
 const campusLocations = [
@@ -108,8 +108,8 @@ export default function BentoHomepage() {
       {/* SECTION 1.5: NURTURING CARD CAROUSEL */}
       <NurturingCarousel />
 
-      {/* SECTION: FOUNDER & DIRECTOR'S MESSAGE */}
-      <DirectorMessage />
+      {/* SECTION: VOICES OF LEADERSHIP (DIRECTOR & CEO MESSAGES) */}
+      <LeadershipMessages />
 
       {/* SECTION 2: MILESTONES, MET */}
       {/* <MilestonesSection /> */}
