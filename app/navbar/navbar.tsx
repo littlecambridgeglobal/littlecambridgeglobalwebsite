@@ -162,7 +162,7 @@ const Navbar = () => {
                 Little Cambridge Global
               </span>
               <span className="font-jakarta text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#F65A36] mt-0.5">
-                Preschool | Daycare | Mind Labs
+                Preschool | Daycare | Smart Lab
               </span>
             </div>
           </Link>
