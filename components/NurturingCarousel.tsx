@@ -79,7 +79,7 @@ export default function NurturingCarousel() {
     <section
       id="nurturing"
       aria-labelledby="nurturing-heading"
-      className="relative w-full overflow-hidden bg-white py-16 sm:py-20"
+      className="relative  w-full overflow-hidden  py-16 sm:py-20"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -209,9 +209,8 @@ export default function NurturingCarousel() {
             aria-label={`Show card ${i + 1}: ${c.title}`}
             id={`nurturing-dot-${i}`}
             onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              active === i ? "w-6 bg-[#F65A36]" : "w-3 bg-slate-200 hover:bg-slate-300"
-            }`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${active === i ? "w-6 bg-[#F65A36]" : "w-3 bg-slate-200 hover:bg-slate-300"
+              }`}
           />
         ))}
       </div>

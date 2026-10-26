@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Sparkles, X } from "lucide-react";
 
-type Course = {
+export type Course = {
   id: string;
   category: "play" | "arts" | "stem" | "phonics" | "all";
   title: string;
@@ -21,7 +21,7 @@ type Course = {
   curriculumPoints: string[];
 };
 
-const courses: Course[] = [
+export const courses: Course[] = [
   {
     id: "creative-play",
     category: "play",

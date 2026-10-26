@@ -67,7 +67,6 @@ type Slide = {
   id: string;
   num: string;
   nav: string;
-  badge: string;
   title: string;
   highlight: string;
   text: string;
@@ -80,8 +79,6 @@ type Slide = {
   bg: string;
   ink: string;
   accent: string;
-  card1: { icon: LucideIcon; title: string; sub: string };
-  card2: { icon: LucideIcon; title: string; sub: string };
 };
 
 const slides: Slide[] = [
@@ -91,7 +88,6 @@ const slides: Slide[] = [
 
     num: "01",
     nav: "Curious Minds",
-    badge: "Early Learning Reimagined • 2026/2027",
     title: "Little Steps",
     highlight: "to Global Success.",
     text: "A modern space where early learning feels like an adventure. Watch them discover their world through child-led curiosity, sensory wonder, and joyful mentorship.",
@@ -100,16 +96,13 @@ const slides: Slide[] = [
     points: ["100% Play-Based Discovery", "1:8 Warm Educator Ratio", "Montessori Inspired"],
     image: miaAndLeo,
     alt: "Mia and Leo reading and exploring",
-    panel: "orange",
-    card1: { icon: Star, title: "Rated #1 Early Learning", sub: "Delhi NCR • Bangalore • Indore" },
-    card2: { icon: ShieldCheck, title: "100% Child-Safe", sub: "Non-toxic materials & live CCTV" },
+    panel: "orange"
   },
   {
     id: "milestones-met",
     bg: "#FFEFE6", ink: "#0F2040", accent: "#F65A36",
     num: "02",
     nav: "Learning Pathways",
-    badge: "Milestones, Met • Learning Pathways",
     title: "Milestones, Met.",
     highlight: "Every Stage Celebrated.",
     text: "From their very first steps to kindergarten readiness, explore how we nurture every stage of your child's growth through experiential, hands-on learning.",
@@ -118,16 +111,13 @@ const slides: Slide[] = [
     points: ["Little Minds (1–2y)", "Curious Minds (2–3y)", "Emerging Learners (3–4y)", "Kindergarten (4–6y)"],
     image: tobbyAndMia,
     alt: "Children engaged in creative painting and hands-on art",
-    panel: "navy",
-    card1: { icon: GraduationCap, title: "Montessori Studio", sub: "Phonics, logic & creative arts" },
-    card2: { icon: Activity, title: "Milestone Tracking", sub: "Continuous developmental portfolio" },
+    panel: "navy"
   },
   {
     id: "close-to-home",
     bg: "#E4F6EA", ink: "#0F2040", accent: "#1FA463",
     num: "03",
     nav: "Our Locations",
-    badge: "Find a Campus • Neighbourhood Sanctuaries",
     title: "Close to Home.",
     highlight: "Sanctuaries of Wonder.",
     text: "Find a vibrant campus right in your neighbourhood with real-time parent CCTV streaming, organic nutrition, sensory splash parks, and pediatrician-trained educators.",
@@ -136,16 +126,13 @@ const slides: Slide[] = [
     points: ["Delhi NCR", "Bangalore", "Indore", "Vijayawada"],
     image: leoMagnifying,
     alt: "Leo exploring nature with a magnifying glass",
-    panel: "orange",
-    card1: { icon: MapPin, title: "Live CCTV Streaming", sub: "Real-time peace of mind" },
-    card2: { icon: Sun, title: "Splash & Sensory Parks", sub: "Outdoor motor & nature play" },
+    panel: "orange"
   },
   {
     id: "build-the-future",
     bg: "#FFF3D1", ink: "#0F2040", accent: "#E89A0C",
     num: "04",
     nav: "Partner With Us",
-    badge: "Partner • Franchise Collaboration",
     title: "Build the Future.",
     highlight: "Shape Early Education.",
     text: "Bring Little Cambridge Global's early education model to your city. Turnkey blueprints, Montessori training academy, and 360° operational guidance.",
@@ -154,9 +141,7 @@ const slides: Slide[] = [
     points: ["Turnkey 360° Setup", "Certified Montessori Academy", "Rapid Breakeven", "PAN-India Expansion"],
     image: tobbyTeddy,
     alt: "Tobby hugging teddy bear, representing trusted care and partnership",
-    panel: "navy",
-    card1: { icon: Users, title: "98% Partner Satisfaction", sub: "Turnkey academic blueprints" },
-    card2: { icon: Building2, title: "45-Day Fast Setup", sub: "Design & supply support" },
+    panel: "navy"
   },
 ];
 
@@ -192,8 +177,6 @@ export default function HeroSlider() {
 
   const s = slides[current]!;
   const isNavy = s.panel === "navy";
-  const C1 = s.card1.icon;
-  const C2 = s.card2.icon;
   const tile = React.useMemo(() => makeTile(s.ink, s.accent), [s.ink, s.accent]);
 
   return (
@@ -290,11 +273,6 @@ export default function HeroSlider() {
             >
               {/* ---------- LEFT: copy ---------- */}
               <div className="flex flex-col items-start lg:col-span-7">
-                <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#F65A36] px-4 py-1.5 text-xs font-bold text-white shadow-[0_8px_16px_-8px_rgba(246,90,54,0.8)] sm:text-sm">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
-                  {s.badge}
-                </span>
-
                 <h1 className="mb-5 font-outfit text-4xl font-extrabold leading-[1.08] tracking-tight text-[#0F2040] sm:text-5xl lg:text-6xl">
                   {s.title}{" "}
                   <span className="relative inline-block text-[#F65A36]">
@@ -373,13 +351,7 @@ export default function HeroSlider() {
                   transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut" }}
                   className="absolute -left-2 top-6 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_14px_30px_-12px_rgba(15,32,64,0.4)] sm:-left-8"
                 >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F65A36] text-white">
-                    <C1 className="h-4 w-4" />
-                  </span>
-                  <span>
-                    <span className="block text-xs font-bold leading-tight text-[#0F2040]">{s.card1.title}</span>
-                    <span className="block text-[11px] font-medium leading-tight text-slate-500">{s.card1.sub}</span>
-                  </span>
+
                 </motion.div>
 
                 <motion.div
@@ -387,13 +359,6 @@ export default function HeroSlider() {
                   transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.4 }}
                   className="absolute -right-2 bottom-8 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_14px_30px_-12px_rgba(15,32,64,0.4)] sm:-right-6"
                 >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0F2040] text-white">
-                    <C2 className="h-4 w-4" />
-                  </span>
-                  <span>
-                    <span className="block text-xs font-bold leading-tight text-[#0F2040]">{s.card2.title}</span>
-                    <span className="block text-[11px] font-medium leading-tight text-slate-500">{s.card2.sub}</span>
-                  </span>
                 </motion.div>
               </div>
             </motion.div>

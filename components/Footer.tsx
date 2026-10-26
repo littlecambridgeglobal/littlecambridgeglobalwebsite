@@ -84,10 +84,10 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-outfit font-black text-[15px] sm:text-base text-[#0F2040] leading-tight group-hover:text-[#F65A36] transition-colors">
-                  Little Cambridge
+                  Little Cambridge  Global
                 </span>
                 <span className="font-jakarta text-[9.5px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#F65A36]">
-                  Global
+                  Pre-School | Day Care | Smart Lab
                 </span>
               </div>
             </Link>
