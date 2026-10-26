@@ -181,9 +181,6 @@ export default function FranchisePage({
 
                 <div className="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
                   <div>
-                    <span className="font-outfit text-xs font-bold text-[#F65A36] uppercase tracking-wider">
-                      Priority Admissions Desk
-                    </span>
                     <h2 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040]">
                       Request Franchise Prospectus
                     </h2>
@@ -191,10 +188,7 @@ export default function FranchisePage({
                       Get city feasibility, spatial blueprints & financial model
                     </p>
                   </div>
-                  <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F5E9] text-emerald-800 text-xs font-bold">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    Free Site Audit
-                  </span>
+
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -354,10 +348,7 @@ export default function FranchisePage({
                     </button>
                   </div>
 
-                  <div className="pt-1 text-center text-xs text-slate-500 font-semibold flex items-center justify-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>100% Confidential • Direct Expansion Team Response</span>
-                  </div>
+
                 </form>
               </div>
             </div>
