@@ -576,9 +576,9 @@ export default function OurStoryRedesign() {
                 <div className="absolute top-0 left-0 w-96 h-96 bg-[#FFEFE6]/60 rounded-full blur-3xl pointer-events-none -z-10" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F0F8FF]/70 rounded-full blur-3xl pointer-events-none -z-10" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 ">
                   {/* LEFT: Director Portrait Card (Arched Style from Screenshot) */}
-                  <div className="lg:col-span-5 flex flex-col items-center">
+                  <div className="lg:col-span-5 mt-6 flex flex-col items-center">
                     <div className="relative w-full max-w-[360px] sm:max-w-[390px] rounded-[2.5rem] bg-gradient-to-b from-white via-[#FFF7F2] to-[#FAF8F5] p-4 sm:p-5 border-2 border-white shadow-lg">
                       {/* Floating Badge */}
                       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0F2040] text-white text-[11px] sm:text-xs font-bold shadow-md whitespace-nowrap">
@@ -629,7 +629,7 @@ export default function OurStoryRedesign() {
                   </div>
 
                   {/* RIGHT: Director Message Body */}
-                  <div className="lg:col-span-7 space-y-5 sm:space-y-6">
+                  <div className="lg:col-span-7  space-y-5 sm:space-y-6">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#F65A36] text-xs sm:text-sm font-bold shadow-xs">
                       <HeartHandshake className="w-3.5 h-3.5 text-[#F65A36]" />
                       <span>Founder & Director&apos;s Message</span>
@@ -710,7 +710,7 @@ export default function OurStoryRedesign() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-[#F0F8FF]/70 rounded-full blur-3xl pointer-events-none -z-10" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FFEFE6]/60 rounded-full blur-3xl pointer-events-none -z-10" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12\">
                   {/* Content on Left for alternating flow */}
                   <div className="lg:col-span-7 space-y-5 sm:space-y-6 order-2 lg:order-1">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF5FF] border border-[#2F8FD0]/20 text-[#1B6CA8] text-xs sm:text-sm font-bold shadow-xs">
@@ -777,7 +777,7 @@ export default function OurStoryRedesign() {
                   </div>
 
                   {/* RIGHT: CEO Portrait Card */}
-                  <div className="lg:col-span-5 flex flex-col items-center order-1 lg:order-2">
+                  <div className="lg:col-span-5 mt-6 flex flex-col items-center order-1 lg:order-2">
                     <div className="relative w-full max-w-[360px] sm:max-w-[390px] rounded-[2.5rem] bg-gradient-to-b from-white via-[#F0F8FF] to-[#FAF8F5] p-4 sm:p-5 border-2 border-white shadow-lg">
                       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0F2040] text-white text-[11px] sm:text-xs font-bold shadow-md whitespace-nowrap">
                         <Globe2 className="w-3.5 h-3.5 text-[#2F8FD0]" />
@@ -929,7 +929,7 @@ export default function OurStoryRedesign() {
                           Warm regards,
                         </p>
                         <p className="font-outfit text-lg sm:text-xl font-black text-[#0F2040] mt-0.5">
-                          Mr. Tushar Malika
+                          Mr. Tushar Malik
                         </p>
                         <p className="text-xs sm:text-sm font-bold text-emerald-600">
                           Chief Operating Officer
@@ -969,7 +969,7 @@ export default function OurStoryRedesign() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFF2E8]/60 rounded-full blur-3xl pointer-events-none -z-10" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#F0F8FF]/70 rounded-full blur-3xl pointer-events-none -z-10" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 ">
                   {/* Content on Left for alternating flow */}
                   <div className="lg:col-span-7 space-y-5 sm:space-y-6 order-2 lg:order-1">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#F65A36] text-xs sm:text-sm font-bold shadow-xs">
@@ -1036,7 +1036,7 @@ export default function OurStoryRedesign() {
                   </div>
 
                   {/* RIGHT: Mentor Portrait Card */}
-                  <div className="lg:col-span-5 flex flex-col items-center order-1 lg:order-2">
+                  <div className="lg:col-span-5 flex mt-6 flex-col items-center order-1 lg:order-2">
                     <div className="relative w-full max-w-[360px] sm:max-w-[390px] rounded-[2.5rem] bg-gradient-to-b from-white via-[#FFF7F2] to-[#FAF8F5] p-4 sm:p-5 border-2 border-white shadow-lg">
                       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0F2040] text-white text-[11px] sm:text-xs font-bold shadow-md whitespace-nowrap">
                         <Compass className="w-3.5 h-3.5 text-[#F65A36]" />

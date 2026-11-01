@@ -93,16 +93,16 @@ const Footer = () => {
                 {/* Colorful Offerings */}
                 <div className="flex items-center gap-1 sm:gap-1.5 font-jakarta text-[8.5px] sm:text-[9.5px] font-extrabold uppercase tracking-wider mt-0.5">
                   <span className="text-[#F65A36]">Preschool</span>
-                  <span className="text-amber-400 font-bold">•</span>
-                  <span className="text-[#0284C7]">Day Care</span>
-                  <span className="text-emerald-500 font-bold">•</span>
-                  <span className="text-[#8B5CF6]">Mind Lab</span>
+                  <span className="text-amber-400 font-bold">|</span>
+                  <span className="text-[#F65A36]">Day Care</span>
+                  <span className="text-emerald-500 font-bold">|</span>
+                  <span className="text-[#F65A36]">Mind Lab</span>
                 </div>
 
                 {/* Creative Colorful Tagline Pill */}
                 <div className="mt-1.5 flex items-center">
-                  <span className="font-outfit text-[8px] sm:text-[9px] font-bold bg-gradient-to-r from-[#F65A36] via-[#C026D3] to-[#0284C7] bg-clip-text text-transparent tracking-tight whitespace-nowrap">
-                    Turning little steps to global success.
+                  <span className="font-outfit text-[12.5px] font-bold text-[#0F2040]">
+                    Turning little steps to global success.,
                   </span>
 
                 </div>
