@@ -145,10 +145,10 @@ const Navbar = () => {
         className={`pointer-events-auto py-2 bg-white transition-shadow duration-300 ${scrolled ? "shadow-[0_6px_20px_-8px_rgba(15,32,64,0.25)]" : "shadow-sm"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] sm:h-[80px] flex items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[72px] sm:h-[84px] flex items-center justify-between gap-3 sm:gap-4">
           {/* Brand Logo + Text */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 py-20 transition-transform duration-300 group-hover:scale-105 shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group">
+            <div className="relative w-11 h-11 sm:w-13 sm:h-13 lg:w-16 lg:h-16 transition-transform duration-300 group-hover:scale-105 shrink-0">
               <Image
                 src={logonew}
                 alt="Little Cambridge Global"
@@ -161,9 +161,23 @@ const Navbar = () => {
               <span className="font-outfit font-black text-[15px] sm:text-[18px] lg:text-[21px] text-[#0F2040] leading-tight tracking-tight group-hover:text-[#F65A36] transition-colors">
                 Little Cambridge Global
               </span>
-              <span className="font-jakarta text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#F65A36] mt-0.5">
-                Preschool | Daycare | Smart Lab
-              </span>
+
+              {/* Colorful Offerings */}
+              <div className="flex items-center gap-1 sm:gap-1.5 font-jakarta text-[8.5px] sm:text-[9.5px] lg:text-[10px] font-extrabold uppercase tracking-wider mt-0.5">
+                <span className="text-[#F65A36]">Preschool</span>
+                <span className="text-amber-400 font-bold">•</span>
+                <span className="text-[#0284C7]">Day Care</span>
+                <span className="text-emerald-500 font-bold">•</span>
+                <span className="text-[#8B5CF6]">Mind Lab</span>
+              </div>
+
+              {/* Creative Colorful Tagline Pill */}
+              <div className="mt-1 flex items-center">
+                <span className="font-outfit text-[8px] sm:text-[9.5px] lg:text-[10px] font-bold bg-gradient-to-r from-[#F65A36] via-[#C026D3] to-[#0284C7] bg-clip-text text-transparent tracking-tight whitespace-nowrap">
+                  Turning little steps to global success..
+                </span>
+
+              </div>
             </div>
           </Link>
 
@@ -268,12 +282,24 @@ const Navbar = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-outfit font-black text-[15px] text-[#0F2040] leading-tight">
-                      Little Cambridge
+                    <span className="font-outfit font-black text-[14px] text-[#0F2040] leading-tight">
+                      Little Cambridge Global
                     </span>
-                    <span className="font-jakarta text-[9.5px] font-extrabold uppercase tracking-[0.2em] text-[#F65A36]">
-                      Global
-                    </span>
+                    <div className="flex items-center gap-1 font-jakarta text-[8px] font-extrabold uppercase tracking-wider mt-0.5">
+                      <span className="text-[#F65A36]">Preschool</span>
+                      <span className="text-amber-400 font-bold">•</span>
+                      <span className="text-[#0284C7]">Day Care</span>
+                      <span className="text-emerald-500 font-bold">•</span>
+                      <span className="text-[#8B5CF6]">Mind Lab</span>
+                    </div>
+                    <div className="mt-1 flex items-center">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gradient-to-r from-orange-50 via-pink-50 to-purple-50 border border-orange-200/60 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+                        <Sparkles className="w-2 h-2 text-amber-500 shrink-0" />
+                        <span className="font-outfit text-[7.5px] font-bold bg-gradient-to-r from-[#F65A36] via-[#C026D3] to-[#0284C7] bg-clip-text text-transparent tracking-tight whitespace-nowrap">
+                          Turning little steps to global success.
+                        </span>
+                      </span>
+                    </div>
                   </div>
                 </Link>
 

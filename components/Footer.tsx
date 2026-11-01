@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone, Facebook, Instagram, Linkedin, Youtube, MapPin } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram, Linkedin, Youtube, MapPin, Sparkles } from "lucide-react";
 import logonew from "../public/newlogo.png";
 import { doodleTile, toDataUri } from "./NurturingCarousel";
 
@@ -78,17 +78,34 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 rounded-2xl bg-white/95 px-3.5 py-2 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-10 w-10 shrink-0">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-3 shadow-sm hover:shadow-md transition-shadow group border border-white/60"
+            >
+              <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0">
                 <Image src={logonew} alt="Little Cambridge Global Logo" fill className="object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="font-outfit font-black text-[15px] sm:text-base text-[#0F2040] leading-tight group-hover:text-[#F65A36] transition-colors">
-                  Little Cambridge  Global
+                  Little Cambridge Global
                 </span>
-                <span className="font-jakarta text-[9.5px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#F65A36]">
-                  Pre-School | Day Care | Smart Lab
-                </span>
+
+                {/* Colorful Offerings */}
+                <div className="flex items-center gap-1 sm:gap-1.5 font-jakarta text-[8.5px] sm:text-[9.5px] font-extrabold uppercase tracking-wider mt-0.5">
+                  <span className="text-[#F65A36]">Preschool</span>
+                  <span className="text-amber-400 font-bold">•</span>
+                  <span className="text-[#0284C7]">Day Care</span>
+                  <span className="text-emerald-500 font-bold">•</span>
+                  <span className="text-[#8B5CF6]">Mind Lab</span>
+                </div>
+
+                {/* Creative Colorful Tagline Pill */}
+                <div className="mt-1.5 flex items-center">
+                  <span className="font-outfit text-[8px] sm:text-[9px] font-bold bg-gradient-to-r from-[#F65A36] via-[#C026D3] to-[#0284C7] bg-clip-text text-transparent tracking-tight whitespace-nowrap">
+                    Turning little steps to global success.
+                  </span>
+
+                </div>
               </div>
             </Link>
             <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed">

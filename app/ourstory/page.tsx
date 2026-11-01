@@ -864,10 +864,10 @@ export default function OurStoryRedesign() {
 
                         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-white">
                           <p className="font-outfit text-xl sm:text-2xl font-black tracking-tight leading-tight">
-                            Chief Operating Officer
+                            Mr. Tushar Malik
                           </p>
                           <p className="text-xs sm:text-sm text-slate-200 font-medium mt-0.5">
-                            Executive Operations & Safety
+                            Chief Operating Officer
                           </p>
                         </div>
                       </div>
@@ -929,10 +929,10 @@ export default function OurStoryRedesign() {
                           Warm regards,
                         </p>
                         <p className="font-outfit text-lg sm:text-xl font-black text-[#0F2040] mt-0.5">
-                          Chief Operating Officer
+                          Mr. Tushar Malika
                         </p>
                         <p className="text-xs sm:text-sm font-bold text-emerald-600">
-                          Operations & Campus Expansion
+                          Chief Operating Officer
                         </p>
                         <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
                           Little Cambridge Global Preschool & Day Care
