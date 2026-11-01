@@ -36,9 +36,7 @@ export async function createFranchise(data: {
 	// Inserting into a separate 'franchises' table
 	const result = await supabase
 		.from("franchises")
-		.insert(data)
-		.select()
-		.single();
+		.insert(data);
 
 	if (result.error) {
 		console.error("Franchise error:", result.error);
@@ -47,6 +45,59 @@ export async function createFranchise(data: {
 	}
 
 	return result;
+}
+
+export async function createContactQuery(data: {
+	name: string;
+	email: string;
+	phone: string;
+	state?: string;
+	city?: string;
+	message: string;
+}) {
+	const supabase = await createSupabaseServerClient();
+
+	// Primary attempt: Try inserting into contact_queries table
+	let result = await supabase
+		.from("contact_queries")
+		.insert({
+			name: data.name,
+			email: data.email,
+			phone: data.phone,
+			state: data.state || null,
+			city: data.city || null,
+			message: data.message
+		});
+
+	// If contact_queries fails (table missing or RLS not yet configured), fallback to admissions table
+	if (result.error) {
+		console.warn("contact_queries table insertion issue:", result.error.message);
+		console.log("Attempting fallback to existing admissions table...");
+
+		const fallbackResult = await supabase
+			.from("admissions")
+			.insert({
+				name: data.name,
+				email: data.email,
+				phone: data.phone,
+				state: data.state || "Delhi NCR",
+				city: data.city || "New Delhi",
+				admission_seeking: data.state || "Campus Visit & Query",
+				message: data.message,
+				country: "India"
+			});
+
+		if (!fallbackResult.error) {
+			console.log("Successfully inserted query into admissions table:", fallbackResult.data);
+			return { data: fallbackResult.data, error: null, savedTo: "admissions" };
+		} else {
+			console.error("Admissions fallback also returned error:", fallbackResult.error);
+			return result; // return primary error
+		}
+	} else {
+		console.log("Contact query success in contact_queries:", result.data);
+		return { ...result, savedTo: "contact_queries" };
+	}
 }
 
 

@@ -103,6 +103,40 @@ export type Database = {
       }
 
 
+      contact_queries: {
+        Row: {
+          id: number;
+          created_at: string;
+          name: string;
+          email: string;
+          phone: string;
+          state: string | null;
+          city: string | null;
+          message: string;
+        };
+        Insert: {
+          id?: number;
+          created_at?: string;
+          name: string;
+          email: string;
+          phone: string;
+          state?: string | null;
+          city?: string | null;
+          message: string;
+        };
+        Update: {
+          id?: number;
+          created_at?: string;
+          name?: string;
+          email?: string;
+          phone?: string;
+          state?: string | null;
+          city?: string | null;
+          message?: string;
+        };
+        Relationships: [];
+      };
+
       franchises: {
         Row: {
           id: number;

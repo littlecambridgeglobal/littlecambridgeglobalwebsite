@@ -155,7 +155,7 @@ const Footer = () => {
                 <span>
                   <strong className="font-bold">Corporate office:</strong>
                   <br />
-                  Ganesh nagar delhi  &amp; , Delhi
+                  Ganesh Nagar, New Delhi - 110092 &amp; , Delhi
                 </span>
               </li>
               <li className="flex items-center gap-3">
