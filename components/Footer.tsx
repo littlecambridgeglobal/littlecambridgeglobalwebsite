@@ -96,13 +96,13 @@ const Footer = () => {
                   <span className="text-amber-400 font-bold">|</span>
                   <span className="text-[#F65A36]">Day Care</span>
                   <span className="text-emerald-500 font-bold">|</span>
-                  <span className="text-[#F65A36]">Mind Lab</span>
+                  <span className="text-[#F65A36]">Smart Lab</span>
                 </div>
 
                 {/* Creative Colorful Tagline Pill */}
                 <div className="mt-1.5 flex items-center">
                   <span className="font-outfit text-[12.5px] font-bold text-[#0F2040]">
-                    Turning little steps to global success.,
+                    Turning little steps to global success..
                   </span>
 
                 </div>
