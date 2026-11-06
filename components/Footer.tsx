@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, Facebook, Instagram, Linkedin, Youtube, MapPin, Sparkles } from "lucide-react";
-import logonew from "../public/newlogo.png";
+import logonew from "../public/newgloballogo.png";
 import { doodleTile, toDataUri } from "./NurturingCarousel";
 
 const footerPattern = toDataUri(doodleTile("rgba(15,32,64,0.10)"));

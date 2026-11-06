@@ -38,7 +38,7 @@ export type ProgramItem = {
 const homeProgramsList: ProgramItem[] = [
   {
     id: "playgroup",
-    title: "Play Group Program",
+    title: "Play Group ",
     ageBadge: "3-5 Years",
     description:
       "Fun-based learning through games, music, and activities to develop social skills and confidence.",
@@ -53,7 +53,7 @@ const homeProgramsList: ProgramItem[] = [
   {
     id: "nursery",
     title: "Nursery Program",
-    ageBadge: "7-10 Years",
+    ageBadge: "3-4 Years",
     description:
       "Fun-based learning through games, music, and activities to develop social skills and confidence.",
     duration: "Duration : 2.5 Hr",
@@ -66,8 +66,8 @@ const homeProgramsList: ProgramItem[] = [
   },
   {
     id: "kindergarten",
-    title: "Kindergarten (KG) Program",
-    ageBadge: "10-12 Years",
+    title: "Kindergarten (LKG) Program",
+    ageBadge: "4-5 Years",
     description:
       "Fun-based learning through games, music, and activities to develop social skills and confidence.",
     duration: "Duration : 2.5 Hr",
@@ -77,6 +77,20 @@ const homeProgramsList: ProgramItem[] = [
     borderHex: "#C4EED8",
     clipId: "irregular-clip-3",
     borderRadius: "48% 52% 46% 54% / 54% 46% 54% 46%",
+  },
+  {
+    id: "Kindergarten-Program",
+    title: "Kindergarten (UKG) Program",
+    ageBadge: "5-6 Years",
+    description:
+      "A vibrant journey into imaginative painting, clay crafts, rhythm, and expressive story theatrics.",
+    duration: "Duration : 2.5 Hr",
+    image: "/why_choose_our_school.jpg",
+    alt: "Creative Story and Arts",
+    bgHex: "#F4EEFD", // Soft Lilac Purple
+    borderHex: "#E0D4FA",
+    clipId: "irregular-clip-2",
+    borderRadius: "46% 54% 48% 52% / 52% 48% 54% 46%",
   },
   {
     id: "daycare",
@@ -92,20 +106,7 @@ const homeProgramsList: ProgramItem[] = [
     clipId: "irregular-clip-1",
     borderRadius: "52% 48% 55% 45% / 48% 52% 48% 52%",
   },
-  {
-    id: "creative-story",
-    title: "Creative Story & Arts",
-    ageBadge: "3-7 Years",
-    description:
-      "A vibrant journey into imaginative painting, clay crafts, rhythm, and expressive story theatrics.",
-    duration: "Duration : 2.5 Hr",
-    image: "/why_choose_our_school.jpg",
-    alt: "Creative Story and Arts",
-    bgHex: "#F4EEFD", // Soft Lilac Purple
-    borderHex: "#E0D4FA",
-    clipId: "irregular-clip-2",
-    borderRadius: "46% 54% 48% 52% / 52% 48% 54% 46%",
-  },
+
 ];
 
 const ProgramCard = ({ program }: { program: ProgramItem }) => (
