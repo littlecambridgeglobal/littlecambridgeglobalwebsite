@@ -53,6 +53,9 @@ const homeProgramsList: ProgramItem[] = [
   {
     id: "nursery",
     title: "Nursery Program",
+
+
+
     ageBadge: "3-4 Years",
     description:
       "Fun-based learning through games, music, and activities to develop social skills and confidence.",

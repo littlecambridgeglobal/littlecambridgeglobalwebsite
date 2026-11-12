@@ -28,6 +28,8 @@ import {
   ArrowRight,
   Sun,
   Compass,
+  Eye,
+  ExternalLink,
 } from "lucide-react";
 import { doodleTile, toDataUri } from "./NurturingCarousel";
 
@@ -179,7 +181,7 @@ export default function FranchisePage({
                   className="absolute inset-0 translate-x-2 translate-y-3 rotate-[0.6deg] rounded-[2.5rem] border-2 border-dashed border-[#F6A04D]/50 pointer-events-none -z-10"
                 />
 
-                <div className="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+                <div className="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
                   <div>
                     <h2 className="font-outfit text-2xl sm:text-3xl font-extrabold text-[#0F2040]">
                       Request Franchise Prospectus
@@ -189,6 +191,16 @@ export default function FranchisePage({
                     </p>
                   </div>
 
+                  <a
+                    href="/assests/Franchise Flyer.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-orange-50 hover:bg-orange-100 text-[#F65A36] text-xs font-bold border border-orange-200/80 shadow-2xs transition-all group"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>View Flyer (PDF)</span>
+                    <ExternalLink className="w-3 h-3 text-[#F65A36]/70 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -644,24 +656,29 @@ export default function FranchisePage({
             ))}
           </div>
 
-          {/* Official Download Buttons */}
-          <div className="mt-8 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-center gap-4">
+          {/* Official Download & View Buttons */}
+          <div className="mt-8 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
-              href="/brochures/franchise-prospectus.pdf"
-              download
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0F2040] hover:bg-[#F65A36] text-white text-xs sm:text-sm font-bold shadow-sm transition-all"
+              href="/assests/Franchise Flyer.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0F2040] hover:bg-[#F65A36] text-white text-xs sm:text-sm font-bold shadow-sm transition-all group"
             >
-              <Download className="w-4 h-4 text-[#F6A04D]" />
-              <span>Download Franchise Prospectus</span>
+              <Eye className="w-4 h-4 text-[#F6A04D]" />
+              <span>View Franchise Brochure</span>
+              <ExternalLink className="w-3.5 h-3.5 text-white/70 group-hover:translate-x-0.5 transition-transform" />
             </a>
 
+
             <a
-              href="/brochures/curriculum-overview.pdf"
-              download
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border-2 border-slate-200 hover:border-[#F65A36] text-[#0F2040] text-xs sm:text-sm font-bold shadow-xs transition-all"
+              href="/assests/360 Support Matrix.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border-2 border-slate-200 hover:border-[#2F8FD0] text-[#0F2040] text-xs sm:text-sm font-bold shadow-xs transition-all group"
             >
-              <Download className="w-4 h-4 text-[#2F8FD0]" />
-              <span>Download Curriculum Guide</span>
+              <Eye className="w-4 h-4 text-[#2F8FD0]" />
+              <span>View 360° Support Matrix</span>
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
         </div>

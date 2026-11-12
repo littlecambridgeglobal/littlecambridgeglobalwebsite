@@ -19,7 +19,9 @@ import {
   HeartHandshake,
   Check,
   Compass,
+  FileText,
 } from "lucide-react";
+import FlyersSection from "@/components/FlyersSection";
 
 
 const faqs = [
@@ -46,7 +48,7 @@ const faqs = [
 ];
 
 export default function OurStoryRedesign() {
-  const [activeLeader, setActiveLeader] = useState<"both" | "director" | "ceo" | "coo" | "mentor">("both");
+  const [activeLeader, setActiveLeader] = useState<"both" | "director" | "ceo" | "coo" | "mentor" | "advisors">("both");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -121,6 +123,13 @@ export default function OurStoryRedesign() {
                   <button className="inline-flex items-center gap-2.5 bg-[#0F2040] hover:bg-[#1a3464] text-white text-sm sm:text-base font-bold px-6 py-3.5 rounded-full shadow-md hover:-translate-y-0.5 transition-all">
                     <HeartHandshake className="w-4 h-4 text-[#F65A36]" />
                     <span>Leadership Messages</span>
+                  </button>
+                </a>
+
+                <a href="#official-flyers">
+                  <button className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-[#0F2040] border border-slate-200 text-sm sm:text-base font-bold px-5 py-3.5 rounded-full shadow-xs hover:-translate-y-0.5 transition-all">
+                    <FileText className="w-4 h-4 text-[#F65A36]" />
+                    <span>Download Flyers</span>
                   </button>
                 </a>
               </div>
@@ -553,6 +562,15 @@ export default function OurStoryRedesign() {
                 }`}
             >
               Mentor&apos;s Message
+            </button>
+            <button
+              onClick={() => setActiveLeader("advisors")}
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${activeLeader === "advisors"
+                ? "bg-[#0F2040] text-white shadow-md"
+                : "bg-white text-slate-600 hover:text-[#0F2040] border border-slate-200/80 shadow-xs"
+                }`}
+            >
+              Advisors&apos; Messages
             </button>
           </div>
         </div>
@@ -1086,6 +1104,258 @@ export default function OurStoryRedesign() {
           </AnimatePresence>
 
           {/* =========================================================================
+              CARD 5: ADVISOR'S MESSAGE (Mr. Rajbir Singh Malik)
+          ========================================================================= */}
+          <AnimatePresence mode="wait">
+            {(activeLeader === "both" || activeLeader === "advisors") && (
+              <motion.div
+                key="advisor-rajbir-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.35 }}
+                className="relative bg-white rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 lg:p-14 border border-slate-100 shadow-soft overflow-hidden"
+              >
+                {/* Background Ambient Glows */}
+                <div className="absolute top-0 left-0 w-96 h-96 bg-[#FFEFE6]/60 rounded-full blur-3xl pointer-events-none -z-10" />
+                <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F0F8FF]/70 rounded-full blur-3xl pointer-events-none -z-10" />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  {/* LEFT: Advisor Portrait Card */}
+                  <div className="lg:col-span-5 flex flex-col items-center">
+                    <div className="relative w-full max-w-[360px] sm:max-w-[390px] rounded-[2.5rem] bg-gradient-to-b from-white via-[#FFF7F2] to-[#FAF8F5] p-4 sm:p-5 border-2 border-white shadow-lg">
+                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0F2040] text-white text-[11px] sm:text-xs font-bold shadow-md whitespace-nowrap">
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#F65A36]" />
+                        <span>DCP, Delhi Police Academy • Advisor</span>
+                      </div>
+
+                      <div className="relative w-full aspect-[4/4.8] rounded-[2rem] overflow-hidden bg-slate-100 shadow-inner group">
+                        <Image
+                          src="/assests/Rajbir Singh Malik.jpeg"
+                          alt="Mr. Rajbir Singh Malik - DCP – Delhi Police Academy, Advisor"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 400px"
+                          className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0F2040]/80 via-transparent to-transparent opacity-85" />
+
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-white">
+                          <p className="font-outfit text-xl sm:text-2xl font-black tracking-tight leading-tight">
+                            Mr. Rajbir Singh Malik
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-200 font-medium mt-0.5">
+                            DCP – Delhi Police Academy • Advisor
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-100 px-2 space-y-2">
+                        <p className="text-[12px] sm:text-[13px] font-bold text-[#0F2040] leading-snug">
+                          Little Cambridge Global Preschool &amp; Day Care
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-semibold text-slate-500">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+                            <ShieldCheck className="w-3 h-3 text-[#F65A36]" />
+                            Character &amp; Discipline
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+                            <Award className="w-3 h-3 text-[#2F8FD0]" />
+                            Integrity &amp; Excellence
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT: Advisor Message Body */}
+                  <div className="lg:col-span-7 space-y-5 sm:space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFEFE6] border border-[#F65A36]/20 text-[#F65A36] text-xs sm:text-sm font-bold shadow-xs">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#F65A36]" />
+                      <span>Advisor&apos;s Message</span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-outfit text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F2040] tracking-tight leading-tight">
+                        Laying the Essential Foundation for{" "}
+                        <span className="text-[#F65A36]">Character &amp; Lifelong Curiosity</span>
+                      </h3>
+                      <p className="mt-2 text-sm sm:text-base font-semibold text-slate-600 italic border-l-2 border-[#F65A36] pl-3">
+                        &ldquo;Education in the earliest years lays the essential foundation for a child’s character, discipline, and lifelong curiosity.&rdquo;
+                      </p>
+                    </div>
+
+                    <div className="space-y-3.5 text-slate-600 text-sm sm:text-[15px] leading-relaxed font-medium">
+                      <p>
+                        Education in the earliest years lays the essential foundation for a child’s character, discipline, and lifelong curiosity. It gives me immense pleasure to be associated as an Advisor with <strong className="text-[#0F2040] font-bold">Little Cambridge Global Preschool &amp; Day Care</strong>, an institution deeply committed to nurturing young minds with care, integrity, and excellence.
+                      </p>
+                      <p>
+                        Guided by the inspiring vision of <strong className="text-[#F65A36] font-bold">&ldquo;Turning Little Steps Into Global Success,&rdquo;</strong> the preschool creates a safe, stimulating, and compassionate environment where children are encouraged to explore, question, and grow with confidence. By blending strong moral values with modern global learning practices, Little Cambridge prepares our youngest learners not just for school, but for life as responsible and empathetic global citizens.
+                      </p>
+                      <p className="font-semibold text-slate-700">
+                        I extend my best wishes to the leadership, dedicated educators, parents, and our bright young learners for a journey filled with discovery, joy, and remarkable achievements.
+                      </p>
+                    </div>
+
+                    {/* Signature Block */}
+                    <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <p className="text-xs uppercase tracking-wider text-slate-400 font-bold">
+                          Warm regards,
+                        </p>
+                        <p className="font-outfit text-lg sm:text-xl font-black text-[#0F2040] mt-0.5">
+                          Mr. Rajbir Singh Malik
+                        </p>
+                        <p className="text-xs sm:text-sm font-bold text-[#F65A36]">
+                          DCP – Delhi Police Academy
+                        </p>
+                        <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
+                          Advisor, Little Cambridge Global Preschool &amp; Day Care
+                        </p>
+                      </div>
+
+                      <Link href="/admission">
+                        <button className="inline-flex items-center gap-2 bg-[#0F2040] hover:bg-[#1a3464] text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-full shadow-soft hover:shadow-md hover:-translate-y-0.5 transition-all self-start sm:self-auto">
+                          <span>Apply for Admission</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-[#F65A36]" />
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* =========================================================================
+              CARD 6: ADVISOR'S MESSAGE (Mr. Jasbir Singh Malik)
+          ========================================================================= */}
+          <AnimatePresence mode="wait">
+            {(activeLeader === "both" || activeLeader === "advisors") && (
+              <motion.div
+                key="advisor-jasbir-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.35 }}
+                className="relative bg-white rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 lg:p-14 border border-slate-100 shadow-soft overflow-hidden"
+              >
+                {/* Background Ambient Glows */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#EBF7F2]/60 rounded-full blur-3xl pointer-events-none -z-10" />
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FFEFE6]/60 rounded-full blur-3xl pointer-events-none -z-10" />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  {/* LEFT: Advisor Message Body (Col 7, order-2 lg:order-1) */}
+                  <div className="lg:col-span-7 space-y-5 sm:space-y-6 order-2 lg:order-1">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF7F2] border border-emerald-500/20 text-[#1D7A56] text-xs sm:text-sm font-bold shadow-xs">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Advisor&apos;s Message</span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-outfit text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F2040] tracking-tight leading-tight">
+                        Safeguarding Childhood &amp;{" "}
+                        <span className="text-emerald-600">Building Tomorrow&apos;s Leaders</span>
+                      </h3>
+                      <p className="mt-2 text-sm sm:text-base font-semibold text-slate-600 italic border-l-2 border-emerald-500 pl-3">
+                        &ldquo;Having spent decades serving the community and safeguarding the future of our nation, I firmly believe that the strongest foundations for a prosperous society are laid in the earliest years of a child's life.&rdquo;
+                      </p>
+                    </div>
+
+                    <div className="space-y-3.5 text-slate-600 text-sm sm:text-[15px] leading-relaxed font-medium">
+                      <p className="font-semibold text-slate-800">
+                        Dear Parents, Guardians, and Well-Wishers,
+                      </p>
+                      <p>
+                        It is with immense pride and joy that I extend my warmest greetings to you as the Advisor for <strong className="text-[#0F2040] font-bold">Little Cambridge Global Preschool &amp; Day Care</strong>.
+                      </p>
+                      <p>
+                        Having spent decades serving the community and safeguarding the future of our nation, I firmly believe that the strongest foundations for a prosperous society are laid in the earliest years of a child&apos;s life. Early childhood is a period of boundless curiosity, rapid growth, and immense potential. Guiding young minds during these formative years requires not only academic excellence, but also a deep commitment to safety, discipline, moral values, and compassionate care.
+                      </p>
+                      <p>
+                        At Little Cambridge Global Preschool &amp; Day Care, we live by our motto: <strong className="text-[#F65A36] font-bold">&ldquo;Turning Little Steps Into Global Success.&rdquo;</strong> Our mission is to provide a secure, nurturing, and stimulating environment where every child feels valued, protected, and inspired to explore the world around them. By blending international standards of early education with timeless core values, we aim to build confidence, character, and creativity in every young learner.
+                      </p>
+                      <p className="font-semibold text-slate-700">
+                        To the parents entrusting us with your most precious treasure—your children—I assure you that their safety, holistic well-being, and bright future remain our highest priority. Together, let us nurture the leaders, thinkers, and responsible global citizens of tomorrow.
+                      </p>
+                    </div>
+
+                    {/* Signature Block */}
+                    <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <p className="text-xs uppercase tracking-wider text-slate-400 font-bold">
+                          Warm regards,
+                        </p>
+                        <p className="font-outfit text-lg sm:text-xl font-black text-[#0F2040] mt-0.5">
+                          Mr. Jasbir Singh Malik
+                        </p>
+                        <p className="text-xs sm:text-sm font-bold text-emerald-600">
+                          ACP (Retd.) – Delhi Police
+                        </p>
+                        <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
+                          Advisor, Little Cambridge Global Preschool &amp; Day Care
+                        </p>
+                      </div>
+
+                      <Link href="/contact">
+                        <button className="inline-flex items-center gap-2 bg-[#0F2040] hover:bg-[#1a3464] text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-full shadow-soft hover:shadow-md hover:-translate-y-0.5 transition-all self-start sm:self-auto">
+                          <span>Connect With Us</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-[#F65A36]" />
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* RIGHT: Advisor Portrait Card (Col 5, order-1 lg:order-2) */}
+                  <div className="lg:col-span-5 flex mt-6 flex-col items-center order-1 lg:order-2">
+                    <div className="relative w-full max-w-[360px] sm:max-w-[390px] rounded-[2.5rem] bg-gradient-to-b from-white via-[#F2FAF6] to-[#FAF8F5] p-4 sm:p-5 border-2 border-white shadow-lg">
+                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0F2040] text-white text-[11px] sm:text-xs font-bold shadow-md whitespace-nowrap">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>ACP (Retd.), Delhi Police • Advisor</span>
+                      </div>
+
+                      <div className="relative w-full aspect-[4/4.8] rounded-[2rem] overflow-hidden bg-slate-100 shadow-inner group">
+                        <Image
+                          src="/assests/jasbir sing malik.jpeg"
+                          alt="Mr. Jasbir Singh Malik - ACP (Retd.) – Delhi Police, Advisor"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 400px"
+                          className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0F2040]/80 via-transparent to-transparent opacity-85" />
+
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-white">
+                          <p className="font-outfit text-xl sm:text-2xl font-black tracking-tight leading-tight">
+                            Mr. Jasbir Singh Malik
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-200 font-medium mt-0.5">
+                            ACP (Retd.) – Delhi Police • Advisor
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-100 px-2 space-y-2">
+                        <p className="text-[12px] sm:text-[13px] font-bold text-[#0F2040] leading-snug">
+                          Little Cambridge Global Preschool &amp; Day Care
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-semibold text-slate-500">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+                            <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                            Child Safety &amp; Protection
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+                            <HeartHandshake className="w-3 h-3 text-[#2F8FD0]" />
+                            Community &amp; Moral Care
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* =========================================================================
               OUR EXPERT TEACHERS & MENTORS (Matching Screenshot Arched Portrait Cards)
           ========================================================================= */}
           <div className="pt-12">
@@ -1101,7 +1371,7 @@ export default function OurStoryRedesign() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
               {[
                 {
                   name: "Mr. Pankaj Malik",
@@ -1116,8 +1386,8 @@ export default function OurStoryRedesign() {
                   theme: "bg-[#2F8FD0] text-white",
                 },
                 {
-                  name: "Chief Operating Officer",
-                  role: "Operations & Safety Lead",
+                  name: "Mr. Tushar Malik",
+                  role: "Chief Operating Officer",
                   image: "/chiefOfoperatingofficer.jpeg",
                   theme: "bg-emerald-600 text-white",
                 },
@@ -1126,6 +1396,18 @@ export default function OurStoryRedesign() {
                   role: "Mentor (ASO, MEA)",
                   image: "/abhimanubura.jpeg",
                   theme: "bg-[#F65A36] text-white",
+                },
+                {
+                  name: "Mr. Rajbir Singh Malik",
+                  role: "Advisor (DCP, Delhi Police)",
+                  image: "/assests/Rajbir Singh Malik.jpeg",
+                  theme: "bg-[#0F2040] text-white",
+                },
+                {
+                  name: "Mr. Jasbir Singh Malik",
+                  role: "Advisor (ACP Retd., Delhi Police)",
+                  image: "/assests/jasbir sing malik.jpeg",
+                  theme: "bg-emerald-700 text-white",
                 },
               ].map((member, i) => (
                 <motion.div
@@ -1153,6 +1435,11 @@ export default function OurStoryRedesign() {
           </div>
         </div>
       </section>
+
+      {/* =========================================================================
+          SECTION 9.5: OFFICIAL BROCHURES & INFORMATION FLYERS (Day Care, Franchise & 360 Matrix)
+      ========================================================================= */}
+      <FlyersSection id="official-flyers" />
 
       {/* =========================================================================
           SECTION 10: FREQUENTLY ASKED QUESTIONS (Matching Screenshot FAQ Layout)
