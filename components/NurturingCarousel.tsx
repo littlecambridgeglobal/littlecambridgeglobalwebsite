@@ -146,10 +146,10 @@ export default function NurturingCarousel() {
           id="nurturing-heading"
           className="font-outfit text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl"
         >
-          Nurturing Young Minds with Joy &amp; Wonder
+          Turning little steps into global success..
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-slate-600 sm:text-base">
-          At Little Cambridge Global, we welcome children aged 1 to 6 into a world filled with
+          At Little Cambridge Global, we welcome children aged 1 to 8 into a world filled with
           learning, play, and discovery. Our age-appropriate nursery and kindergarten programs
           are thoughtfully created to spark curiosity, build confidence, and make early
           education a delightful journey.

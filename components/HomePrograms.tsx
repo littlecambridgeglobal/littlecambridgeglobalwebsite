@@ -39,7 +39,7 @@ const homeProgramsList: ProgramItem[] = [
   {
     id: "playgroup",
     title: "Play Group ",
-    ageBadge: "3-5 Years",
+    ageBadge: "1-3 Years",
     description:
       "Fun-based learning through games, music, and activities to develop social skills and confidence.",
     duration: "Duration : 2.5 Hr",
@@ -98,7 +98,7 @@ const homeProgramsList: ProgramItem[] = [
   {
     id: "daycare",
     title: "Day Care & Toddler Club",
-    ageBadge: "2-6 Years",
+    ageBadge: "1-8 Years",
     description:
       "Safe, stimulating ecosystem with sensory play, nutritious routine, and active recreational care.",
     duration: "Duration : 2.5 Hr",

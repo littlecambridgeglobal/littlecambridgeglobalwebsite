@@ -21,13 +21,13 @@ const tabContent: Record<
     points: [
       "Experienced & caring teachers",
       "Safe & friendly environment",
-      "Modern learning methods",
-      "Focus on moral & social values",
+      "Smart labs",
+      "Montessori lab",
     ],
   },
   curriculum: {
     subtitle:
-      "Authentic Montessori-inspired curriculum fostering sensorial exploration, early phonics mastery, hands-on logic, and self-directed milestones.",
+      "Montessori Visionized Curriculum fostering sensorial exploration, early phonics mastery, hands-on logic, and self-directed milestones.",
     points: [
       "Sensory & practical life labs",
       "Child-guided inquiry cycles",
