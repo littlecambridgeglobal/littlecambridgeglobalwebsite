@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, Facebook, Instagram, Linkedin, Youtube, MapPin, Sparkles } from "lucide-react";
-import logonew from "../public/newgloballogo.png";
+import logonew from "../public/globalcambridgelogofull.jpeg";
 import { doodleTile, toDataUri } from "./NurturingCarousel";
 
 const footerPattern = toDataUri(doodleTile("rgba(15,32,64,0.10)"));
@@ -80,33 +80,12 @@ const Footer = () => {
           <div className="lg:col-span-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-3 shadow-sm hover:shadow-md transition-shadow group border border-white/60"
+              className="inline-flex items-center gap-3 rounded-2xl bg-white/95 shadow-sm hover:shadow-md transition-shadow group border border-white/60"
             >
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0">
+              <div className="relative h-12 w-12 sm:h-[120px] sm:w-[320px] shrink-0">
                 <Image src={logonew} alt="Little Cambridge Global Logo" fill className="object-contain" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-outfit font-black text-[15px] sm:text-base text-[#0F2040] leading-tight group-hover:text-[#F65A36] transition-colors">
-                  Little Cambridge Global
-                </span>
 
-                {/* Colorful Offerings */}
-                <div className="flex items-center gap-1 sm:gap-1.5 font-jakarta text-[8.5px] sm:text-[9.5px] font-extrabold uppercase tracking-wider mt-0.5">
-                  <span className="text-[#F65A36]">Preschool</span>
-                  <span className="text-amber-400 font-bold">|</span>
-                  <span className="text-[#F65A36]">Day Care</span>
-                  <span className="text-emerald-500 font-bold">|</span>
-                  <span className="text-[#F65A36]">Smart Lab</span>
-                </div>
-
-                {/* Creative Colorful Tagline Pill */}
-                <div className="mt-1.5 flex items-center">
-                  <span className="font-outfit text-[12.5px] font-bold text-[#0F2040]">
-                    Turning little steps to global success..
-                  </span>
-
-                </div>
-              </div>
             </Link>
             <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed">
               At Little Cambridge Global, we believe early years are the foundation of a child&apos;s future.

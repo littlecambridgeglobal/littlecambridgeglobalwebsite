@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logonew from "../../public/newgloballogo.png";
+import logonew from "../../public/globalcambridgelogofull.jpeg";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -148,7 +148,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[92px] sm:h-[84px] flex items-center justify-between gap-3 sm:gap-4">
           {/* Brand Logo + Text */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group">
-            <div className="relative w-14 h-14 sm:w-13 sm:h-13 lg:w-24 lg:h-24 transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <div className="relative w-[260px] h-[90px]  lg:w-[340px]   lg:h-[340px] transition-transform duration-300 group-hover:scale-105 shrink-0">
               <Image
                 src={logonew}
                 alt="Little Cambridge Global"
@@ -157,28 +157,7 @@ const Navbar = () => {
                 priority
               />
             </div>
-            <div className="flex flex-col justify-center">
-              <span className="font-outfit font-black text-[15px] sm:text-[18px] lg:text-[21px] text-[#0F2040] leading-tight tracking-tight group-hover:text-[#F65A36] transition-colors">
-                Little Cambridge Global
-              </span>
 
-              {/* Colorful Offerings */}
-              <div className="flex items-center gap-1 sm:gap-1.5 font-jakarta text-[8.5px] sm:text-[9.5px] lg:text-[10px] font-extrabold uppercase tracking-wider mt-0.5">
-                <span className="text-[#F65A36]">Preschool</span>
-                <span className="text-amber-400 font-bold">|</span>
-                <span className="text-[#F65A36]">Day Care</span>
-                <span className="text-emerald-500 font-bold">|</span>
-                <span className="text-[#F65A36]">Smart Lab</span>
-              </div>
-
-              {/* Creative Colorful Tagline Pill */}
-              <div className="mt-1 flex items-center">
-                <span className="font-outfit text-[8px] sm:text-[9.5px] lg:text-[10px] font-bold  text-[#0F2040]">
-                  Turning little steps into global success..
-                </span>
-
-              </div>
-            </div>
           </Link>
 
           {/* Desktop Navigation: colorful icon bubble above label */}
